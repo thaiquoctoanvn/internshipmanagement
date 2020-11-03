@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.ProfileEditingFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editProfileHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_or_bottom_view_color"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvEditProfileTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_profile"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textTitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ibEditProfileCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            android:background="@color/colorTransparent"
+            android:scaleType="center"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/tvEditProfileTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvEditProfileTitle" />
+
+        <TextView
+            android:id="@+id/tvEditProfileSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:textColor="@color/mentee_strong_color"
+            android:textSize="@dimen/textBody"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvEditProfileTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvEditProfileTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ivAvatarEditProfile"
+        android:layout_width="@dimen/avatarSize"
+        android:layout_height="@dimen/avatarSize"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editProfileHeader" />
+
+        <ImageButton
+            android:id="@+id/ibChangeAvatar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/circle_corner"
+            android:scaleType="center"
+            android:tint="@color/white"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatarEditProfile"
+            app:layout_constraintEnd_toEndOf="@id/ivAvatarEditProfile"
+            app:layout_constraintStart_toStartOf="@id/ivAvatarEditProfile"
+            app:layout_constraintTop_toTopOf="@id/ivAvatarEditProfile" />
+
+    <View
+        android:id="@+id/separateLineEditProfile"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/lv4"
+        android:background="@color/separate_line_or_et_background_color"
+        app:layout_constraintTop_toBottomOf="@id/ivAvatarEditProfile" />
+
+    <TextView
+        android:id="@+id/tvNameEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/etNameEditProfile"
+        app:layout_constraintStart_toStartOf="@id/ivAvatarEditProfile"
+        app:layout_constraintTop_toTopOf="@id/etNameEditProfile" />
+
+    <TextView
+        android:id="@+id/tvPositionEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/position"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/etPositionEditProfile"
+        app:layout_constraintStart_toStartOf="@id/tvNameEditProfile"
+        app:layout_constraintTop_toTopOf="@id/etPositionEditProfile" />
+
+    <TextView
+        android:id="@+id/tvEmailEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/etEmailEditProfile"
+        app:layout_constraintStart_toStartOf="@id/tvNameEditProfile"
+        app:layout_constraintTop_toTopOf="@id/etEmailEditProfile" />
+
+    <EditText
+        android:id="@+id/etNameEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv2"
+        android:background="@color/white"
+        android:textColor="@color/mentee_strong_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvPositionEditProfile"
+        app:layout_constraintTop_toBottomOf="@id/separateLineEditProfile"
+        tools:text="Name" />
+
+    <EditText
+        android:id="@+id/etPositionEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv2"
+        android:background="@color/white"
+        android:textColor="@color/mentee_strong_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintEnd_toEndOf="@id/etNameEditProfile"
+        app:layout_constraintStart_toStartOf="@id/etNameEditProfile"
+        app:layout_constraintTop_toBottomOf="@id/etNameEditProfile"
+        tools:text="Position" />
+
+    <EditText
+        android:id="@+id/etEmailEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv2"
+        android:background="@color/white"
+        android:textColor="@color/mentee_strong_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintEnd_toEndOf="@id/etNameEditProfile"
+        app:layout_constraintStart_toStartOf="@id/etNameEditProfile"
+        app:layout_constraintTop_toBottomOf="@id/etPositionEditProfile"
+        tools:text="Email" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

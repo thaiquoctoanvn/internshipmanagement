@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1012672450948",
+    "firebase_url": "https://internshipmanagement-cc975.firebaseio.com",
+    "project_id": "internshipmanagement-cc975",
+    "storage_bucket": "internshipmanagement-cc975.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012672450948:android:78bbaa0f74bc3cb0420dd1",
+        "android_client_info": {
+          "package_name": "com.example.internshipmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012672450948-ejkbedjp8334b9llu827m7riauvgfkua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0q_4Kq64AiAsypwreqcOyN19QrZQg8aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012672450948-ejkbedjp8334b9llu827m7riauvgfkua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

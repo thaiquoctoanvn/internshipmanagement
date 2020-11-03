@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Intern management</string>
+    <string name="dash_board">Dash board</string>
+    <string name="chat">Chat</string>
+    <string name="calendar">Calendar</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="name">Name</string>
+    <string name="position">Position</string>
+    <string name="email">Email</string>
+    <string name="evaluations">See your evaluations</string>
+
+    <string name="camera">Camera</string>
+    <string name="gallery">Choose from gallery</string>
+    <string name="close">Close</string>
+
+    <string name="log_in_statement">Log in with your nickname</string>
+    <string name="et_user_name_log_in">Your nickname aka username</string>
+    <string name="et_pwd_log_in">Password</string>
+    <string name="et_search_task">Search your task</string>
+    <string name="tv_edit_profile">Edit profile</string>
+    <string name="tv_log_out">Log out</string>
+    <string name="good_morning">Good morning</string>
+    <string name="good_afternoon">Good afternoon</string>
+    <string name="good_evening">Good evening</string>
+    <string name="email_default">No email yet</string>
+    
+    <string name="avatar_update_failed">Avatar update failed</string>
+    <string name="info_update_failed">Info update failed</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

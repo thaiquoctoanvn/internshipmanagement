@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetDialogRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/et_or_btn_round_corner"
+    android:backgroundTint="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/et_or_btn_round_corner"
+        android:padding="@dimen/lv3"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivCameraOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintBottom_toBottomOf="@id/tvCameraOption"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvCameraOption"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tvCameraOption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lv2"
+            android:text="@string/camera"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivCameraOption"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivGalleryOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/ic_photo_library"
+            app:layout_constraintBottom_toBottomOf="@id/tvGalleryOption"
+            app:layout_constraintStart_toStartOf="@id/ivCameraOption"
+            app:layout_constraintTop_toTopOf="@id/tvGalleryOption"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tvGalleryOption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv3"
+            android:text="@string/gallery"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintEnd_toEndOf="@id/tvCameraOption"
+            app:layout_constraintStart_toStartOf="@id/tvCameraOption"
+            app:layout_constraintTop_toBottomOf="@id/tvCameraOption" />
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@id/tvCloseOption"
+            app:layout_constraintStart_toStartOf="@id/ivCameraOption"
+            app:layout_constraintTop_toTopOf="@id/tvCloseOption"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tvCloseOption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv3"
+            android:text="@string/close"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintEnd_toEndOf="@id/tvCameraOption"
+            app:layout_constraintStart_toStartOf="@id/tvCameraOption"
+            app:layout_constraintTop_toBottomOf="@id/tvGalleryOption" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/lv8"
+    android:background="@color/white"
+    tools:context=".ui.DashboardFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dashBoardHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_or_bottom_view_color"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvGreeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textLargeTitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tvDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Hello mentor" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv0"
+            android:textColor="@color/icon_or_text_color"
+            android:textSize="@dimen/textCaption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvGreeting"
+            app:layout_constraintTop_toBottomOf="@id/tvGreeting"
+            tools:text="18 thang 9 2020" />
+
+        <ImageButton
+            android:id="@+id/ivAvatarDashBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_notifications"
+            android:tint="@color/mentee_strong_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvGreeting" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/etSearchTask"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBoxHeight"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv4"
+        android:layout_marginEnd="@dimen/lv3"
+        android:background="@drawable/et_or_btn_round_corner"
+        android:backgroundTint="@color/separate_line_or_et_background_color"
+        android:drawableLeft="@drawable/ic_search"
+        android:drawablePadding="@dimen/lv1"
+        android:hint="@string/et_search_task"
+        android:paddingStart="@dimen/lv2"
+        android:paddingEnd="@dimen/lv2"
+        app:layout_constraintTop_toBottomOf="@id/dashBoardHeader" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textLargeTitle">32sp</dimen>
+    <!--Text on button-->
+    <dimen name="textTitle">24sp</dimen>
+    <dimen name="textLargeBody">20sp</dimen>
+    <dimen name="textBody">16sp</dimen>
+    <dimen name="textCaption">14sp</dimen>
+
+    <dimen name="editTextOrButtonHeight">56dp</dimen>
+    <dimen name="searchBoxHeight">48dp</dimen>
+    <dimen name="messageMaxWidth">264dp</dimen>
+    <dimen name="topOrBottomViewHeight">64dp</dimen>
+    <dimen name="coverImageHeight">168dp</dimen>
+    <dimen name="avatarSize">96dp</dimen>
+
+    <!--Margin and padding-->
+    <dimen name="lv0">4dp</dimen>
+    <dimen name="lv1">8dp</dimen>
+    <dimen name="lv2">16dp</dimen>
+    <dimen name="lv3">24dp</dimen>
+    <dimen name="lv4">32dp</dimen>
+    <dimen name="lv5">40dp</dimen>
+    <dimen name="lv6">48dp</dimen>
+    <dimen name="lv7">56dp</dimen>
+    <dimen name="lv8">64dp</dimen>
+    <dimen name="lv9">72dp</dimen>
+    <dimen name="lv10">80dp</dimen>
+
+</resources>
