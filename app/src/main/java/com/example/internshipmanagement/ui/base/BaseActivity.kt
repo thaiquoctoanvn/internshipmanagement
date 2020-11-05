@@ -1,11 +1,16 @@
-package com.example.internshipmanagement.ui
+package com.example.internshipmanagement.ui.base
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

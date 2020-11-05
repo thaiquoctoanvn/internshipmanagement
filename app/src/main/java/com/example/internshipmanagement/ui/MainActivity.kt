@@ -1,12 +1,12 @@
 package com.example.internshipmanagement.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.internshipmanagement.R
+import com.example.internshipmanagement.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
 
@@ -44,8 +44,12 @@ class MainActivity : BaseActivity() {
                 supportFragmentManager.findFragmentByTag("dashBoardFragment")!!.isVisible or
                 supportFragmentManager.findFragmentByTag("calendarFragment")!!.isVisible or
                 supportFragmentManager.findFragmentByTag("profileFragment")!!.isVisible
+//            supportFragmentManager.findFragmentByTag("addNewTaskFragment")!!.isVisible
         ) {
             bottomNavigationView.visibility = View.VISIBLE
+            Log.d("###", "add new task frag is visible")
+        } else {
+            bottomNavigationView.visibility = View.GONE
         }
     }
 

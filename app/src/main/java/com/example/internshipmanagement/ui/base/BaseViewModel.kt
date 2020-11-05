@@ -1,4 +1,4 @@
-package com.example.internshipmanagement.ui
+package com.example.internshipmanagement.ui.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

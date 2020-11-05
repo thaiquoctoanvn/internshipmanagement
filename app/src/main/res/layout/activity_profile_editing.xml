@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.ProfileEditingFragment">
+    tools:context=".ui.ProfileEditingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/editProfileHeader"
@@ -35,9 +35,9 @@
             android:id="@+id/ibEditProfileCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_close"
             android:background="@color/colorTransparent"
             android:scaleType="center"
+            android:src="@drawable/ic_close"
             android:tint="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/tvEditProfileTitle"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,18 +66,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editProfileHeader" />
 
-        <ImageButton
-            android:id="@+id/ibChangeAvatar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/circle_corner"
-            android:scaleType="center"
-            android:tint="@color/white"
-            android:src="@drawable/ic_camera"
-            app:layout_constraintBottom_toBottomOf="@id/ivAvatarEditProfile"
-            app:layout_constraintEnd_toEndOf="@id/ivAvatarEditProfile"
-            app:layout_constraintStart_toStartOf="@id/ivAvatarEditProfile"
-            app:layout_constraintTop_toTopOf="@id/ivAvatarEditProfile" />
+    <ImageButton
+        android:id="@+id/ibChangeAvatar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/circle_corner"
+        android:scaleType="center"
+        android:src="@drawable/ic_camera"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatarEditProfile"
+        app:layout_constraintEnd_toEndOf="@id/ivAvatarEditProfile"
+        app:layout_constraintStart_toStartOf="@id/ivAvatarEditProfile"
+        app:layout_constraintTop_toTopOf="@id/ivAvatarEditProfile" />
 
     <View
         android:id="@+id/separateLineEditProfile"

@@ -13,6 +13,8 @@
     <dimen name="topOrBottomViewHeight">64dp</dimen>
     <dimen name="coverImageHeight">168dp</dimen>
     <dimen name="avatarSize">96dp</dimen>
+    <dimen name="menteeItemList">40dp</dimen>
+    <dimen name="pickedMentee">64dp</dimen>
 
     <!--Margin and padding-->
     <dimen name="lv0">4dp</dimen>

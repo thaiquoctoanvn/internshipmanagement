@@ -1,10 +1,10 @@
 package com.example.internshipmanagement.data.remote
 
+import com.example.internshipmanagement.data.entity.MyMentee
 import com.example.internshipmanagement.data.entity.PersonalInfo
 import com.example.internshipmanagement.data.entity.UserProfile
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Response
 import retrofit2.http.*
 
 interface APIService {
@@ -34,4 +34,7 @@ interface APIService {
         @Field("position") position: String,
         @Field("email") email: String
     ): String
+
+    @GET("getMyMenteesForTaskReference.php")
+    suspend fun getMyMenteesForTaskReference(@Query("mentor_id") mentorId: String): MutableList<MyMentee>
 }

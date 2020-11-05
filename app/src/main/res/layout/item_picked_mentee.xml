@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/lv2">
+
+    <ImageView
+        android:id="@+id/ivPickedMentee"
+        android:layout_width="@dimen/pickedMentee"
+        android:layout_height="@dimen/pickedMentee"
+        android:background="@drawable/circle_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ibRemoveItemPickedMentee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/lv0"
+        android:background="@color/colorTransparent"
+        android:src="@drawable/ic_circle_cancel"
+        app:layout_constraintEnd_toEndOf="@id/ivPickedMentee"
+        app:layout_constraintHorizontal_bias="1.25"
+        app:layout_constraintStart_toStartOf="@id/ivPickedMentee"
+        app:layout_constraintTop_toTopOf="@id/ivPickedMentee" />
+
+    <TextView
+        android:id="@+id/tvNameItemPickedMentee"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textCaption"
+        app:layout_constraintEnd_toEndOf="@id/ivPickedMentee"
+        app:layout_constraintStart_toStartOf="@id/ivPickedMentee"
+        app:layout_constraintTop_toBottomOf="@id/ivPickedMentee"
+        tools:text="Eden (Haha)" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

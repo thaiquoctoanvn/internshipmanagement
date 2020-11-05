@@ -1,11 +1,10 @@
 package com.example.internshipmanagement.ui
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.example.internshipmanagement.R
+import com.example.internshipmanagement.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,7 +17,7 @@ class DashboardFragment : BaseFragment() {
     }
 
     override fun setViewOnEventListener() {
-
+        ibAddTask.setOnClickListener { switchToAddNewTaskActivity() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,5 +42,9 @@ class DashboardFragment : BaseFragment() {
                 tvGreeting.text = getString(R.string.good_evening)
             }
         }
+    }
+
+    private fun switchToAddNewTaskActivity() {
+        startActivity(Intent(activity, AddNewTaskActivity::class.java))
     }
 }

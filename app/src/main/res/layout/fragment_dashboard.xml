@@ -44,7 +44,7 @@
             tools:text="18 thang 9 2020" />
 
         <ImageButton
-            android:id="@+id/ivAvatarDashBoard"
+            android:id="@+id/ibNotificationDashBoard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorTransparent"
@@ -70,7 +70,43 @@
         android:hint="@string/et_search_task"
         android:paddingStart="@dimen/lv2"
         android:paddingEnd="@dimen/lv2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
         app:layout_constraintTop_toBottomOf="@id/dashBoardHeader" />
+
+    <TextView
+        android:id="@+id/tvYourTaskTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv3"
+        android:text="@string/tv_all_task_dash_board"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/etSearchTask"
+        app:layout_constraintTop_toBottomOf="@id/etSearchTask" />
+
+    <ImageButton
+        android:id="@+id/ibAddTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTransparent"
+        android:src="@drawable/ic_add"
+        android:tint="@color/mentee_strong_color"
+        app:layout_constraintBottom_toBottomOf="@id/tvYourTaskTitle"
+        app:layout_constraintEnd_toEndOf="@id/etSearchTask"
+        app:layout_constraintTop_toTopOf="@id/tvYourTaskTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvYourTask"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvYourTaskTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

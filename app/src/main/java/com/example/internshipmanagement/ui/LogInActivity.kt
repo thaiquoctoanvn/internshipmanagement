@@ -1,20 +1,12 @@
 package com.example.internshipmanagement.ui
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
-import android.util.Log
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
+import com.example.internshipmanagement.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_log_in.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.*
-import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.concurrent.TimeUnit
 
 
 class LogInActivity : BaseActivity() {

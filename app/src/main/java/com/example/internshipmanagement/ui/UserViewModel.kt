@@ -2,22 +2,13 @@ package com.example.internshipmanagement.ui
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.data.repository.UserRepository
+import com.example.internshipmanagement.ui.base.BaseViewModel
 import com.example.internshipmanagement.util.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileOutputStream
-import kotlin.random.Random
 
 class UserViewModel(private val userRepository: UserRepository, private val sharedPref: SharedPreferences) : BaseViewModel() {
 

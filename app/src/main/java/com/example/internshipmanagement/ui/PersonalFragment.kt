@@ -1,26 +1,16 @@
 package com.example.internshipmanagement.ui
 
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.UserProfile
+import com.example.internshipmanagement.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_personal.*
-import kotlinx.android.synthetic.main.fragment_profile_editing.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PersonalFragment : BaseFragment() {
 
@@ -32,7 +22,7 @@ class PersonalFragment : BaseFragment() {
 
     override fun setViewOnEventListener() {
         tvLogOut.setOnClickListener { logOut() }
-        tvEditProfile.setOnClickListener { switchToEditProfileFragment() }
+        tvEditProfile.setOnClickListener { switchToEditProfileActivity() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,7 +53,6 @@ class PersonalFragment : BaseFragment() {
         Glide.with(this)
             .load(userProfile.avatarUrl)
             .circleCrop()
-            .centerCrop()
             .placeholder(R.drawable.default_avatar)
             .into(ivAvatarProfile)
     }
@@ -85,11 +74,15 @@ class PersonalFragment : BaseFragment() {
         activity?.finish()
     }
 
-    private fun switchToEditProfileFragment() {
-        activity?.let {
-            it.supportFragmentManager.beginTransaction()
-                .add(R.id.frameLayout, ProfileEditingFragment(), "profileEditingFragment")
-                .addToBackStack("profileEditingFragment").commit()
-        }
+    private fun switchToEditProfileActivity() {
+//        activity?.let {
+//            it.supportFragmentManager.beginTransaction()
+//                .add(R.id.frameLayout, ProfileEditingFragment(), "profileEditingFragment")
+//                .addToBackStack("profileEditingFragment").commit()
+//            super.hideBottomNavigationView(it)
+//        }
+        val intent = Intent(activity, ProfileEditingActivity::class.java)
+        intent.putExtra("userId", userViewModel.getSharedPref().getString("userId", ""))
+        startActivity(intent)
     }
 }

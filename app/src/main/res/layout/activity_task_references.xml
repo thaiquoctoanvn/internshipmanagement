@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.TaskReferencesActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/yourMenteesHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_or_bottom_view_color"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibYourMentessBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_arrow_back_ios"
+            android:tint="@color/mentee_strong_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvYourMenteesTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvYourMenteesTitle" />
+
+        <TextView
+            android:id="@+id/tvYourMenteesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_mentees"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textLargeTitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/etSearchYourMentees"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/searchBoxHeight"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv4"
+        android:layout_marginEnd="@dimen/lv3"
+        android:background="@drawable/et_or_btn_round_corner"
+        android:backgroundTint="@color/separate_line_or_et_background_color"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="@dimen/lv1"
+        android:hint="@string/et_search_your_mentee"
+        android:paddingStart="@dimen/lv2"
+        android:paddingEnd="@dimen/lv2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintTop_toBottomOf="@id/yourMenteesHeader" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPickedMentee"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv2"
+        android:orientation="horizontal"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@id/etSearchYourMentees"
+        app:layout_constraintStart_toStartOf="@id/etSearchYourMentees"
+        app:layout_constraintTop_toBottomOf="@id/etSearchYourMentees" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTaskReference"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv3"
+        android:paddingEnd="@dimen/lv3"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvPickedMentee" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

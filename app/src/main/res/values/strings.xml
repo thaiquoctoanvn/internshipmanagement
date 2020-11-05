@@ -5,6 +5,8 @@
     <string name="calendar">Calendar</string>
     <string name="profile">Profile</string>
     <string name="edit_profile">Edit profile</string>
+    <string name="add_new_task">New task</string>
+    <string name="your_mentees">Your mentees</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
 
@@ -21,13 +23,17 @@
     <string name="et_user_name_log_in">Your nickname aka username</string>
     <string name="et_pwd_log_in">Password</string>
     <string name="et_search_task">Search your task</string>
+    <string name="et_search_your_mentee">Search your mentees</string>
     <string name="tv_edit_profile">Edit profile</string>
     <string name="tv_log_out">Log out</string>
+    <string name="tv_all_task_dash_board">Your tasks (%d)</string>
+    <string name="et_task_name">Whatever you want to do?</string>
+    <string name="tv_mentee_do_task">References</string>
+
     <string name="good_morning">Good morning</string>
     <string name="good_afternoon">Good afternoon</string>
     <string name="good_evening">Good evening</string>
-    <string name="email_default">No email yet</string>
-    
+
     <string name="avatar_update_failed">Avatar update failed</string>
     <string name="info_update_failed">Info update failed</string>
     <!-- TODO: Remove or change this placeholder text -->

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.AddNewTaskActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addNewTaskHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_or_bottom_view_color"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibAddNewTaskBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_arrow_back_ios"
+            android:tint="@color/mentee_strong_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvAddNewTaskTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvAddNewTaskTitle" />
+
+        <TextView
+            android:id="@+id/tvAddNewTaskTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_task"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textLargeTitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addNewTaskHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <DatePicker
+                android:id="@+id/newTaskDatePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTaskDeadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/lv3"
+                android:layout_marginTop="@dimen/lv2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textBody"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/newTaskDatePicker"
+                tools:text="Deadline:" />
+
+            <EditText
+                android:id="@+id/etTaskDecryption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/lv3"
+                android:layout_marginTop="@dimen/lv2"
+                android:layout_marginEnd="@dimen/lv3"
+                android:background="@color/white"
+                android:hint="@string/et_task_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textBody"
+                app:layout_constraintTop_toBottomOf="@id/tvTaskDeadline" />
+
+            <View
+                android:id="@+id/separateLineAddNewTask"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/lv3"
+                android:background="@color/separate_line_or_et_background_color"
+                app:layout_constraintTop_toBottomOf="@id/etTaskDecryption" />
+
+            <TextView
+                android:id="@+id/tvAddNewTaskReference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/lv2"
+                android:text="@string/tv_mentee_do_task"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textBody"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/etTaskDecryption"
+                app:layout_constraintTop_toBottomOf="@id/separateLineAddNewTask" />
+
+            <ImageButton
+                android:id="@+id/ibAddReference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTransparent"
+                android:src="@drawable/ic_add"
+                android:tint="@color/mentee_strong_color"
+                app:layout_constraintBottom_toBottomOf="@id/tvAddNewTaskReference"
+                app:layout_constraintEnd_toEndOf="@id/etTaskDecryption"
+                app:layout_constraintTop_toTopOf="@id/tvAddNewTaskReference" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvReference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:paddingStart="@dimen/lv3"
+                android:paddingTop="@dimen/lv2"
+                android:paddingEnd="@dimen/lv3"
+                app:layout_constraintTop_toBottomOf="@id/tvAddNewTaskReference" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

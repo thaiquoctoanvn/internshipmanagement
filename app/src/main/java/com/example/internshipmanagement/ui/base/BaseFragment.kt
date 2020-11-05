@@ -1,14 +1,14 @@
-package com.example.internshipmanagement.ui
+package com.example.internshipmanagement.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment : Fragment() {
@@ -49,4 +49,15 @@ abstract class BaseFragment : Fragment() {
         return false
     }
 
+    fun hideBottomNavigationView(activity: FragmentActivity) {
+        activity.findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.GONE
+    }
+
+    fun showBottomNavigationView(activity: FragmentActivity) {
+        activity.findViewById<BottomNavigationView>(R.id.bottomNavigationView).visibility = View.VISIBLE
+    }
+
+    fun detachFragment(activity: FragmentActivity, fragment: Fragment) {
+        activity.supportFragmentManager.beginTransaction().detach(fragment).commit()
+    }
 }

@@ -114,11 +114,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/lv2"
-        android:text="@string/email_default"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/ivIconEmail"
         app:layout_constraintStart_toEndOf="@id/ivIconPosition"
-        app:layout_constraintTop_toTopOf="@id/ivIconEmail" />
+        app:layout_constraintTop_toTopOf="@id/ivIconEmail"
+        tools:text="Email" />
 
     <ImageView
         android:id="@+id/ivIconEvaluation"
