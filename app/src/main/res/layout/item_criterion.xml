@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/lv3">
+
+    <TextView
+        android:id="@+id/tvItemCriterion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Behave with colleges" />
+
+    <EditText
+        android:id="@+id/etItemCriterionMark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv1"
+        android:background="@color/white"
+        android:hint="@string/criteria_mark"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintStart_toStartOf="@id/tvItemCriterion"
+        app:layout_constraintTop_toBottomOf="@id/tvItemCriterion" />
+
+    <View
+        android:id="@+id/separateLineItemMenteesTask"
+        android:layout_width="@dimen/lv2"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/lv2"
+        android:background="@color/grey"
+        app:layout_constraintStart_toStartOf="@id/etItemCriterionMark"
+        app:layout_constraintTop_toBottomOf="@id/etItemCriterionMark" />
+</androidx.constraintlayout.widget.ConstraintLayout>

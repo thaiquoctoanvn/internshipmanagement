@@ -6,9 +6,22 @@
     <string name="profile">Profile</string>
     <string name="edit_profile">Edit profile</string>
     <string name="add_new_task">New task</string>
+    <string name="search_header">Search</string>
     <string name="your_mentees">Your mentees</string>
+    <string name="mentor_task_detail">Detail task</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="add_task">Save</string>
+    <string name="openEvaluations">See mentee evaluations</string>
+    <string name="search_user">Search</string>
+    <string name="evaluation_profile">Evaluation profile</string>
+    <string name="evaluation">Evaluation</string>
+    <string name="from_date">From</string>
+    <string name="to_date">To</string>
+    <string name="evaluation_criteria">Criteria</string>
+    <string name="criteria_mark">0/100</string>
+    <string name="your_comment">Your comment</string>
+    <string name="task_reference_detail">Reference detail</string>
 
     <string name="name">Name</string>
     <string name="position">Position</string>
@@ -19,8 +32,8 @@
     <string name="gallery">Choose from gallery</string>
     <string name="close">Close</string>
 
-    <string name="log_in_statement">Log in with your nickname</string>
-    <string name="et_user_name_log_in">Your nickname aka username</string>
+    <string name="log_in_statement">Log in with your username</string>
+    <string name="et_user_name_log_in">Your username</string>
     <string name="et_pwd_log_in">Password</string>
     <string name="et_search_task">Search your task</string>
     <string name="et_search_your_mentee">Search your mentees</string>
@@ -29,13 +42,27 @@
     <string name="tv_all_task_dash_board">Your tasks (%d)</string>
     <string name="et_task_name">Whatever you want to do?</string>
     <string name="tv_mentee_do_task">References</string>
+    <string name="ask_for_log_out">You really want to log out?</string>
+    <string name="all_evaluations">All evaluations (%d)</string>
+    <string name="under_management">Managing</string>
+    <string name="have_not_managed_yet">Not managing</string>
+    <string name="mentor">Mentor</string>
+    <string name="mentee">Mentee</string>
 
     <string name="good_morning">Good morning</string>
     <string name="good_afternoon">Good afternoon</string>
     <string name="good_evening">Good evening</string>
+    <string name="no_data">Data not available</string>
+    <string name="submitted_state">Submitted</string>
+    <string name="reviewed_state">Reviewed</string>
+    <string name="no_search_result">No search result</string>
+    <string name="no_evaluation_result">Have not evaluations yet</string>
+    <string name="no_task">Have not task yet</string>
 
     <string name="avatar_update_failed">Avatar update failed</string>
     <string name="info_update_failed">Info update failed</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

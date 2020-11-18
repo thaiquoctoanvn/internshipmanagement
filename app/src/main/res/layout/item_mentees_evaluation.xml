@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/lv3">
+
+    <ImageView
+        android:id="@+id/ivItemEvaluation"
+        android:layout_width="@dimen/menteeItemList"
+        android:layout_height="@dimen/menteeItemList"
+        android:background="@drawable/circle_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvItemEvaluationMentorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ivItemEvaluation"
+        app:layout_constraintTop_toTopOf="@id/ivItemEvaluation"
+        tools:text="Mentor" />
+
+    <TextView
+        android:id="@+id/tvItemEvaluationPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        app:layout_constraintStart_toStartOf="@id/tvItemEvaluationMentorName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemEvaluationMentorName"
+        tools:text="18/09/2020 - 16/09/2020" />
+
+    <TextView
+        android:id="@+id/tvItemEvaluationContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv1"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvItemEvaluationMentorName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemEvaluationPeriod"
+        tools:text="Lorem Ipsum has been the industry's" />
+</androidx.constraintlayout.widget.ConstraintLayout>

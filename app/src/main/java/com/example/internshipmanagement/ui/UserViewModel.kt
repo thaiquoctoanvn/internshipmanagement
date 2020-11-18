@@ -2,21 +2,31 @@ package com.example.internshipmanagement.ui
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.internshipmanagement.data.entity.PersonalInfo
 import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.data.repository.UserRepository
 import com.example.internshipmanagement.ui.base.BaseViewModel
 import com.example.internshipmanagement.util.*
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val userRepository: UserRepository, private val sharedPref: SharedPreferences) : BaseViewModel() {
+class UserViewModel(
+    private val userRepository: UserRepository,
+    private val sharedPref: SharedPreferences
+) : BaseViewModel() {
 
-    private val isLogInSucceed = MutableLiveData<Boolean>()
+    private val isSucceed = MutableLiveData<Boolean>()
     private val userProfile = MutableLiveData<UserProfile>()
+    private val searchResult = MutableLiveData<MutableList<UserProfile>>()
 
-    fun getIsSucceedValue() = isLogInSucceed
+    fun getIsSucceedValue() = isSucceed
     fun getUserProfileValue() = userProfile
+    fun getSearchResultValue() = searchResult
 
     fun getSharedPref() = sharedPref
 
@@ -24,7 +34,8 @@ class UserViewModel(private val userRepository: UserRepository, private val shar
     fun logIn(userName: String, pwd: String) {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
-            val personalInfo = userRepository.logIn(userName, pwd)
+            val res = userRepository.logIn(userName, pwd)
+            val personalInfo = res.body()
             // Lưu thông tin người dùng vào Pref
             if(personalInfo != null) {
                 setUserInfoToPref(
@@ -33,7 +44,9 @@ class UserViewModel(private val userRepository: UserRepository, private val shar
                     personalInfo.type,
                     personalInfo.avatarUrl
                 )
-                isLogInSucceed.value = true
+                isSucceed.value = true
+            } else {
+                isSucceed.value = false
             }
             super.setIsLoadingValue(false)
         }
@@ -45,11 +58,32 @@ class UserViewModel(private val userRepository: UserRepository, private val shar
         viewModelScope.launch {
             val userId = sharedPref.getString("userId", "")
             val token = sharedPref.getString("token", "")
-            if (userId != null && token != null) {
-                val result = userRepository.checkToken(userId, token)
-                if(result == SUCCEED_MESSAGE) {
-                    isLogInSucceed.value = true
+            if (!userId.isNullOrEmpty() && !token.isNullOrEmpty()) {
+                val res = userRepository.checkToken(userId, token).body()
+                if(res != null) {
+                    // isLogInSucceed.value = res == SUCCEED_MESSAGE
+                    isSucceed.value = true
                 }
+            } else {
+                isSucceed.value = false
+            }
+        }
+    }
+
+    fun logOut() {
+        viewModelScope.launch {
+            val userId = sharedPref.getString("userId", "")
+            val res = userRepository.logOut(userId!!).body()
+            if(res != null) {
+                sharedPref.edit().apply {
+                    remove("userId")
+                    remove("token")
+                    remove("type")
+                    remove("avatarUrl")
+                }.apply()
+                isSucceed.value = true
+            } else {
+                isSucceed.value = false
             }
         }
     }
@@ -58,23 +92,29 @@ class UserViewModel(private val userRepository: UserRepository, private val shar
     fun getUserProfile(userId: String) {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
-            userProfile.value = userRepository.getUserProfile(userId)
+            val res = userRepository.getUserProfile(userId).body()
+            if(res != null) {
+                userProfile.value = res
+            }
             super.setIsLoadingValue(false)
         }
     }
 
-    fun updateAvatar(context: Context, any: Any, userName: String, oldAvatar: String, userId: String) {
+    fun updateAvatar(
+        context: Context,
+        any: Any,
+        userName: String,
+        oldAvatar: String,
+        userId: String
+    ) {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
-            val res = userRepository.uploadImage(context, any, userName, oldAvatar, userId)
+            val res = userRepository.uploadImage(context, any, userName, oldAvatar, userId).body()
             super.setIsLoadingValue(false)
-            if(res == ERROR_MESSAGE) {
-                super.setMessageResponseValue(AVATAR_UPDATE_FAILED)
+            if(res != null) {
+                super.setMessageResponseValue(AVATAR_UPDATE_SUCCEED)
             } else {
-                sharedPref.edit().apply {
-                    putString("avatarUrl", res.trim())
-                    apply()
-                }
+                super.setMessageResponseValue(AVATAR_UPDATE_FAILED)
             }
         }
     }
@@ -82,23 +122,52 @@ class UserViewModel(private val userRepository: UserRepository, private val shar
     fun updateUserInfo(name: String, position: String, email: String) {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
-            val res = userRepository.updateUserInfo(name, position, email)
+            val userId = sharedPref.getString("userId", "")
+            val res = userRepository.updateUserInfo(userId!!, name, position, email).body()
             super.setIsLoadingValue(false)
-            if(res == ERROR_MESSAGE) {
-                super.setMessageResponseValue(INFO_UPDATE_FAILED)
-            } else {
-                refreshInfoAfterEditing(name, position, email)
+            if(res != null) {
                 super.setMessageResponseValue(INFO_UPDATE_SUCCEED)
+                isSucceed.value = true
+            } else {
+                super.setMessageResponseValue(INFO_UPDATE_FAILED)
+                isSucceed.value = false
             }
         }
     }
 
-    private fun refreshInfoAfterEditing(updatedName: String, updatedPosition: String, updatedEmail: String) {
+    fun registerFCM() {
         viewModelScope.launch {
-            val updatedAvatarUrl = sharedPref.getString("avatarUrl", "")
-            if(updatedAvatarUrl != null) {
-                val updatedInfo = userProfile.value?.copy(name = updatedName, role = updatedPosition, avatarUrl = updatedAvatarUrl)
-                userProfile.value = updatedInfo
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener {
+                if(!it.isSuccessful) {
+                    Log.d("###", "Fetching FCM registration token failed: ${it.exception}")
+                } else {
+                    updateFCMId(it.result!!.toString())
+                    Log.d("###", "RegisterToken: ${it.result}")
+                    // Cập nhật fcmId lên db
+                }
+            })
+        }
+    }
+
+    suspend fun searchAllUsers(key: String) {
+        viewModelScope.launch {
+            super.setIsLoadingValue(true)
+            val res = userRepository.searchAllUsers(key).body()
+            if(res != null) {
+                searchResult.value = res
+            }
+            super.setIsLoadingValue(false)
+        }
+    }
+
+    private fun updateFCMId(fcmId: String) {
+        viewModelScope.launch {
+            val userId = sharedPref.getString("userId", "")
+            if(!userId.isNullOrEmpty()) {
+                val res = userRepository.updateFCMId(userId, fcmId).body()
+                if(res != null) {
+                    Log.d("###", "Update FCM OK")
+                }
             }
         }
     }

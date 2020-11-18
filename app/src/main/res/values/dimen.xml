@@ -8,10 +8,10 @@
     <dimen name="textCaption">14sp</dimen>
 
     <dimen name="editTextOrButtonHeight">56dp</dimen>
-    <dimen name="searchBoxHeight">48dp</dimen>
+    <dimen name="searchBoxHeight">40dp</dimen>
     <dimen name="messageMaxWidth">264dp</dimen>
     <dimen name="topOrBottomViewHeight">64dp</dimen>
-    <dimen name="coverImageHeight">168dp</dimen>
+    <dimen name="coverImageHeight">184dp</dimen>
     <dimen name="avatarSize">96dp</dimen>
     <dimen name="menteeItemList">40dp</dimen>
     <dimen name="pickedMentee">64dp</dimen>

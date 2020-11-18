@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.MentorTaskDetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mentorTaskDetailHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_or_bottom_view_color"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibMentorTaskDetailBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_arrow_back_ios"
+            android:tint="@color/mentee_strong_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvMentorTaskDetailTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvMentorTaskDetailTitle" />
+
+        <TextView
+            android:id="@+id/tvMentorTaskDetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mentor_task_detail"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textTitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvMentorTaskDetailDeadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv3"
+        android:layout_marginEnd="@dimen/lv3"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/mentorTaskDetailHeader"
+        tools:text="Deadline" />
+
+    <TextView
+        android:id="@+id/tvMentorTaskDetailName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv2"
+        android:layout_marginEnd="@dimen/lv3"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintTop_toBottomOf="@id/tvMentorTaskDetailDeadline"
+        tools:text="Do something" />
+
+    <View
+        android:id="@+id/separateLineMentorTaskDetail"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/lv3"
+        android:background="@color/separate_line_or_et_background_color"
+        app:layout_constraintTop_toBottomOf="@id/tvMentorTaskDetailName" />
+
+    <TextView
+        android:id="@+id/tvMentorTaskDetailRefer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv2"
+        android:text="@string/tv_mentee_do_task"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separateLineMentorTaskDetail" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMentorTaskDetail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMentorTaskDetailRefer" />
+
+    <TextView
+        android:id="@+id/tvNoData"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/no_data"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textLargeBody"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mentorTaskDetailHeader" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

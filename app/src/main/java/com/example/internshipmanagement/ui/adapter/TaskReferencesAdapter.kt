@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MyMentee
+import com.example.internshipmanagement.util.SERVER_URL
 import kotlinx.android.synthetic.main.item_your_mentee.view.*
 
-class TaskReferencesAdapter(private val onItemClick: (position: Int) -> Unit) : ListAdapter<MyMentee, TaskReferencesAdapter.TaskReferencesViewHolder>(
+class TaskReferencesAdapter(private val onItemClick: (id: String) -> Unit) : ListAdapter<MyMentee, TaskReferencesAdapter.TaskReferencesViewHolder>(
     TaskReferencesDiffUtil()
 ) {
 
@@ -27,7 +28,7 @@ class TaskReferencesAdapter(private val onItemClick: (position: Int) -> Unit) : 
     inner class TaskReferencesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(myMentee: MyMentee) {
             Glide.with(itemView)
-                .load(myMentee.avatarUrl)
+                .load("$SERVER_URL${myMentee.avatarUrl}")
                 .circleCrop()
                 .placeholder(R.drawable.default_avatar)
                 .into(itemView.ivItemYourMentee)
@@ -38,7 +39,7 @@ class TaskReferencesAdapter(private val onItemClick: (position: Int) -> Unit) : 
             } else {
                 itemView.ivItemYourMenteeCheck.visibility = View.GONE
             }
-            itemView.setOnClickListener { onItemClick(adapterPosition) }
+            itemView.setOnClickListener { onItemClick(myMentee.menteeId) }
         }
     }
 }
@@ -49,7 +50,7 @@ class TaskReferencesDiffUtil : DiffUtil.ItemCallback<MyMentee>() {
     }
 
     override fun areContentsTheSame(oldItem: MyMentee, newItem: MyMentee): Boolean {
-        return oldItem.menteeNickName == newItem.menteeNickName
+        return oldItem.menteeNickName == newItem.menteeNickName && oldItem.menteeName == newItem.menteeName
     }
 
 }

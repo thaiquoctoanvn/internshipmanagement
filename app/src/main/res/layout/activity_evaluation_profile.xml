@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.EvaluationProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/evaluationProfileHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_or_bottom_view_color"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibEvaluationProfileBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_arrow_back_ios"
+            android:tint="@color/mentee_strong_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvEvaluationProfileTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvEvaluationProfileTitle" />
+
+        <TextView
+            android:id="@+id/tvEvaluationProfileTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/evaluation_profile"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textTitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ivEvaluationProfile"
+        android:layout_width="@dimen/avatarSize"
+        android:layout_height="@dimen/avatarSize"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv3"
+        android:background="@drawable/circle_corner"
+        android:padding="@dimen/lv0"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/evaluationProfileHeader" />
+
+    <TextView
+        android:id="@+id/tvEvaluationProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv2"
+        android:layout_marginEnd="@dimen/lv3"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textLargeBody"
+        app:layout_constraintStart_toEndOf="@id/ivEvaluationProfile"
+        app:layout_constraintTop_toTopOf="@id/ivEvaluationProfile"
+        tools:text="Eden" />
+
+    <TextView
+        android:id="@+id/tvEvaluationProfileType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv0"
+        android:layout_marginEnd="@dimen/lv3"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintStart_toStartOf="@id/tvEvaluationProfileName"
+        app:layout_constraintTop_toBottomOf="@id/tvEvaluationProfileName"
+        tools:text="Type" />
+
+    <TextView
+        android:id="@+id/tvEvaluationProfilePosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv0"
+        android:layout_marginEnd="@dimen/lv3"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintStart_toStartOf="@id/tvEvaluationProfileName"
+        app:layout_constraintTop_toBottomOf="@id/tvEvaluationProfileType"
+        tools:text="Positione" />
+
+    <TextView
+        android:id="@+id/tvAllEvaluationsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv4"
+        android:text="@string/all_evaluations"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivEvaluationProfile" />
+
+    <ImageButton
+        android:id="@+id/ibAddEvaluation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/lv3"
+        android:background="@color/colorTransparent"
+        android:src="@drawable/ic_add"
+        android:tint="@color/mentee_strong_color"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/tvAllEvaluationsTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvAllEvaluationsTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAllEvaluations"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/lv5"
+        android:paddingStart="@dimen/lv3"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv3"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAllEvaluationsTitle" />
+
+    <TextView
+        android:id="@+id/tvNoEvaluationResult"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/no_evaluation_result"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rvAllEvaluations" />
+</androidx.constraintlayout.widget.ConstraintLayout>

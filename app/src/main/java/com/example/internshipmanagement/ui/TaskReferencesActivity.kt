@@ -1,14 +1,31 @@
 package com.example.internshipmanagement.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.View
+import android.widget.SearchView
+import androidx.compose.runtime.key
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MyMentee
 import com.example.internshipmanagement.ui.adapter.PickedMenteeAdapter
 import com.example.internshipmanagement.ui.adapter.TaskReferencesAdapter
 import com.example.internshipmanagement.ui.base.BaseActivity
+import com.example.internshipmanagement.util.REFERENCES_PUSH
 import kotlinx.android.synthetic.main.activity_task_references.*
+import kotlinx.android.synthetic.main.activity_task_references.ibClearAllSearch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.ArrayList
 
 class TaskReferencesActivity : BaseActivity() {
 
@@ -19,20 +36,51 @@ class TaskReferencesActivity : BaseActivity() {
 
     // List chứa bản xem trước các mentee được chọn cho task
     private val pickedMentees = mutableListOf<MyMentee>()
+    private val myMentees = mutableListOf<MyMentee>()
+    private var isSearching = false
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_task_references
     }
 
     override fun setViewOnEventListener() {
-        ibYourMentessBack.setOnClickListener { finish() }
+        ibYourMentessBack.setOnClickListener { returnValueToAddNewTaskAct(pickedMentees) }
+        etSearchReferences.doAfterTextChanged {
+            if(TextUtils.isEmpty(it)) {
+                ibClearAllSearch.visibility = View.GONE
+            } else {
+                ibClearAllSearch.visibility = View.VISIBLE
+            }
+            searchOnTextChange(it.toString())
+        }
+        ibClearAllSearch.setOnClickListener { etSearchReferences.setText("") }
+    }
+
+    override fun setObserver() {
+        mentorViewModel.getMyMenteesValue().observe(this, Observer {
+            updateUI(it)
+            myMentees.addAll(it)
+        })
+        mentorViewModel.getFilterListValue().observe(this, Observer {
+            updateUI(it)
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setBaseObserver(mentorViewModel)
-        setObserver()
+//        setObserver()
         getMyMentees()
+    }
+
+    private fun searchOnTextChange(keyWord: String?) {
+        if(TextUtils.isEmpty(keyWord) || keyWord == null) {
+            isSearching = false
+            updateUI(myMentees)
+        } else {
+            isSearching = true
+            mentorViewModel.filterMentees(myMentees, keyWord)
+        }
     }
 
     // Hiển thị danh sách tất cả mentee mình quản lí
@@ -42,8 +90,6 @@ class TaskReferencesActivity : BaseActivity() {
         }
         taskReferencesAdapter.submitList(mentees)
         rvTaskReference.adapter = taskReferencesAdapter
-
-        updatePickedMenteesWindow(pickedMentees)
     }
 
     // Hiển thị bản xem trước các mentee được chọn cho task
@@ -55,15 +101,15 @@ class TaskReferencesActivity : BaseActivity() {
         rvPickedMentee.adapter = pickedMenteeAdapter
     }
 
-    private fun setObserver() {
-        mentorViewModel.getMyMenteesValue().observe(this, Observer {
-            updateUI(it)
-        })
-    }
-
     // Request danh sách mentee
     private fun getMyMentees() {
-        mentorViewModel.getMyMenteesForTaskReference()
+        val addNewTaskIntent = intent
+        val existingList = mutableListOf<MyMentee>()
+        intent.getParcelableArrayListExtra<MyMentee>("referencesList")?.let {
+            existingList.addAll(it)
+        }
+        mentorViewModel.getMyMenteesForTaskReference(existingList)
+        updatePickedMenteesWindow(pickedMentees)
     }
 
     // Thêm mentee vào list chọn cho task và cập nhật ui
@@ -80,16 +126,31 @@ class TaskReferencesActivity : BaseActivity() {
         pickedMenteeAdapter.notifyItemRemoved(targetPos)
     }
 
-    private val onItemClick: (position: Int) -> Unit = {
-        val clickedItem = mentorViewModel.getMyMenteesValue().value!![it]
-        if(clickedItem.isReferred == "false") {
-            mentorViewModel.getMyMenteesValue().value!![it].isReferred = "true"
-            addPickedMentee(clickedItem)
-        } else {
-            mentorViewModel.getMyMenteesValue().value!![it].isReferred = "false"
-            removePickedMentee(clickedItem)
+    private fun returnValueToAddNewTaskAct(references: MutableList<MyMentee>) {
+        val referencesPush = Intent(REFERENCES_PUSH)
+        referencesPush.putParcelableArrayListExtra("references", references as ArrayList<MyMentee>)
+        sendBroadcast(referencesPush)
+        this.finish()
+    }
+
+    private val onItemClick: (id: String) -> Unit = {
+        val clickedItem = mentorViewModel.getMyMenteesValue().value!!.find { item ->
+            it == item.menteeId
         }
-        taskReferencesAdapter.notifyItemChanged(it)
+        if (clickedItem != null) {
+            if(clickedItem.isReferred == "false") {
+                clickedItem.isReferred = "true"
+                addPickedMentee(clickedItem)
+            } else {
+                clickedItem.isReferred = "false"
+                removePickedMentee(clickedItem)
+            }
+        }
+        if(isSearching) {
+            taskReferencesAdapter.notifyItemChanged(mentorViewModel.getFilterListValue().value!!.indexOf(clickedItem))
+        } else {
+            taskReferencesAdapter.notifyItemChanged(mentorViewModel.getMyMenteesValue().value!!.indexOf(clickedItem))
+        }
     }
 
     // Sự kiện click nút remove trên bản xem trước mentee được chọn
@@ -98,6 +159,10 @@ class TaskReferencesActivity : BaseActivity() {
         val target = mentorViewModel.getMyMenteesValue().value?.find { it.menteeId == id }.also {
             it?.isReferred = "false"
         }
-        taskReferencesAdapter.notifyItemChanged(mentorViewModel.getMyMenteesValue().value!!.indexOf(target))
+        if(isSearching) {
+            taskReferencesAdapter.notifyItemChanged(mentorViewModel.getFilterListValue().value!!.indexOf(target))
+        } else {
+            taskReferencesAdapter.notifyItemChanged(mentorViewModel.getMyMenteesValue().value!!.indexOf(target))
+        }
     }
 }

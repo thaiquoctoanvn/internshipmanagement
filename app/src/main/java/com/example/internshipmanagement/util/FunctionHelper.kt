@@ -7,8 +7,11 @@ import android.net.Uri
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
+import com.example.internshipmanagement.data.entity.Criterion
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.random.Random
 
 class FunctionHelper {
@@ -37,6 +40,33 @@ class FunctionHelper {
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
             return filePath
+        }
+
+        fun getDateFromTimeMilliSecond(timeStamp: String): String {
+            if(timeStamp.isNotEmpty()) {
+                val date = Date(timeStamp.toLong())
+                val language = "en"
+                val formattedDateAsShortMonth = SimpleDateFormat("dd MMM yyyy HH:mm", Locale(language))
+                return formattedDateAsShortMonth.format(date)
+            }
+            return ""
+        }
+
+        fun getMilliSecondFromDate(dateInString: String): Long? {
+            if(dateInString.isNotEmpty()) {
+                val language = "en"
+                val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale(language))
+                val date = simpleDateFormat.parse(dateInString)
+                return date.time
+            }
+            return null
+        }
+
+        fun provideCriteria(): MutableList<Criterion> {
+            return mutableListOf(
+                Criterion("Behavior", "0"),
+                Criterion("Knowledge", "0")
+            )
         }
     }
 }

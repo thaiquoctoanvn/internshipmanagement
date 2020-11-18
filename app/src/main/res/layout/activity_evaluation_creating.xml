@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:context=".ui.EvaluationCreatingActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/evaluationCreatingHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/top_or_bottom_view_color"
+            android:paddingStart="@dimen/lv3"
+            android:paddingTop="@dimen/lv2"
+            android:paddingEnd="@dimen/lv3"
+            android:paddingBottom="@dimen/lv2"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvEvaluationCreatingTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/evaluation"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textTitle"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/ibEvaluationCreatingCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTransparent"
+                android:scaleType="center"
+                android:src="@drawable/ic_close"
+                android:tint="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/tvEvaluationCreatingTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvEvaluationCreatingTitle" />
+
+            <TextView
+                android:id="@+id/tvEvaluationCreatingSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:textColor="@color/mentee_strong_color"
+                android:textSize="@dimen/textBody"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvEvaluationCreatingTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvEvaluationCreatingTitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvMentorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lv3"
+            android:layout_marginTop="@dimen/lv4"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textBody"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/evaluationCreatingHeader"
+            tools:text="Mentor X" />
+
+        <TextView
+            android:id="@+id/tvFromDateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv2"
+            android:text="@string/from_date"
+            android:textColor="@color/icon_or_text_color"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintStart_toStartOf="@id/tvMentorName"
+            app:layout_constraintTop_toBottomOf="@id/tvMentorName" />
+
+        <ImageButton
+            android:id="@+id/ibPickedFromDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/lv3"
+            android:background="@color/colorTransparent"
+            android:src="@drawable/ic_event_note"
+            android:tint="@color/icon_or_text_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvFromDateTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvFromDateTitle" />
+
+        <TextView
+            android:id="@+id/tvPickedFromDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lv2"
+            android:layout_marginEnd="@dimen/lv2"
+            android:textColor="@color/mentee_strong_color"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintBottom_toBottomOf="@id/tvFromDateTitle"
+            app:layout_constraintEnd_toStartOf="@id/ibPickedFromDate"
+            app:layout_constraintStart_toEndOf="@id/tvFromDateTitle"
+            app:layout_constraintTop_toTopOf="@id/tvFromDateTitle"
+            tools:text="18/09/2020" />
+
+        <TextView
+            android:id="@+id/tvToDateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv1"
+            android:text="@string/to_date"
+            android:textColor="@color/icon_or_text_color"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintStart_toStartOf="@id/tvMentorName"
+            app:layout_constraintTop_toBottomOf="@id/tvFromDateTitle" />
+
+        <ImageButton
+            android:id="@+id/ibPickedToDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/lv3"
+            android:background="@color/colorTransparent"
+            android:src="@drawable/ic_event_note"
+            android:tint="@color/icon_or_text_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvToDateTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvToDateTitle" />
+
+        <TextView
+            android:id="@+id/tvPickedToDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/lv2"
+            android:textColor="@color/mentee_strong_color"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintBottom_toBottomOf="@id/tvToDateTitle"
+            app:layout_constraintEnd_toStartOf="@id/ibPickedToDate"
+            app:layout_constraintStart_toStartOf="@id/tvPickedFromDate"
+            app:layout_constraintTop_toTopOf="@id/tvToDateTitle"
+            tools:text="18/09/2020" />
+
+        <View
+            android:id="@+id/firstSeparateLineEvaluationCreating"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/lv4"
+            android:background="@color/separate_line_or_et_background_color"
+            app:layout_constraintTop_toBottomOf="@id/tvToDateTitle" />
+
+        <TextView
+            android:id="@+id/tvCriteriaTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv2"
+            android:text="@string/evaluation_criteria"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textBody"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvMentorName"
+            app:layout_constraintTop_toBottomOf="@id/firstSeparateLineEvaluationCreating" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCriteria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/lv3"
+            android:paddingTop="@dimen/lv2"
+            android:paddingEnd="@dimen/lv3"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tvCriteriaTitle" />
+
+        <TextView
+            android:id="@+id/tvAverageMark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv3"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintStart_toStartOf="@id/tvCriteriaTitle"
+            app:layout_constraintTop_toBottomOf="@id/rvCriteria"
+            tools:text="Average: 30/100" />
+
+        <View
+            android:id="@+id/secondSeparateLineEvaluationCreating"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/lv4"
+            android:background="@color/separate_line_or_et_background_color"
+            app:layout_constraintTop_toBottomOf="@id/tvAverageMark" />
+
+        <EditText
+            android:id="@+id/etComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lv3"
+            android:layout_marginTop="@dimen/lv2"
+            android:layout_marginEnd="@dimen/lv3"
+            android:layout_marginBottom="@dimen/lv3"
+            android:background="@color/white"
+            android:hint="@string/your_comment"
+            app:layout_constraintTop_toBottomOf="@id/secondSeparateLineEvaluationCreating" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

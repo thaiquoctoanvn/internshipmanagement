@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/lv2">
+
+    <ImageView
+        android:id="@+id/ivItemUserSearchResult"
+        android:layout_width="@dimen/menteeItemList"
+        android:layout_height="@dimen/menteeItemList"
+        android:background="@drawable/circle_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvItemUserSearchResultName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ivItemUserSearchResult"
+        app:layout_constraintTop_toTopOf="@id/ivItemUserSearchResult"
+        tools:text="Eden" />
+
+    <TextView
+        android:id="@+id/tvItemUserSearchResultType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv0"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        app:layout_constraintStart_toStartOf="@id/tvItemUserSearchResultName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemUserSearchResultName"
+        tools:text="Type" />
+
+    <TextView
+        android:id="@+id/tvItemUserSearchResultPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        app:layout_constraintStart_toStartOf="@id/tvItemUserSearchResultName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemUserSearchResultType"
+        tools:text="Position" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

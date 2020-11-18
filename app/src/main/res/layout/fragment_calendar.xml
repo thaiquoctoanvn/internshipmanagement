@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/lv8"
     android:background="@color/white"
+    android:paddingBottom="@dimen/lv8"
     tools:context=".ui.CalendarFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/calendar"
             android:textColor="@color/black"
-            android:textSize="@dimen/textLargeTitle"
+            android:textSize="@dimen/textTitle"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +47,7 @@
 
     <CalendarView
         android:id="@+id/calendarView"
+        android:scrollbarStyle="outsideInset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

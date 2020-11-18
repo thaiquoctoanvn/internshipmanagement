@@ -19,10 +19,12 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViewOnEventListener()
+        setObserverFragment()
     }
 
     abstract fun getRootLayoutId(): Int
     abstract fun setViewOnEventListener()
+    abstract fun setObserverFragment()
 
     private fun showSnackBarFragment(message: String) {
         activity?.let {
@@ -47,6 +49,10 @@ abstract class BaseFragment : Fragment() {
             return true
         }
         return false
+    }
+
+    fun showSnackBar(message: String) {
+        Snackbar.make(requireActivity().findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
     }
 
     fun hideBottomNavigationView(activity: FragmentActivity) {

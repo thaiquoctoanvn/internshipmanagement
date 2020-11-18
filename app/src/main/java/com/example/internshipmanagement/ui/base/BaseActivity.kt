@@ -17,10 +17,12 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getActivityRootLayout())
         setViewOnEventListener()
+        setObserver()
     }
 
     abstract fun getActivityRootLayout(): Int
     abstract fun setViewOnEventListener()
+    abstract fun setObserver()
 
     fun setBaseObserver(baseViewModel: BaseViewModel) {
         baseViewModel.getIsLoadingValue().observe(this, Observer {
@@ -30,9 +32,21 @@ abstract class BaseActivity : AppCompatActivity() {
                 Log.d("###", "Done")
             }
         })
+        baseViewModel.getMessageResponseValue().observe(this, Observer {
+            showSnackBar(it)
+        })
     }
 
     fun showSnackBar(message: String) {
         Snackbar.make(this.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    fun isMentorAccount(type: String): Boolean {
+        // 1 - mentor
+        // 2 - mentee
+        if(type == "1") {
+            return true
+        }
+        return false
     }
 }

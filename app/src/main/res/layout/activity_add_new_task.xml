@@ -36,17 +36,30 @@
             android:layout_height="wrap_content"
             android:text="@string/add_new_task"
             android:textColor="@color/black"
-            android:textSize="@dimen/textLargeTitle"
+            android:textSize="@dimen/textTitle"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSaveNewTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_task"
+            android:textColor="@color/mentee_strong_color"
+            android:textSize="@dimen/textBody"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvAddNewTaskTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvAddNewTaskTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addNewTaskHeader">
 
@@ -58,6 +71,7 @@
                 android:id="@+id/newTaskDatePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -126,6 +140,7 @@
                 android:paddingStart="@dimen/lv3"
                 android:paddingTop="@dimen/lv2"
                 android:paddingEnd="@dimen/lv3"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvAddNewTaskReference" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvTabTitle"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tab_background"
+    android:gravity="center"
+    android:paddingTop="@dimen/lv0"
+    android:paddingBottom="@dimen/lv0"
+    android:textColor="@color/icon_or_text_color"
+    android:textStyle="bold"
+    tools:text="All mentees" />

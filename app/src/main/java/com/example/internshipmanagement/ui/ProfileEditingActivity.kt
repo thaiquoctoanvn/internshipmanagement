@@ -1,25 +1,30 @@
 package com.example.internshipmanagement.ui
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.ui.base.BaseActivity
-import com.example.internshipmanagement.util.CAMERA_PERMISSION
-import com.example.internshipmanagement.util.CAMERA_REQUEST_CODE
-import com.example.internshipmanagement.util.READ_STORAGE_PERMISSION
-import com.example.internshipmanagement.util.WRITE_TO_STORAGE_PERMISSION
+import com.example.internshipmanagement.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_profile_editing.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -44,25 +49,94 @@ class ProfileEditingActivity : BaseActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permission ->
+        permission.entries.forEach {
+            when(it.key) {
+                CAMERA_PERMISSION -> {
+                    if(it.value) {
+                        Log.d("###", "camera pass")
+                        startCamera()
+                    } else {
+                        val showRationale = shouldShowRequestPermissionRationale(CAMERA_PERMISSION)
+                        Log.d("###", "rationale: $showRationale")
+                        showRationaleDialog(showRationale)
+                    }
+                }
+                READ_STORAGE_PERMISSION -> {
+                    if(it.value) {
+                        Log.d("###", "gallery pass")
+                        openGallery()
+                    } else {
+                        val showRationale = shouldShowRequestPermissionRationale(READ_STORAGE_PERMISSION)
+                        Log.d("###", "rationale: $showRationale")
+                        showRationaleDialog(showRationale)
+                    }
+                }
+            }
+//            if(it.key == CAMERA_PERMISSION && it.value) {
+//                Log.d("###", "camera pass")
+//                startCamera()
+//            } else if(it.key == READ_STORAGE_PERMISSION && it.value) {
+//                Log.d("###", "gallery pass")
+//                openGallery()
+//            }
+        }
+    }
+
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_profile_editing
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun setViewOnEventListener() {
-        ibEditProfileCancel.setOnClickListener { cancelEditProfile() }
+        ibEditProfileCancel.setOnClickListener { finish() }
         tvEditProfileSave.setOnClickListener { updateUserInfo() }
         ibChangeAvatar.setOnClickListener { takeImageFrom() }
     }
 
+    override fun setObserver() {
+        userViewModel.getUserProfileValue().observe(this, Observer {
+            updateUI(it)
+        })
+        userViewModel.getIsSucceedValue().observe(this, Observer {
+            completeProfileEdition(it)
+        })
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setObserver()
+        super.setBaseObserver(userViewModel)
         loadCurrentProfileInfo()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun checkPermissions(permission: String) {
+        if(ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
+            when(permission) {
+                CAMERA_PERMISSION -> startCamera()
+                READ_STORAGE_PERMISSION, WRITE_TO_STORAGE_PERMISSION -> openGallery()
+            }
+        } else {
+            requestPermissionLauncher.launch(arrayOf(permission))
+        }
+    }
+
+    private fun showRationaleDialog(isNeverShowAgain: Boolean) {
+        if(!isNeverShowAgain) {
+            AlertDialog.Builder(this).create().apply {
+                setTitle("Permission")
+                setMessage("Opp!, We need your permission to process this function. Please go to settings and turn on permission for us")
+                setButton(AlertDialog.BUTTON_POSITIVE, "OK", DialogInterface.OnClickListener() { dialogInterface: DialogInterface, which: Int ->
+                    dismiss()
+                })
+            }.show()
+        }
     }
 
     private fun loadCurrentProfileInfo() {
@@ -72,7 +146,7 @@ class ProfileEditingActivity : BaseActivity() {
 
     private fun updateUI(userProfile: UserProfile) {
         Glide.with(this)
-            .load(userProfile.avatarUrl)
+            .load("$SERVER_URL${userProfile.avatarUrl}")
             .circleCrop()
             .placeholder(R.drawable.default_avatar)
             .into(ivAvatarEditProfile)
@@ -81,25 +155,19 @@ class ProfileEditingActivity : BaseActivity() {
         etEmailEditProfile.setText(userProfile.email)
     }
 
-    private fun setObserver() {
-        userViewModel.getUserProfileValue().observe(this, Observer {
-            updateUI(it)
-        })
-    }
-
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun takeImageFrom() {
-        getPermissions()
 
         val view = LayoutInflater.from(this).inflate(R.layout.item_pick_image_option, null)
         BottomSheetDialog(this).apply {
             setContentView(view)
             view.findViewById<TextView>(R.id.tvCameraOption).setOnClickListener {
                 this.dismiss()
-                startForCameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+                checkPermissions(CAMERA_PERMISSION)
             }
             view.findViewById<TextView>(R.id.tvGalleryOption).setOnClickListener {
                 this.dismiss()
-                startForGalleryResult.launch("image/*")
+                checkPermissions(READ_STORAGE_PERMISSION)
             }
             view.findViewById<TextView>(R.id.tvCloseOption).setOnClickListener { this.dismiss() }
             show()
@@ -140,19 +208,14 @@ class ProfileEditingActivity : BaseActivity() {
         }
     }
 
-    private fun getPermissions() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                WRITE_TO_STORAGE_PERMISSION,
-                CAMERA_PERMISSION,
-                READ_STORAGE_PERMISSION
-            ), CAMERA_REQUEST_CODE
-        )
+
+
+    private fun startCamera() {
+        startForCameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
     }
 
-    private fun cancelEditProfile() {
-        finish()
+    private fun openGallery() {
+        startForGalleryResult.launch("image/*")
     }
 
     private fun updateUserInfo() {
@@ -160,6 +223,14 @@ class ProfileEditingActivity : BaseActivity() {
         val position = etPositionEditProfile.text.toString().trim()
         val email = etEmailEditProfile.text.toString().trim()
         userViewModel.updateUserInfo(name, position, email)
-        cancelEditProfile()
+    }
+
+    private fun completeProfileEdition(isSucceed: Boolean) {
+        if(isSucceed) {
+            // Thông báo cập nhật qua bên PersonalFragment
+            val intent = Intent(INFO_UPDATED)
+            sendBroadcast(intent)
+            this.finish()
+        }
     }
 }

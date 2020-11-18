@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/lv3">
+
+    <TextView
+        android:id="@+id/tvItemMentorTaskName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Do something" />
+
+    <TextView
+        android:id="@+id/tvItemMentorTaskDeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv0"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        app:layout_constraintStart_toStartOf="@id/tvItemMentorTaskName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemMentorTaskName"
+        tools:text="18/09/2020" />
+
+    <TextView
+        android:id="@+id/tvItemMentorTaskStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv2"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvItemMentorTaskName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemMentorTaskDeadline"
+        tools:text="3/4 mentees is submitted" />
+
+    <View
+        android:id="@+id/separateLineItemMenteesTask"
+        android:layout_width="@dimen/lv2"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/lv1"
+        android:background="@color/grey"
+        app:layout_constraintStart_toStartOf="@id/tvItemMentorTaskName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemMentorTaskStatus" />
+</androidx.constraintlayout.widget.ConstraintLayout>

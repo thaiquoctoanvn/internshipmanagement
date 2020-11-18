@@ -68,16 +68,15 @@
 
     <ImageButton
         android:id="@+id/ibChangeAvatar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/lv1"
         android:background="@drawable/circle_corner"
         android:scaleType="center"
         android:src="@drawable/ic_camera"
-        android:tint="@color/white"
+        android:tint="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/ivAvatarEditProfile"
-        app:layout_constraintEnd_toEndOf="@id/ivAvatarEditProfile"
-        app:layout_constraintStart_toStartOf="@id/ivAvatarEditProfile"
-        app:layout_constraintTop_toTopOf="@id/ivAvatarEditProfile" />
+        app:layout_constraintEnd_toEndOf="@id/ivAvatarEditProfile" />
 
     <View
         android:id="@+id/separateLineEditProfile"

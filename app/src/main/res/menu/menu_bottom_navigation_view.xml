@@ -7,6 +7,11 @@
         android:title="@string/dash_board"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/itemSearchUser"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search_header"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/itemEventCalendar"
         android:icon="@drawable/ic_event_note"
         android:title="@string/calendar"

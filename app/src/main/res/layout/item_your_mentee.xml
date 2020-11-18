@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/lv2">
+    android:layout_marginBottom="@dimen/lv3">
 
     <ImageView
         android:id="@+id/ivItemYourMentee"
@@ -32,6 +32,7 @@
         android:id="@+id/separateLineCalendar"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="@dimen/lv1"
         android:background="@color/separate_line_or_et_background_color"
         app:layout_constraintEnd_toEndOf="@id/ivItemYourMenteeCheck"
         app:layout_constraintStart_toStartOf="@id/tvItemYourMenteeName"
@@ -46,4 +47,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/ivItemYourMentee"
         app:tint="@color/mentee_strong_color" />
+
+    <ImageView
+        android:id="@+id/ivItemYourMenteeOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_three_dots_more_indicator"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/ivItemYourMentee"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivItemYourMentee" />
 </androidx.constraintlayout.widget.ConstraintLayout>

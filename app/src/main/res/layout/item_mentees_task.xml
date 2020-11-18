@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/lv3">
+
+    <TextView
+        android:id="@+id/tvItemMenteeTaskName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/lv2"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintEnd_toStartOf="@id/tvMenteesTaskSubmittedState"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Do something" />
+
+    <TextView
+        android:id="@+id/tvItemMenteesTaskDeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv0"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        app:layout_constraintStart_toStartOf="@id/tvItemMenteeTaskName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemMenteeTaskName"
+        tools:text="18/09/2020" />
+
+    <TextView
+        android:id="@+id/tvItemMenteesTaskReviewedState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv2"
+        android:text="@string/reviewed_state"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvItemMenteeTaskName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemMenteesTaskDeadline" />
+
+    <View
+        android:id="@+id/separateLineItemMenteesTask"
+        android:layout_width="@dimen/lv2"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/lv1"
+        android:background="@color/grey"
+        app:layout_constraintStart_toStartOf="@id/tvItemMenteeTaskName"
+        app:layout_constraintTop_toBottomOf="@id/tvItemMenteesTaskReviewedState" />
+
+
+    <TextView
+        android:id="@+id/tvMenteesTaskSubmittedState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv1"
+        android:background="@drawable/tv_round_corner"
+        android:paddingStart="@dimen/lv2"
+        android:paddingTop="@dimen/lv0"
+        android:paddingEnd="@dimen/lv2"
+        android:paddingBottom="@dimen/lv0"
+        android:text="@string/submitted_state"
+        android:textColor="@color/mentee_strong_color"
+        android:textSize="@dimen/textCaption"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tvItemMenteeTaskName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvItemMenteeTaskName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

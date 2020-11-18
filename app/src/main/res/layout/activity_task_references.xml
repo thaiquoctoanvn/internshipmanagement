@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="@string/your_mentees"
             android:textColor="@color/black"
-            android:textSize="@dimen/textLargeTitle"
+            android:textSize="@dimen/textTitle"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:id="@+id/etSearchYourMentees"
+        android:id="@+id/etSearchReferences"
         android:layout_width="match_parent"
         android:layout_height="@dimen/searchBoxHeight"
         android:layout_marginStart="@dimen/lv3"
@@ -55,24 +55,38 @@
         android:backgroundTint="@color/separate_line_or_et_background_color"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/lv1"
-        android:hint="@string/et_search_your_mentee"
-        android:paddingStart="@dimen/lv2"
-        android:paddingEnd="@dimen/lv2"
-        android:textColor="@color/black"
+        android:hint="@string/et_search_task"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="@dimen/lv1"
+        android:paddingEnd="@dimen/lv3"
         android:textSize="@dimen/textBody"
         app:layout_constraintTop_toBottomOf="@id/yourMenteesHeader" />
+
+    <ImageButton
+        android:id="@+id/ibClearAllSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/lv1"
+        android:background="@color/colorTransparent"
+        android:src="@drawable/ic_circle_cancel"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/etSearchReferences"
+        app:layout_constraintEnd_toEndOf="@id/etSearchReferences"
+        app:layout_constraintTop_toTopOf="@id/etSearchReferences" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPickedMentee"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lv2"
         android:orientation="horizontal"
+        android:paddingTop="@dimen/lv2"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="@id/etSearchYourMentees"
-        app:layout_constraintStart_toStartOf="@id/etSearchYourMentees"
-        app:layout_constraintTop_toBottomOf="@id/etSearchYourMentees" />
+        app:layout_constraintEnd_toEndOf="@id/etSearchReferences"
+        app:layout_constraintStart_toStartOf="@id/etSearchReferences"
+        app:layout_constraintTop_toBottomOf="@id/etSearchReferences" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTaskReference"

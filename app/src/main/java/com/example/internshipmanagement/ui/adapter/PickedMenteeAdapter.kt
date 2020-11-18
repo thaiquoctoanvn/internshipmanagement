@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MyMentee
+import com.example.internshipmanagement.util.SERVER_URL
 import kotlinx.android.synthetic.main.item_picked_mentee.view.*
 
 class PickedMenteeAdapter(
@@ -32,7 +33,7 @@ class PickedMenteeAdapter(
                 onItemRemoveClick(adapterPosition, myMentee.menteeId)
             }
             Glide.with(itemView)
-                .load(myMentee.avatarUrl)
+                .load("$SERVER_URL${myMentee.avatarUrl}")
                 .placeholder(R.drawable.default_avatar)
                 .circleCrop()
                 .into(itemView.ivPickedMentee)

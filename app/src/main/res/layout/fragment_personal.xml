@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/lv8"
     android:background="@color/white"
+    android:paddingBottom="@dimen/lv8"
     tools:context=".ui.PersonalFragment">
 
     <ImageView
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/coverImageHeight"
         android:scaleType="centerCrop"
-        android:src="@color/white"
+        android:src="@drawable/cover"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -22,6 +22,7 @@
         android:background="@drawable/cover_image_gradient"
         app:layout_constraintBottom_toBottomOf="@id/ivCover"
         app:layout_constraintTop_toTopOf="@id/ivCover" />
+
 
     <ImageView
         android:id="@+id/ivAvatarProfile"
@@ -35,6 +36,18 @@
         app:layout_constraintStart_toStartOf="@id/ivCover"
         app:layout_constraintTop_toTopOf="@id/ivCover"
         app:layout_constraintVertical_bias="1.5" />
+
+    <ImageButton
+        android:id="@+id/ibPersonalOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/lv3"
+        android:background="@drawable/icon_circle_corner_background"
+        android:padding="@dimen/lv0"
+        android:src="@drawable/ic_three_dots_more_indicator"
+        android:tint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvEditProfile"
@@ -141,20 +154,6 @@
         app:layout_constraintBottom_toBottomOf="@id/ivIconEvaluation"
         app:layout_constraintStart_toEndOf="@id/ivIconEvaluation"
         app:layout_constraintTop_toTopOf="@id/ivIconEvaluation" />
-
-    <TextView
-        android:id="@+id/tvLogOut"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/editTextOrButtonHeight"
-        android:layout_margin="@dimen/lv3"
-        android:background="@drawable/tv_round_corner"
-        android:backgroundTint="@color/mentee_strong_color"
-        android:gravity="center"
-        android:text="@string/tv_log_out"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textTitle"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
