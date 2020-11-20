@@ -1,8 +1,10 @@
 package com.example.internshipmanagement.ui.adapter
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,9 @@ class MentorsTaskAdapter(private val onItemClick: (task: MentorsTask) -> Unit) :
             itemView.tvItemMentorTaskDeadline.text = FunctionHelper.getDateFromTimeMilliSecond(mentorsTask.deadline)
             val state = "${mentorsTask.numberSubmitted} / ${mentorsTask.referenceNumber} submitted"
             itemView.tvItemMentorTaskStatus.text = state
+            if(mentorsTask.numberSubmitted.toInt() > mentorsTask.referenceNumber.toInt() / 2) {
+                itemView.tvIconIndex.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.mentor_strong_color))
+            }
 
             itemView.setOnClickListener { onItemClick(mentorsTask) }
         }

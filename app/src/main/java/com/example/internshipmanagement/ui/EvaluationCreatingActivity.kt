@@ -117,7 +117,7 @@ class EvaluationCreatingActivity : BaseActivity() {
                 return
             }
             if(criteriaMark == null) {
-                super.showSnackBar("One of criteria has not marked")
+                super.showSnackBar("Invalid mark for a criterion")
                 return
             }
             if(mentorId.isEmpty() || menteeId.isEmpty()) {

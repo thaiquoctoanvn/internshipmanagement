@@ -34,10 +34,8 @@ class MentorTaskDetailAdapter(
                 .circleCrop()
                 .placeholder(R.drawable.default_avatar)
                 .into(itemView.ivItemMentee)
-            if(taskReference.isSubmitted == "0") {
-                itemView.tvStateReferTaskDetail.visibility = View.GONE
-            } else {
-                itemView.tvStateReferTaskDetail.visibility = View.VISIBLE
+            if(taskReference.isSubmitted == "1") {
+                itemView.tvStateReferTaskDetail.text = itemView.context.getString(R.string.submitted_state)
             }
 
             itemView.setOnClickListener { onItemClick(taskReference.id) }

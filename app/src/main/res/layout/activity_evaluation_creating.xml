@@ -178,24 +178,13 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/tvCriteriaTitle" />
 
-        <TextView
-            android:id="@+id/tvAverageMark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/lv3"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textBody"
-            app:layout_constraintStart_toStartOf="@id/tvCriteriaTitle"
-            app:layout_constraintTop_toBottomOf="@id/rvCriteria"
-            tools:text="Average: 30/100" />
-
         <View
             android:id="@+id/secondSeparateLineEvaluationCreating"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/lv4"
             android:background="@color/separate_line_or_et_background_color"
-            app:layout_constraintTop_toBottomOf="@id/tvAverageMark" />
+            app:layout_constraintTop_toBottomOf="@id/rvCriteria" />
 
         <EditText
             android:id="@+id/etComment"

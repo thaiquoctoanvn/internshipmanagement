@@ -1,7 +1,7 @@
 package com.example.internshipmanagement.util
 
-// Cần dùng địa chỉ IP, ko dùng localhost 10.0.1.129, 172.16.10.68
-const val SERVER_URL = "http://172.16.10.68:83/miniproject/"
+// Cần dùng địa chỉ IP, ko dùng localhost 10.0.1.224, 172.16.10.68
+const val SERVER_URL = "http://10.0.1.244:83/miniproject/"
 
 // File name
 const val SHARED_PREF_NAME = "InternManagement"
@@ -31,3 +31,7 @@ const val CAMERA_PERMISSION = android.Manifest.permission.CAMERA
 const val REFERENCES_PUSH = "references"
 const val FCM_PUSH = "gcm"
 const val INFO_UPDATED = "infoUpdated"
+
+// Transformer Effect
+const val MIN_SCALE = 0.75f
+const val MIN_ALPHA = 0.5f

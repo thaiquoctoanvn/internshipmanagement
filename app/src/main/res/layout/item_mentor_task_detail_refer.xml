@@ -36,7 +36,7 @@
         android:paddingTop="@dimen/lv0"
         android:paddingEnd="@dimen/lv2"
         android:paddingBottom="@dimen/lv0"
-        android:text="@string/submitted_state"
+        android:text="@string/not_submitted_state"
         android:textColor="@color/mentee_strong_color"
         android:textSize="@dimen/textCaption"
         android:textStyle="bold"

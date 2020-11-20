@@ -132,7 +132,6 @@
         android:paddingStart="@dimen/lv3"
         android:paddingTop="@dimen/lv2"
         android:paddingEnd="@dimen/lv3"
-        android:paddingBottom="@dimen/lv2"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvYourTaskTitle" />

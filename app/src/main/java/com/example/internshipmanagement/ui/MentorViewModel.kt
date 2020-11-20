@@ -168,7 +168,7 @@ class MentorViewModel(
         var average = 0F
         var counter = 0
         criteria.value?.forEach {
-            if(it.mark.toInt() == 0) {
+            if(it.mark.toInt() < 0 || it.mark.toInt() > 10) {
                 return null
             }
             average += it.mark.toInt()

@@ -19,7 +19,7 @@
     <string name="from_date">From</string>
     <string name="to_date">To</string>
     <string name="evaluation_criteria">Criteria</string>
-    <string name="criteria_mark">0/100</string>
+    <string name="criteria_mark">0/10</string>
     <string name="your_comment">Your comment</string>
     <string name="task_reference_detail">Reference detail</string>
 
@@ -32,7 +32,7 @@
     <string name="gallery">Choose from gallery</string>
     <string name="close">Close</string>
 
-    <string name="log_in_statement">Log in with your username</string>
+    <string name="log_in_statement">Welcome</string>
     <string name="et_user_name_log_in">Your username</string>
     <string name="et_pwd_log_in">Password</string>
     <string name="et_search_task">Search your task</string>
@@ -48,16 +48,21 @@
     <string name="have_not_managed_yet">Not managing</string>
     <string name="mentor">Mentor</string>
     <string name="mentee">Mentee</string>
+    <string name="max_of_task_reference_mark">/10</string>
+    <string name="mark_title">Marks</string>
 
     <string name="good_morning">Good morning</string>
     <string name="good_afternoon">Good afternoon</string>
     <string name="good_evening">Good evening</string>
     <string name="no_data">Data not available</string>
     <string name="submitted_state">Submitted</string>
+    <string name="not_submitted_state">Not submitted</string>
     <string name="reviewed_state">Reviewed</string>
     <string name="no_search_result">No search result</string>
     <string name="no_evaluation_result">Have not evaluations yet</string>
     <string name="no_task">Have not task yet</string>
+    <string name="reviewed">*You only give a review one time</string>
+    <string name="not_reviewed">*Not reviewed</string>
 
     <string name="avatar_update_failed">Avatar update failed</string>
     <string name="info_update_failed">Info update failed</string>

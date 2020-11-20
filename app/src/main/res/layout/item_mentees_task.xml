@@ -7,16 +7,25 @@
     android:layout_marginBottom="@dimen/lv3">
 
     <TextView
+        android:id="@+id/tvIconIndex"
+        android:layout_width="@dimen/lv2"
+        android:layout_height="@dimen/lv2"
+        android:background="@drawable/ic_circle"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvItemMenteeTaskName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/tvItemMenteeTaskName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv1"
         android:layout_marginEnd="@dimen/lv2"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@color/black"
         android:textSize="@dimen/textBody"
         app:layout_constraintEnd_toStartOf="@id/tvMenteesTaskSubmittedState"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvIconIndex"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Do something" />
 

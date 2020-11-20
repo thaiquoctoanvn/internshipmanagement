@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Internshipmanagement"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.TaskReferenceDetailActivity"></activity>
+        <activity android:name=".ui.FullImageActivity"></activity>
+        <activity android:name=".ui.TaskReferenceDetailActivity" />
         <activity android:name=".ui.EvaluationCreatingActivity" />
         <activity android:name=".ui.EvaluationProfileActivity" />
         <activity android:name=".ui.SearchResultActivity" />

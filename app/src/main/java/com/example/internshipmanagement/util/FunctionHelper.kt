@@ -64,9 +64,13 @@ class FunctionHelper {
 
         fun provideCriteria(): MutableList<Criterion> {
             return mutableListOf(
-                Criterion("Behavior", "0"),
-                Criterion("Knowledge", "0")
+                Criterion("Behavior", "-1"),
+                Criterion("Knowledge", "-1")
             )
+        }
+
+        fun provideMarkLevel(): MutableList<Int> {
+            return mutableListOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         }
     }
 }

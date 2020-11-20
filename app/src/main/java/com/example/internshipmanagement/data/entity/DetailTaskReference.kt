@@ -10,9 +10,11 @@ data class DetailTaskReference(
     val menteeNickName: String,
     val menteeAvatar: String,
     val isSubmitted: String,
+    val content: String,
     val isReviewed: String,
+    val deadline: String,
     val dateModified: String,
-    val comment: String,
+    var comment: String,
     val mark: String,
     val materials: MutableList<String>
 )
