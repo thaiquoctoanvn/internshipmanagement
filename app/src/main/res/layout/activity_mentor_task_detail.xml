@@ -51,9 +51,11 @@
         android:layout_marginStart="@dimen/lv3"
         android:layout_marginTop="@dimen/lv3"
         android:layout_marginEnd="@dimen/lv3"
+        android:drawablePadding="@dimen/lv2"
         android:textColor="@color/black"
         android:textSize="@dimen/textBody"
         android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_circle"
         app:layout_constraintTop_toBottomOf="@id/mentorTaskDetailHeader"
         tools:text="Deadline" />
 
@@ -64,8 +66,10 @@
         android:layout_marginStart="@dimen/lv3"
         android:layout_marginTop="@dimen/lv2"
         android:layout_marginEnd="@dimen/lv3"
+        android:drawablePadding="@dimen/lv2"
         android:textColor="@color/black"
         android:textSize="@dimen/textBody"
+        app:drawableStartCompat="@drawable/ic_circle"
         app:layout_constraintTop_toBottomOf="@id/tvMentorTaskDetailDeadline"
         tools:text="Do something" />
 
@@ -102,16 +106,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvMentorTaskDetailRefer" />
 
-    <TextView
-        android:id="@+id/tvNoData"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="@string/no_data"
-        android:textColor="@color/icon_or_text_color"
-        android:textSize="@dimen/textLargeBody"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mentorTaskDetailHeader" />
+        <TextView
+            android:id="@+id/tvNoData"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/no_data"
+            android:textColor="@color/icon_or_text_color"
+            android:textSize="@dimen/textLargeBody"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mentorTaskDetailHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
