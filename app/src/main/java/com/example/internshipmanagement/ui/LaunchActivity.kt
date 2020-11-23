@@ -20,7 +20,7 @@ class LaunchActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.getIsSucceedValue().observe(this, Observer {
+        userViewModel.isSuccessful.observe(this, Observer {
             startApp(it)
         })
     }

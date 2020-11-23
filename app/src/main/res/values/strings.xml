@@ -50,6 +50,14 @@
     <string name="mentee">Mentee</string>
     <string name="max_of_task_reference_mark">/10</string>
     <string name="mark_title">Marks</string>
+    <string name="comment_from_mentor">Your mentors comment</string>
+    <string name="prepare_button">Prepare your submission</string>
+    <string name="have_no_comment_yet">Your mentor have not given comment</string>
+    <string name="review_your_submission">Review your submission</string>
+    <string name="submit_task">Submit task</string>
+    <string name="submit_button">Submit</string>
+    <string name="submission_note">Make your notes for the submission here..</string>
+    <string name="attach_image">Attach your images</string>
 
     <string name="good_morning">Good morning</string>
     <string name="good_afternoon">Good afternoon</string>
@@ -63,7 +71,8 @@
     <string name="no_task">Have not task yet</string>
     <string name="reviewed">*You only give a review one time</string>
     <string name="not_reviewed">*Not reviewed</string>
-
+    <string name="permission_title_message">Permission</string>
+    <string name="permission_message">Opp!, We need your permission to process this function. Please go to settings and turn on permission for us</string>
     <string name="avatar_update_failed">Avatar update failed</string>
     <string name="info_update_failed">Info update failed</string>
 

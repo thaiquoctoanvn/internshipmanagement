@@ -8,10 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
+import com.example.internshipmanagement.util.CustomizedLoadingDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment : Fragment() {
+
+    private lateinit var loadingDialog: CustomizedLoadingDialog
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getRootLayoutId(), container, false)
     }
@@ -20,6 +24,7 @@ abstract class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setViewOnEventListener()
         setObserverFragment()
+        loadingDialog = CustomizedLoadingDialog(requireContext())
     }
 
     abstract fun getRootLayoutId(): Int
@@ -33,11 +38,15 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun setBaseObserverFragment(baseViewModel: BaseViewModel) {
-        baseViewModel.getIsLoadingValue().observe(viewLifecycleOwner, Observer {
-
+        baseViewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            if(it) {
+                loadingDialog.showLoadingDialog()
+            } else {
+                loadingDialog.dismissDialog()
+            }
         })
 
-        baseViewModel.getMessageResponseValue().observe(viewLifecycleOwner, Observer {
+        baseViewModel.messageResponse.observe(viewLifecycleOwner, Observer {
             showSnackBarFragment(it)
         })
     }

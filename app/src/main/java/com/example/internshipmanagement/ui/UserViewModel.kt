@@ -3,6 +3,7 @@ package com.example.internshipmanagement.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.internshipmanagement.data.entity.PersonalInfo
@@ -20,13 +21,18 @@ class UserViewModel(
     private val sharedPref: SharedPreferences
 ) : BaseViewModel() {
 
-    private val isSucceed = MutableLiveData<Boolean>()
-    private val userProfile = MutableLiveData<UserProfile>()
-    private val searchResult = MutableLiveData<MutableList<UserProfile>>()
+    private val _isSuccessful = MutableLiveData<Boolean>()
+    val isSuccessful: LiveData<Boolean>
+        get() = _isSuccessful
 
-    fun getIsSucceedValue() = isSucceed
-    fun getUserProfileValue() = userProfile
-    fun getSearchResultValue() = searchResult
+    private val _userProfile = MutableLiveData<UserProfile>()
+    val userProfile: LiveData<UserProfile>
+        get() = _userProfile
+
+    private val _searchResult = MutableLiveData<MutableList<UserProfile>>()
+    val searchResult: LiveData<MutableList<UserProfile>>
+        get() = _searchResult
+
 
     fun getSharedPref() = sharedPref
 
@@ -44,9 +50,9 @@ class UserViewModel(
                     personalInfo.type,
                     personalInfo.avatarUrl
                 )
-                isSucceed.value = true
+                _isSuccessful.value = true
             } else {
-                isSucceed.value = false
+                _isSuccessful.value = false
             }
             super.setIsLoadingValue(false)
         }
@@ -62,10 +68,10 @@ class UserViewModel(
                 val res = userRepository.checkToken(userId, token).body()
                 if(res != null) {
                     // isLogInSucceed.value = res == SUCCEED_MESSAGE
-                    isSucceed.value = true
+                    _isSuccessful.value = true
                 }
             } else {
-                isSucceed.value = false
+                _isSuccessful.value = false
             }
         }
     }
@@ -81,9 +87,9 @@ class UserViewModel(
                     remove("type")
                     remove("avatarUrl")
                 }.apply()
-                isSucceed.value = true
+                _isSuccessful.value = true
             } else {
-                isSucceed.value = false
+                _isSuccessful.value = false
             }
         }
     }
@@ -94,7 +100,7 @@ class UserViewModel(
             super.setIsLoadingValue(true)
             val res = userRepository.getUserProfile(userId).body()
             if(res != null) {
-                userProfile.value = res
+                _userProfile.value = res
             }
             super.setIsLoadingValue(false)
         }
@@ -127,10 +133,12 @@ class UserViewModel(
             super.setIsLoadingValue(false)
             if(res != null) {
                 super.setMessageResponseValue(INFO_UPDATE_SUCCEED)
-                isSucceed.value = true
+                delay(2000)
+                _isSuccessful.value = true
             } else {
                 super.setMessageResponseValue(INFO_UPDATE_FAILED)
-                isSucceed.value = false
+                delay(2000)
+                _isSuccessful.value = false
             }
         }
     }
@@ -154,7 +162,7 @@ class UserViewModel(
             super.setIsLoadingValue(true)
             val res = userRepository.searchAllUsers(key).body()
             if(res != null) {
-                searchResult.value = res
+                _searchResult.value = res
             }
             super.setIsLoadingValue(false)
         }

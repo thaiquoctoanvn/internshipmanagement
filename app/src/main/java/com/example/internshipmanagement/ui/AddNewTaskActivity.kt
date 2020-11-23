@@ -53,7 +53,7 @@ class AddNewTaskActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        mentorViewModel.getIsSucceedValue().observe(this, androidx.lifecycle.Observer {
+        mentorViewModel.isSuccessful.observe(this, androidx.lifecycle.Observer {
             completeTaskAdding(it)
         })
     }
@@ -104,57 +104,27 @@ class AddNewTaskActivity : BaseActivity() {
     }
 
     private fun addTask() {
-        val menteeIds = mutableListOf<String>()
-        val gcmIds = mutableListOf<String>()
         val deadline = getDeadlineTime()
         val taskBody = etTaskDecryption.text.toString().trim()
-        val ownerId = mentorViewModel.getSharedPref().getString("userId", "")
 
-        if(ownerId != null) {
-            // Kiểm tra nếu deadline chọn lớn hơn hiện tại
-            if(System.currentTimeMillis() > deadline) {
-                super.showSnackBar("Deadline time is invalid")
-                return
-            }
-            if(TextUtils.isEmpty(taskBody)) {
-                super.showSnackBar("Task decryption must be not empty")
-                return
-            }
-            if(referencesList.size == 0) {
-                super.showSnackBar("Please choose group of mentees for this task")
-                return
-            }
-            referencesList.forEach {
-                menteeIds.add(it.menteeId)
-                gcmIds.add(it.gcmId)
-            }
-            mentorViewModel.addNewTask(ownerId, deadline.toString(), taskBody, menteeIds, gcmIds)
-        } else {
-            super.showSnackBar("Oops! We have some errors. Please retry")
+        if(System.currentTimeMillis() > deadline) {
+            super.showSnackBar("Deadline time is invalid")
+            return
+        }
+        if(TextUtils.isEmpty(taskBody)) {
+            super.showSnackBar("Task decryption must be not empty")
+            return
+        }
+        if(referencesList.size == 0) {
+            super.showSnackBar("Please choose group of mentees for this task")
+            return
         }
 
-//        if(System.currentTimeMillis() < deadline + 90000000) {
-//            val taskBody = etTaskDecryption.text.toString().trim()
-//            val ownerId = mentorViewModel.getSharedPref().getString("userId", "")
-//            if (referencesList.size > 0 && !TextUtils.isEmpty(taskBody) && ownerId != null) {
-//                referencesList.forEach {
-//                    menteeIds.add(it.menteeId)
-//                    gcmIds.add(it.gcmId)
-//                }
-//                mentorViewModel.addNewTask(ownerId, deadline.toString(), taskBody, menteeIds, gcmIds)
-//
-//            } else if (TextUtils.isEmpty(taskBody)) {
-//                super.showSnackBar("Decryption must be not empty")
-//            }
-//        } else {
-//            super.showSnackBar("Deadline is invalid")
-//        }
-
+        mentorViewModel.addNewTask(deadline.toString(), taskBody, referencesList)
     }
 
     private fun completeTaskAdding(isSucceed: Boolean) {
         if(isSucceed) {
-            super.showSnackBar("Task is added")
             this.finish()
         }
     }

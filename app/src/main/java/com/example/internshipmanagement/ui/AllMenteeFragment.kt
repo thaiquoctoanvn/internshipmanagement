@@ -28,7 +28,7 @@ class AllMenteeFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        mentorViewModel.getAllMenteesValue().observe(viewLifecycleOwner, Observer {
+        mentorViewModel.allMentees.observe(viewLifecycleOwner, Observer {
             updateAllMenteesUI(it)
         })
     }

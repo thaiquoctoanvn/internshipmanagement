@@ -104,4 +104,25 @@ interface APIService {
     @GET("getSpecificReferenceOfTask.php")
     suspend fun getDetailReference(@Query("reference_id") referenceId: String):
             Response<DetailTaskReference>
+
+    @FormUrlEncoded
+    @POST("updateSpecificReferenceOfTask.php")
+    suspend fun updateSpecificReferenceOfTask(
+        @Field("refer_id") referenceId: String,
+        @Field("mark") mark: String,
+        @Field("comment") comment: String
+    ): Response<String>
+
+    @GET("getMenteeTaskDetail.php")
+    suspend fun getMenteeTaskDetail(@Query("task_refer_id") referenceId: String):
+            Response<MenteeTaskDetail>
+
+    @Multipart
+    @POST("uploadTaskMaterials.php")
+    suspend fun uploadTaskMaterials(
+        @Part materials: MutableList<MultipartBody.Part>,
+        @Part("refer_id") referId: RequestBody,
+        @Part("note") taskNote: RequestBody,
+        @Part("image_number")  materialsSize: RequestBody
+    ): Response<String>
 }

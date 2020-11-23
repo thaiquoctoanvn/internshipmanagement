@@ -29,7 +29,7 @@ class UserProfileActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.getUserProfileValue().observe(this, Observer {
+        userViewModel.userProfile.observe(this, Observer {
             updateUserProfileUI(it)
         })
     }
@@ -70,7 +70,7 @@ class UserProfileActivity : BaseActivity() {
     }
 
     private fun switchToEvaluationScreen() {
-        val userId = userViewModel.getUserProfileValue().value?.userId
+        val userId = userViewModel.userProfile.value?.userId
         val myId = userViewModel.getSharedPref().getString("userId", "")
         val intent = Intent(this, EvaluationProfileActivity::class.java)
         intent.apply {

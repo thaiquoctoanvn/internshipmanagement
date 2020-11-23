@@ -15,6 +15,7 @@ import com.example.internshipmanagement.util.FunctionHelper
 import com.example.internshipmanagement.util.SUCCEED_MESSAGE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MentorViewModel(
@@ -22,30 +23,72 @@ class MentorViewModel(
     private val sharedPref: SharedPreferences
 ) : BaseViewModel() {
 
-    private val isSucceed = MutableLiveData<Boolean>()
-    private val myMentees = MutableLiveData<MutableList<MyMentee>>()
-    private val filteredReferences = MutableLiveData<MutableList<MyMentee>>()
-    private val mentorsTasks = MutableLiveData<MutableList<MentorsTask>>()
-    private val taskReferences = MutableLiveData<MutableList<TaskReference>>()
-    private val allMentees = MutableLiveData<MutableList<MyMentee>>()
-    private val menteesEvaluations = MutableLiveData<MutableList<MenteesEvaluation>>()
-    private val isMyMentee = MutableLiveData<Boolean>()
-    private val filteredTasks = MutableLiveData<MutableList<MentorsTask>>()
-    private val criteria = MutableLiveData<MutableList<Criterion>>()
-    private val detailReference = MutableLiveData<DetailTaskReference>()
+    private val _isSuccessful = MutableLiveData<Boolean>()
+    val isSuccessful: LiveData<Boolean>
+        get() = _isSuccessful
 
-    fun getIsSucceedValue() = isSucceed
-    fun getMyMenteesValue() = myMentees
-    fun getFilterListValue() = filteredReferences
-    fun getMentorsTasksValue() = mentorsTasks
-    fun getTaskReferencesValue() = taskReferences
+    private val _myMentees = MutableLiveData<MutableList<MyMentee>>()
+    val myMentees: LiveData<MutableList<MyMentee>>
+        get() = _myMentees
+
+    private val _selectedReferences = MutableLiveData<MutableList<MyMentee>>()
+    val selectedReferences: LiveData<MutableList<MyMentee>>
+        get() = _selectedReferences
+
+    private val _filteredReferences = MutableLiveData<MutableList<MyMentee>>()
+    val filteredReferences: LiveData<MutableList<MyMentee>>
+        get() = _filteredReferences
+
+    private val _mentorsTasks = MutableLiveData<MutableList<MentorsTask>>()
+    val mentorsTasks: LiveData<MutableList<MentorsTask>>
+        get() = _mentorsTasks
+
+    private val _taskReferences = MutableLiveData<MutableList<TaskReference>>()
+    val taskReferences: LiveData<MutableList<TaskReference>>
+        get() = _taskReferences
+
+    private val _allMentees = MutableLiveData<MutableList<MyMentee>>()
+    val allMentees: LiveData<MutableList<MyMentee>>
+        get() = _allMentees
+
+
+
+
+
+    private val _menteesEvaluations = MutableLiveData<MutableList<MenteesEvaluation>>()
+    val menteesEvaluations: LiveData<MutableList<MenteesEvaluation>>
+    get() = _menteesEvaluations
+
+    private val _isMyMentee = MutableLiveData<Boolean>()
+    val isMyMentee: LiveData<Boolean>
+    get() = _isMyMentee
+
+    private val _filteredTasks = MutableLiveData<MutableList<MentorsTask>>()
+    val filteredTasks: LiveData<MutableList<MentorsTask>>
+    get() = _filteredTasks
+
+    private val _criteria = MutableLiveData<MutableList<Criterion>>()
+    val criteria: LiveData<MutableList<Criterion>>
+    get() = _criteria
+
+    private val _detailReference = MutableLiveData<DetailTaskReference>()
+    val detailReference: LiveData<DetailTaskReference>
+    get() = _detailReference
+
+//    fun getIsSucceedValue() = isSucceed
+//    fun getMyMenteesValue() = myMentees
+//    fun getFilterListValue() = filteredReferences
+//    fun getMentorsTasksValue() = mentorsTasks
+//    fun getTaskReferencesValue() = taskReferences
+
+//    fun getAllMenteesValue() = allMentees
+//    fun getMenteesEvaluationsValue() = menteesEvaluations
+//    fun getIsMyMenteeValue() = isMyMentee
+//    fun getFilteredTasksValue() = filteredTasks
+//    fun getCriteriaValue() = criteria
+//    fun getDetailReferenceValue() = detailReference
+
     fun getSharedPref() = sharedPref
-    fun getAllMenteesValue() = allMentees
-    fun getMenteesEvaluationsValue() = menteesEvaluations
-    fun getIsMyMenteeValue() = isMyMentee
-    fun getFilteredTasksValue() = filteredTasks
-    fun getCriteriaValue() = criteria
-    fun getDetailReferenceValue() = detailReference
 
     fun getMyMenteesForTaskReference(existingList: MutableList<MyMentee>) {
         viewModelScope.launch {
@@ -55,40 +98,67 @@ class MentorViewModel(
                 existingList.forEach { existingItem ->
                     res.find { existingItem.menteeId == it.menteeId }?.isReferred = existingItem.isReferred
                 }
-                myMentees.value = res
+                _myMentees.value = res
             }
             super.setIsLoadingValue(false)
         }
     }
 
-    fun filterMentees(srcList: MutableList<MyMentee>, keyWords: String) {
+    fun filterMentees(keyWords: String) {
         viewModelScope.launch {
-            val temp = srcList.filter {
-                it.menteeName.contains(keyWords) || it.menteeNickName.contains(keyWords)
-            }?.toMutableList()
-            filteredReferences.value = temp
+            if(TextUtils.isEmpty(keyWords)) {
+                _filteredReferences.value = _myMentees.value
+            } else {
+                val temp = _myMentees.value?.filter {
+                    it.menteeName.contains(keyWords) || it.menteeNickName.contains(keyWords)
+                }?.toMutableList()
+                _filteredReferences.value = temp
+            }
         }
     }
+
+//    fun observerSelectedItem(id: String) {
+//        val selection = _myMentees.value?.find {
+//            it.menteeId == id
+//        }
+//        if(selection != null) {
+//            if(selection.isReferred == "false") {
+//                selection.isReferred = "true"
+//
+//            }
+//        }
+//    }
 
     fun filterTasks(keyWords: String) {
         viewModelScope.launch {
             if(TextUtils.isEmpty(keyWords)) {
-                filteredTasks.value = mentorsTasks.value
+                _filteredTasks.value = mentorsTasks.value
             } else {
                 val temp = mentorsTasks.value?.filter {
                     it.content.contains(keyWords) || it.deadline.contains(keyWords)
                 }?.toMutableList()
-                filteredTasks.value = temp
+                _filteredTasks.value = temp
             }
         }
     }
 
-    fun addNewTask(ownerId: String, deadline: String, taskBody: String, menteeIds: MutableList<String>, gcmIds: MutableList<String>) {
+    fun addNewTask(deadline: String, taskBody: String, referencesList: MutableList<MyMentee>) {
         viewModelScope.launch {
-            super.setIsLoadingValue(true)
-            val res = mentorRepository.addNewTask(ownerId, deadline, taskBody, menteeIds, gcmIds).body()
-            isSucceed.value = res != null
-            super.setIsLoadingValue(false)
+            val ownerId = sharedPref.getString("userId", "")
+            if(!ownerId.isNullOrEmpty()) {
+                val menteeIds = mutableListOf<String>()
+                val gcmIds = mutableListOf<String>()
+                referencesList.forEach {
+                    menteeIds.add(it.menteeId)
+                    gcmIds.add(it.gcmId)
+                }
+                // Các điều kiện đã thỏa
+                super.setIsLoadingValue(true)
+                val res = mentorRepository.addNewTask(ownerId, deadline, taskBody, menteeIds, gcmIds).body()
+                _isSuccessful.value = res != null
+                super.setIsLoadingValue(false)
+            }
+
         }
     }
 
@@ -99,7 +169,7 @@ class MentorViewModel(
             if(!mentorId.isNullOrEmpty()) {
                 val res = mentorRepository.getMentorsTasks(mentorId).body()
                 if(res != null) {
-                    mentorsTasks.value = res
+                    _mentorsTasks.value = res
                 }
             }
             super.setIsLoadingValue(false)
@@ -111,7 +181,7 @@ class MentorViewModel(
             super.setIsLoadingValue(true)
             val res = mentorRepository.getTaskReferences(taskId).body()
             if(res != null) {
-                taskReferences.value = res
+                _taskReferences.value = res
             }
             super.setIsLoadingValue(false)
         }
@@ -122,7 +192,7 @@ class MentorViewModel(
             super.setIsLoadingValue(true)
             val res = mentorRepository.getAllMentees().body()
             if(res != null) {
-                allMentees.value = res
+                _allMentees.value = res
             }
         }
     }
@@ -132,7 +202,7 @@ class MentorViewModel(
             super.setIsLoadingValue(true)
             val res = mentorRepository.getMyMentee(sharedPref.getString("userId", "")!!).body()
             if(res != null) {
-                myMentees.value = res
+                _myMentees.value = res
             }
             super.setIsLoadingValue(false)
         }
@@ -143,7 +213,7 @@ class MentorViewModel(
             super.setIsLoadingValue(true)
             val res = mentorRepository.getMenteesEvaluations(userId).body()
             if(res != null) {
-                menteesEvaluations.value = res
+                _menteesEvaluations.value = res
             }
             super.setIsLoadingValue(false)
         }
@@ -153,14 +223,14 @@ class MentorViewModel(
         viewModelScope.launch {
             val res = mentorRepository.isMyMentee(userId, myId).body()
             if(res != null) {
-                isMyMentee.value = res == "true"
+                _isMyMentee.value = res == "true"
             }
         }
     }
 
     fun generateCriteria() {
         viewModelScope.launch {
-            criteria.value = FunctionHelper.provideCriteria()
+            _criteria.value = FunctionHelper.provideCriteria()
         }
     }
 
@@ -188,7 +258,7 @@ class MentorViewModel(
             super.setIsLoadingValue(true)
             val res = mentorRepository.addEvaluation(mentorId, menteeId, fromDate, toDate, evaluation, mark).body()
             super.setIsLoadingValue(false)
-            isSucceed.value = res != null
+            _isSuccessful.value = res != null
         }
     }
 
@@ -197,7 +267,21 @@ class MentorViewModel(
             super.setIsLoadingValue(true)
             val res = mentorRepository.getDetailReference(referenceId).body()
             if(res != null) {
-                detailReference.value = res
+                _detailReference.value = res
+            }
+            super.setIsLoadingValue(false)
+        }
+    }
+
+    fun updateSpecificReferenceOfTask(mark: String, comment: String) {
+        viewModelScope.launch {
+            super.setIsLoadingValue(true)
+            val referId = detailReference.value?.referenceId.toString()
+            val res = mentorRepository.updateSpecificReferenceOfTask(referId, mark, comment).body()
+            if(res != null) {
+                super.setMessageResponseValue("Reviewed successfully")
+                delay(2000)
+                _isSuccessful.value = true
             }
             super.setIsLoadingValue(false)
         }

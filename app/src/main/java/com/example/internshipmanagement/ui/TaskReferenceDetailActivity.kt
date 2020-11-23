@@ -38,16 +38,17 @@ class TaskReferenceDetailActivity : BaseActivity() {
     }
 
     override fun setViewOnEventListener() {
-        tvTaskReferenceDetailSave.setOnClickListener {
-
-        }
+        tvTaskReferenceDetailSave.setOnClickListener { reviewMenteeTask() }
         ibReferenceDetailBack.setOnClickListener { this.finish() }
     }
 
     override fun setObserver() {
-        mentorViewModel.getDetailReferenceValue().observe(this, Observer {
+        mentorViewModel.detailReference.observe(this, Observer {
             updateDetailReferenceUI(it)
             loadMarkLevel()
+        })
+        mentorViewModel.isSuccessful.observe(this, Observer {
+            completeReviewing(it)
         })
     }
 
@@ -130,7 +131,7 @@ class TaskReferenceDetailActivity : BaseActivity() {
 
                     }
                     Glide.with(this)
-                        .load(materials[0])
+                        .load("$SERVER_URL${materials[0]}")
                         .placeholder(R.drawable.app_logo)
                         .into(image)
 
@@ -154,11 +155,11 @@ class TaskReferenceDetailActivity : BaseActivity() {
                         scaleType = ImageView.ScaleType.CENTER_CROP
                     }
                     Glide.with(this)
-                        .load(materials[0])
+                        .load("$SERVER_URL${materials[0]}")
                         .placeholder(R.drawable.app_logo)
                         .into(firstImage)
                     Glide.with(this)
-                        .load(materials[1])
+                        .load("$SERVER_URL${materials[1]}")
                         .placeholder(R.drawable.app_logo)
                         .into(secondImage)
                     layoutMaterialContainer.apply {
@@ -199,15 +200,15 @@ class TaskReferenceDetailActivity : BaseActivity() {
                         scaleType = ImageView.ScaleType.CENTER_CROP
                     }
                     Glide.with(this)
-                        .load(materials[0])
+                        .load("$SERVER_URL${materials[0]}")
                         .placeholder(R.drawable.app_logo)
                         .into(firstImage)
                     Glide.with(this)
-                        .load(materials[1])
+                        .load("$SERVER_URL${materials[1]}")
                         .placeholder(R.drawable.app_logo)
                         .into(secondImage)
                     Glide.with(this)
-                        .load(materials[2])
+                        .load("$SERVER_URL${materials[2]}")
                         .placeholder(R.drawable.app_logo)
                         .into(thirdImage)
 
@@ -269,5 +270,19 @@ class TaskReferenceDetailActivity : BaseActivity() {
             putStringArrayListExtra("materials", materials as ArrayList<String>)
         }
         startActivity(intent)
+    }
+
+    private fun reviewMenteeTask() {
+        val mark = spTaskReferenceMark.selectedItem.toString()
+        val comment = etTaskReferenceComment.text.toString().trim()
+        mentorViewModel.updateSpecificReferenceOfTask(mark, comment)
+    }
+
+    private fun completeReviewing(isSucceed: Boolean) {
+        if(isSucceed) {
+            this.finish()
+        } else {
+            super.showSnackBar("We have some error, retry!")
+        }
     }
 }

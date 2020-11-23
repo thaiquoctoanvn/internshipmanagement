@@ -55,10 +55,10 @@ class DashboardFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        mentorViewModel.getMentorsTasksValue().observe(viewLifecycleOwner, Observer {
+        mentorViewModel.mentorsTasks.observe(viewLifecycleOwner, Observer {
             updateUI(it)
         })
-        mentorViewModel.getFilteredTasksValue().observe(viewLifecycleOwner, Observer {
+        mentorViewModel.filteredTasks.observe(viewLifecycleOwner, Observer {
             updateUI(it)
         })
     }

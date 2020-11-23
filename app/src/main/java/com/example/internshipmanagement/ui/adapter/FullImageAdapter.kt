@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.transition.DrawableCrossFadeTransition
 import com.example.internshipmanagement.R
+import com.example.internshipmanagement.util.SERVER_URL
 import kotlinx.android.synthetic.main.item_full_image.view.*
 
 class FullImageAdapter : ListAdapter<String, FullImageAdapter.FullImageViewHolder>(FullImageDiffUtil()) {
@@ -33,7 +34,7 @@ class FullImageAdapter : ListAdapter<String, FullImageAdapter.FullImageViewHolde
                 fitCenter()
             }
             Glide.with(itemView)
-                .load(url)
+                .load("$SERVER_URL$url")
                 .apply(requestOption)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(itemView.ivFullImage)

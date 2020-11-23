@@ -18,9 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Internshipmanagement"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.MenteeTaskDetailActivity"></activity>
+        <activity android:name=".ui.SubmissionActivity"></activity>
+        <activity android:name=".ui.MenteeTaskDetailActivity" />
         <activity android:name=".ui.FullImageActivity" />
-        <activity android:name=".ui.TaskReferenceDetailActivity" />
+        <activity
+            android:name=".ui.TaskReferenceDetailActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity android:name=".ui.EvaluationCreatingActivity" />
         <activity android:name=".ui.EvaluationProfileActivity" />
         <activity android:name=".ui.SearchResultActivity" />

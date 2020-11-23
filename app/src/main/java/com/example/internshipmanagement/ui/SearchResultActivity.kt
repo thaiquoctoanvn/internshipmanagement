@@ -34,6 +34,7 @@ class SearchResultActivity : BaseActivity() {
                 ibClearAllSearch.visibility = View.GONE
             } else {
                 ibClearAllSearch.visibility = View.VISIBLE
+                pbSearchLoading.visibility = View.VISIBLE
                 CoroutineScope(Dispatchers.IO).launch {
                     delay(300)
                     userViewModel.searchAllUsers(it.toString())
@@ -45,7 +46,7 @@ class SearchResultActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.getSearchResultValue().observe(this, Observer {
+        userViewModel.searchResult.observe(this, Observer {
             updateSearchResultUI(it)
         })
     }
@@ -59,12 +60,15 @@ class SearchResultActivity : BaseActivity() {
         if(!this::userSearchResultAdapter.isInitialized) {
             userSearchResultAdapter = UserSearchResultAdapter(onItemClick)
         }
+        pbSearchLoading.visibility = View.GONE
         if(results.isNotEmpty()) {
             tvNoSearchResult.visibility = View.GONE
+            rvUserSearchResult.visibility = View.VISIBLE
             userSearchResultAdapter.submitList(results)
             rvUserSearchResult.adapter = userSearchResultAdapter
         } else {
             tvNoSearchResult.visibility = View.VISIBLE
+            rvUserSearchResult.visibility = View.GONE
         }
 
     }

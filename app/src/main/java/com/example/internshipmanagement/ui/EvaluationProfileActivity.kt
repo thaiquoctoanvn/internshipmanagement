@@ -35,13 +35,13 @@ class EvaluationProfileActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.getUserProfileValue().observe(this, Observer {
+        userViewModel.userProfile.observe(this, Observer {
             updateMenteeInfoUI(it)
         })
-        mentorViewModel.getMenteesEvaluationsValue().observe(this, Observer {
+        mentorViewModel.menteesEvaluations.observe(this, Observer {
             updateEvaluationsUI(it)
         })
-        mentorViewModel.getIsMyMenteeValue().observe(this, Observer {
+        mentorViewModel.isMyMentee.observe(this, Observer {
             updateManagementStatus(it)
         })
     }
@@ -77,6 +77,9 @@ class EvaluationProfileActivity : BaseActivity() {
             .placeholder(R.drawable.default_avatar)
             .circleCrop()
             .into(ivEvaluationProfile)
+        if(userProfile.type == "1") {
+            tvEvaluationProfileType.text = getString(R.string.mentor)
+        }
         val name = "${userProfile.name} (${userProfile.nickName})"
         tvEvaluationProfileName.text = name
         tvEvaluationProfilePosition.text = userProfile.role

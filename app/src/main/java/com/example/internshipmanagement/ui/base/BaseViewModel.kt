@@ -1,28 +1,38 @@
 package com.example.internshipmanagement.ui.base
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 open class BaseViewModel : ViewModel() {
-    private val isLoading = MutableLiveData<Boolean>()
-    private val eventFailure = MutableLiveData<Throwable>()
-    private val messageResponse = MutableLiveData<String>()
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+    get() = _isLoading
+
+    private val _eventFailure = MutableLiveData<Throwable>()
+    val eventFailure: LiveData<Throwable>
+    get() = _eventFailure
+
+    private val _messageResponse = MutableLiveData<String>()
+    val messageResponse: LiveData<String>
+    get() = _messageResponse
 
     fun setIsLoadingValue(value: Boolean) {
-        isLoading.value = value
+        _isLoading.value = value
     }
 
     fun setEventFailureValue(throwable: Throwable) {
-        eventFailure.value = throwable
+        _eventFailure.value = throwable
     }
 
     fun setMessageResponseValue(message: String) {
-        messageResponse.value = message
+        _messageResponse.value = message
     }
 
-    fun getIsLoadingValue() = isLoading
-
-    fun getEventFailureValue() = eventFailure
-
-    fun getMessageResponseValue() = messageResponse
+//    fun getIsLoadingValue() = isLoading
+//
+//    fun getEventFailureValue() = eventFailure
+//
+//    fun getMessageResponseValue() = messageResponse
 }

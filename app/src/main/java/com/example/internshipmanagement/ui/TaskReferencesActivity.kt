@@ -48,20 +48,22 @@ class TaskReferencesActivity : BaseActivity() {
         etSearchReferences.doAfterTextChanged {
             if(TextUtils.isEmpty(it)) {
                 ibClearAllSearch.visibility = View.GONE
+                isSearching = false
             } else {
                 ibClearAllSearch.visibility = View.VISIBLE
+                isSearching = true
             }
-            searchOnTextChange(it.toString())
+            mentorViewModel.filterMentees(it.toString())
         }
         ibClearAllSearch.setOnClickListener { etSearchReferences.setText("") }
     }
 
     override fun setObserver() {
-        mentorViewModel.getMyMenteesValue().observe(this, Observer {
+        mentorViewModel.myMentees.observe(this, Observer {
             updateUI(it)
             myMentees.addAll(it)
         })
-        mentorViewModel.getFilterListValue().observe(this, Observer {
+        mentorViewModel.filteredReferences.observe(this, Observer {
             updateUI(it)
         })
     }
@@ -71,16 +73,6 @@ class TaskReferencesActivity : BaseActivity() {
         super.setBaseObserver(mentorViewModel)
 //        setObserver()
         getMyMentees()
-    }
-
-    private fun searchOnTextChange(keyWord: String?) {
-        if(TextUtils.isEmpty(keyWord) || keyWord == null) {
-            isSearching = false
-            updateUI(myMentees)
-        } else {
-            isSearching = true
-            mentorViewModel.filterMentees(myMentees, keyWord)
-        }
     }
 
     // Hiển thị danh sách tất cả mentee mình quản lí
@@ -103,7 +95,6 @@ class TaskReferencesActivity : BaseActivity() {
 
     // Request danh sách mentee
     private fun getMyMentees() {
-        val addNewTaskIntent = intent
         val existingList = mutableListOf<MyMentee>()
         intent.getParcelableArrayListExtra<MyMentee>("referencesList")?.let {
             existingList.addAll(it)
@@ -134,7 +125,7 @@ class TaskReferencesActivity : BaseActivity() {
     }
 
     private val onItemClick: (id: String) -> Unit = {
-        val clickedItem = mentorViewModel.getMyMenteesValue().value!!.find { item ->
+        val clickedItem = mentorViewModel.myMentees.value!!.find { item ->
             it == item.menteeId
         }
         if (clickedItem != null) {
@@ -147,22 +138,23 @@ class TaskReferencesActivity : BaseActivity() {
             }
         }
         if(isSearching) {
-            taskReferencesAdapter.notifyItemChanged(mentorViewModel.getFilterListValue().value!!.indexOf(clickedItem))
+            taskReferencesAdapter.notifyItemChanged(mentorViewModel.filteredReferences.value!!.indexOf(clickedItem))
         } else {
-            taskReferencesAdapter.notifyItemChanged(mentorViewModel.getMyMenteesValue().value!!.indexOf(clickedItem))
+            taskReferencesAdapter.notifyItemChanged(mentorViewModel.myMentees.value!!.indexOf(clickedItem))
         }
+
     }
 
     // Sự kiện click nút remove trên bản xem trước mentee được chọn
     private val onItemRemove: (position: Int, id: String) -> Unit = {position: Int, id: String ->
         removePickedMentee(pickedMentees[position])
-        val target = mentorViewModel.getMyMenteesValue().value?.find { it.menteeId == id }.also {
+        val target = mentorViewModel.myMentees.value?.find { it.menteeId == id }.also {
             it?.isReferred = "false"
         }
         if(isSearching) {
-            taskReferencesAdapter.notifyItemChanged(mentorViewModel.getFilterListValue().value!!.indexOf(target))
+            taskReferencesAdapter.notifyItemChanged(mentorViewModel.filteredReferences.value!!.indexOf(target))
         } else {
-            taskReferencesAdapter.notifyItemChanged(mentorViewModel.getMyMenteesValue().value!!.indexOf(target))
+            taskReferencesAdapter.notifyItemChanged(mentorViewModel.myMentees.value!!.indexOf(target))
         }
     }
 }

@@ -45,31 +45,51 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/tvMentorTaskDetailDeadline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/tvIconIndex1"
+        android:layout_width="@dimen/lv2"
+        android:layout_height="@dimen/lv2"
         android:layout_marginStart="@dimen/lv3"
+        android:background="@drawable/ic_circle"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvMentorTaskDetailDeadline"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMentorTaskDetailDeadline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv1"
         android:layout_marginTop="@dimen/lv3"
         android:layout_marginEnd="@dimen/lv3"
         android:drawablePadding="@dimen/lv2"
         android:textColor="@color/black"
         android:textSize="@dimen/textBody"
         android:textStyle="bold"
-        app:drawableStartCompat="@drawable/ic_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvIconIndex1"
         app:layout_constraintTop_toBottomOf="@id/mentorTaskDetailHeader"
         tools:text="Deadline" />
 
     <TextView
-        android:id="@+id/tvMentorTaskDetailName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/tvIconIndex2"
+        android:layout_width="@dimen/lv2"
+        android:layout_height="@dimen/lv2"
         android:layout_marginStart="@dimen/lv3"
+        android:background="@drawable/ic_circle"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvMentorTaskDetailName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMentorTaskDetailName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv1"
         android:layout_marginTop="@dimen/lv2"
         android:layout_marginEnd="@dimen/lv3"
         android:drawablePadding="@dimen/lv2"
         android:textColor="@color/black"
         android:textSize="@dimen/textBody"
-        app:drawableStartCompat="@drawable/ic_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvIconIndex2"
         app:layout_constraintTop_toBottomOf="@id/tvMentorTaskDetailDeadline"
         tools:text="Do something" />
 
@@ -106,16 +126,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvMentorTaskDetailRefer" />
 
-        <TextView
-            android:id="@+id/tvNoData"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="@string/no_data"
-            android:textColor="@color/icon_or_text_color"
-            android:textSize="@dimen/textLargeBody"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mentorTaskDetailHeader" />
+    <TextView
+        android:id="@+id/tvNoData"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/no_data"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textLargeBody"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mentorTaskDetailHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

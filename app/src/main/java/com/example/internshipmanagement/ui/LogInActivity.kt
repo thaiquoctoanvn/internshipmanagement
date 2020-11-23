@@ -42,7 +42,7 @@ class LogInActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.getIsSucceedValue().observe(this, Observer {
+        userViewModel.isSuccessful.observe(this, Observer {
             logIn(it)
         })
     }

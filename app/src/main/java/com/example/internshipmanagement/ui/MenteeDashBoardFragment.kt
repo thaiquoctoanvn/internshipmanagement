@@ -1,5 +1,6 @@
 package com.example.internshipmanagement.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -48,10 +49,10 @@ class MenteeDashBoardFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        menteeViewModel.getMenteesTasksValue().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        menteeViewModel.menteesTasks.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             updateTaskContainerUI(it)
         })
-        menteeViewModel.getFilteredTasksValue().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        menteeViewModel.filteredTasks.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             updateTaskContainerUI(it)
         })
     }
@@ -84,7 +85,7 @@ class MenteeDashBoardFragment : BaseFragment() {
 
     private fun updateTaskContainerUI(tasks: MutableList<MenteesTask>) {
         if(!this::menteesTaskAdapter.isInitialized) {
-            menteesTaskAdapter = MenteesTaskAdapter()
+            menteesTaskAdapter = MenteesTaskAdapter(onItemClick)
             tvYourTaskTitle.text = getString(R.string.tv_all_task_dash_board, tasks.size)
             tvNoTaskDashBoard.visibility = View.GONE
         }
@@ -93,4 +94,9 @@ class MenteeDashBoardFragment : BaseFragment() {
         rvYourTask.adapter = menteesTaskAdapter
     }
 
+    private val onItemClick: (referId: String) -> Unit = {
+        val intent = Intent(requireActivity(), MenteeTaskDetailActivity::class.java)
+        intent.putExtra("referId", it)
+        startActivity(intent)
+    }
 }

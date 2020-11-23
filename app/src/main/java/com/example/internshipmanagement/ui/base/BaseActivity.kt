@@ -8,16 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
+import com.example.internshipmanagement.util.CustomizedLoadingDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 abstract class BaseActivity : AppCompatActivity() {
+
+    private lateinit var loadingDialog: CustomizedLoadingDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getActivityRootLayout())
         setViewOnEventListener()
         setObserver()
+        loadingDialog = CustomizedLoadingDialog(this)
     }
 
     abstract fun getActivityRootLayout(): Int
@@ -25,14 +30,16 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun setObserver()
 
     fun setBaseObserver(baseViewModel: BaseViewModel) {
-        baseViewModel.getIsLoadingValue().observe(this, Observer {
+        baseViewModel.isLoading.observe(this, Observer {
             if(it) {
                 Log.d("###", "Logging in")
+                loadingDialog.showLoadingDialog()
             } else {
                 Log.d("###", "Done")
+                loadingDialog.dismissDialog()
             }
         })
-        baseViewModel.getMessageResponseValue().observe(this, Observer {
+        baseViewModel.messageResponse.observe(this, Observer {
             showSnackBar(it)
         })
     }

@@ -38,13 +38,13 @@ class EvaluationCreatingActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        mentorViewModel.getCriteriaValue().observe(this, androidx.lifecycle.Observer {
+        mentorViewModel.criteria.observe(this, androidx.lifecycle.Observer {
             loadCriteria(it)
         })
-        mentorViewModel.getIsSucceedValue().observe(this, androidx.lifecycle.Observer {
+        mentorViewModel.isSuccessful.observe(this, androidx.lifecycle.Observer {
             completeEvaluationAdding(it)
         })
-        userViewModel.getUserProfileValue().observe(this, androidx.lifecycle.Observer {
+        userViewModel.userProfile.observe(this, androidx.lifecycle.Observer {
             updateMentorInfoUI(it)
             mentorViewModel.generateCriteria()
         })

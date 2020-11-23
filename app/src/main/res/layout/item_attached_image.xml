@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/coverImageHeight"
+    android:background="@color/colorTransparent"
+    app:cardCornerRadius="@dimen/lv3"
+    android:layout_marginBottom="@dimen/lv3">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivAttachedImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageButton
+            android:id="@+id/ibAttachedImageRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lv2"
+            android:background="@drawable/icon_circle_corner_background"
+            android:padding="@dimen/lv0"
+            android:src="@drawable/ic_close"
+            android:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/ivAttachedImage"
+            app:layout_constraintTop_toTopOf="@id/ivAttachedImage" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

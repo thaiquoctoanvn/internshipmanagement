@@ -29,7 +29,7 @@ class MyMenteeFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        mentorViewModel.getMyMenteesValue().observe(viewLifecycleOwner, Observer {
+        mentorViewModel.myMentees.observe(viewLifecycleOwner, Observer {
             updateMyMenteesUI(it)
         })
     }

@@ -74,13 +74,6 @@ class ProfileEditingActivity : BaseActivity() {
                     }
                 }
             }
-//            if(it.key == CAMERA_PERMISSION && it.value) {
-//                Log.d("###", "camera pass")
-//                startCamera()
-//            } else if(it.key == READ_STORAGE_PERMISSION && it.value) {
-//                Log.d("###", "gallery pass")
-//                openGallery()
-//            }
         }
     }
 
@@ -96,10 +89,10 @@ class ProfileEditingActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.getUserProfileValue().observe(this, Observer {
+        userViewModel.userProfile.observe(this, Observer {
             updateUI(it)
         })
-        userViewModel.getIsSucceedValue().observe(this, Observer {
+        userViewModel.isSuccessful.observe(this, Observer {
             completeProfileEdition(it)
         })
     }
@@ -130,9 +123,12 @@ class ProfileEditingActivity : BaseActivity() {
     private fun showRationaleDialog(isNeverShowAgain: Boolean) {
         if(!isNeverShowAgain) {
             AlertDialog.Builder(this).create().apply {
-                setTitle("Permission")
-                setMessage("Opp!, We need your permission to process this function. Please go to settings and turn on permission for us")
-                setButton(AlertDialog.BUTTON_POSITIVE, "OK", DialogInterface.OnClickListener() { dialogInterface: DialogInterface, which: Int ->
+                setTitle(getString(R.string.permission_title_message))
+                setMessage(getString(R.string.permission_message))
+                setButton(
+                    AlertDialog.BUTTON_POSITIVE,
+                    "OK",
+                    DialogInterface.OnClickListener() { dialogInterface: DialogInterface, which: Int ->
                     dismiss()
                 })
             }.show()
@@ -175,7 +171,7 @@ class ProfileEditingActivity : BaseActivity() {
     }
 
     private fun updateAvatarFromUri(uri: Uri) {
-        val sharedUserInfo = userViewModel.getUserProfileValue().value
+        val sharedUserInfo = userViewModel.userProfile.value
         Glide.with(this)
             .load(uri)
             .circleCrop()
@@ -192,7 +188,7 @@ class ProfileEditingActivity : BaseActivity() {
     }
 
     private fun updateAvatarFromBitmap(bitmap: Bitmap) {
-        val sharedUserInfo = userViewModel.getUserProfileValue().value
+        val sharedUserInfo = userViewModel.userProfile.value
         Glide.with(this)
             .load(bitmap)
             .circleCrop()
@@ -207,8 +203,6 @@ class ProfileEditingActivity : BaseActivity() {
             )
         }
     }
-
-
 
     private fun startCamera() {
         startForCameraResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))

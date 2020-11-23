@@ -13,7 +13,9 @@ import com.example.internshipmanagement.data.entity.MenteesTask
 import com.example.internshipmanagement.util.FunctionHelper
 import kotlinx.android.synthetic.main.item_mentees_task.view.*
 
-class MenteesTaskAdapter : ListAdapter<MenteesTask, MenteesTaskAdapter.MenteesTaskViewHolder>(MenteesTaskDiffUtil()) {
+class MenteesTaskAdapter(
+    private val onItemClick: (referId: String) -> Unit
+) : ListAdapter<MenteesTask, MenteesTaskAdapter.MenteesTaskViewHolder>(MenteesTaskDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenteesTaskViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -35,6 +37,8 @@ class MenteesTaskAdapter : ListAdapter<MenteesTask, MenteesTaskAdapter.MenteesTa
                 itemView.tvItemMenteesTaskReviewedState.visibility = View.VISIBLE
                 itemView.tvIconIndex.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.mentor_strong_color))
             }
+
+            itemView.setOnClickListener { onItemClick(menteesTask.id) }
         }
     }
 }

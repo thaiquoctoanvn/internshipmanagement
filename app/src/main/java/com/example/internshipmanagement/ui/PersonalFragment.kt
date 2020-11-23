@@ -41,10 +41,10 @@ class PersonalFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        userViewModel.getUserProfileValue().observe(viewLifecycleOwner, Observer {
+        userViewModel.userProfile.observe(viewLifecycleOwner, Observer {
             updateUI(it)
         })
-        userViewModel.getIsSucceedValue().observe(viewLifecycleOwner, Observer {
+        userViewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
             finishSession(it)
         })
     }

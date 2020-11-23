@@ -4,6 +4,201 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorTransparent"
     tools:context=".ui.MenteeTaskDetailActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/menteeTaskDetailHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_or_bottom_view_color"
+        android:paddingStart="@dimen/lv3"
+        android:paddingTop="@dimen/lv2"
+        android:paddingEnd="@dimen/lv3"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibMenteeTaskDetailBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_arrow_back_ios"
+            android:tint="@color/mentee_strong_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvMenteeTaskDetailTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvMenteeTaskDetailTitle" />
+
+        <TextView
+            android:id="@+id/tvMenteeTaskDetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mentor_task_detail"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textTitle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ibDetailSubmission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_info"
+            android:tint="@color/mentee_strong_color"
+            app:layout_constraintBottom_toBottomOf="@id/tvMenteeTaskDetailTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvMenteeTaskDetailTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:fillViewport="true"
+        android:paddingBottom="@dimen/lv2"
+        app:layout_constraintBottom_toTopOf="@id/tvSubmit"
+        app:layout_constraintTop_toBottomOf="@id/menteeTaskDetailHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tvIconIndex1"
+                android:layout_width="@dimen/lv2"
+                android:layout_height="@dimen/lv2"
+                android:layout_marginStart="@dimen/lv3"
+                android:background="@drawable/ic_circle"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvMenteeTaskDetailDeadline"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvMenteeTaskDetailDeadline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/lv1"
+                android:layout_marginTop="@dimen/lv3"
+                android:layout_marginEnd="@dimen/lv3"
+                android:drawablePadding="@dimen/lv2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textBody"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvIconIndex1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Deadline" />
+
+            <TextView
+                android:id="@+id/tvIconIndex2"
+                android:layout_width="@dimen/lv2"
+                android:layout_height="@dimen/lv2"
+                android:layout_marginStart="@dimen/lv3"
+                android:background="@drawable/ic_circle"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvMenteeTaskDetailName"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvMenteeTaskDetailName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/lv1"
+                android:layout_marginTop="@dimen/lv2"
+                android:layout_marginEnd="@dimen/lv3"
+                android:drawablePadding="@dimen/lv2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textBody"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvIconIndex2"
+                app:layout_constraintTop_toBottomOf="@id/tvMenteeTaskDetailDeadline"
+                tools:text="Do something" />
+
+            <View
+                android:id="@+id/separateLineMentorTaskDetail"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/lv3"
+                android:background="@color/separate_line_or_et_background_color"
+                app:layout_constraintTop_toBottomOf="@id/tvMenteeTaskDetailName" />
+
+
+            <TextView
+                android:id="@+id/tvMenteeTaskDetailStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/lv3"
+                android:layout_marginTop="@dimen/lv2"
+                android:drawablePadding="@dimen/lv1"
+                android:text="@string/not_submitted_state"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textBody"
+                app:drawableStartCompat="@drawable/ic_history"
+                app:drawableTint="@color/mentee_strong_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separateLineMentorTaskDetail" />
+
+            <TextView
+                android:id="@+id/tvMenteeTaskDetailMark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/lv1"
+                android:drawablePadding="@dimen/lv1"
+                android:text="@string/mark_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textBody"
+                app:drawableStartCompat="@drawable/ic_label"
+                app:drawableTint="@color/mentee_strong_color"
+                app:layout_constraintStart_toStartOf="@id/tvMenteeTaskDetailStatus"
+                app:layout_constraintTop_toBottomOf="@id/tvMenteeTaskDetailStatus" />
+
+            <TextView
+                android:id="@+id/tvYourMentorTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/lv2"
+                android:text="@string/comment_from_mentor"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textBody"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tvMenteeTaskDetailStatus"
+                app:layout_constraintTop_toBottomOf="@id/tvMenteeTaskDetailMark" />
+
+            <TextView
+                android:id="@+id/tvYourMentorCommentContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/lv3"
+                android:layout_marginTop="@dimen/lv0"
+                android:layout_marginEnd="@dimen/lv3"
+                android:text="@string/have_no_comment_yet"
+                android:textColor="@color/icon_or_text_color"
+                android:textSize="@dimen/textBody"
+                app:layout_constraintTop_toBottomOf="@id/tvYourMentorTitle" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tvSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginEnd="@dimen/lv3"
+        android:layout_marginBottom="@dimen/lv3"
+        android:background="@drawable/tv_round_corner_full_solid"
+        android:gravity="center"
+        android:paddingTop="@dimen/lv2"
+        android:paddingBottom="@dimen/lv2"
+        android:text="@string/prepare_button"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textBody"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

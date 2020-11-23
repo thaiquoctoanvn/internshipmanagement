@@ -32,7 +32,7 @@ class MentorTaskDetailActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        mentorViewModel.getTaskReferencesValue().observe(this, Observer {
+        mentorViewModel.taskReferences.observe(this, Observer {
             updateReferencesUI(it)
         })
     }

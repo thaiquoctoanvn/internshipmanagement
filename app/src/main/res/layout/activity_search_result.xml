@@ -68,6 +68,7 @@
         android:paddingStart="@dimen/lv3"
         android:paddingTop="@dimen/lv3"
         android:paddingEnd="@dimen/lv3"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SearchUserHeader" />
@@ -76,10 +77,24 @@
         android:id="@+id/tvNoSearchResult"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
         android:background="@color/white"
+        android:gravity="center"
         android:text="@string/no_search_result"
         android:textSize="@dimen/textBody"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SearchUserHeader" />
+
+    <ProgressBar
+        android:id="@+id/pbSearchLoading"
+        android:layout_width="@dimen/lv3"
+        android:layout_height="@dimen/lv3"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/status_bar_color"
+        android:indeterminateTintMode="src_atop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SearchUserHeader"
+        app:layout_constraintVertical_bias="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

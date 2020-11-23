@@ -2,6 +2,8 @@ package com.example.internshipmanagement.data.repository
 
 import com.example.internshipmanagement.data.entity.*
 import com.example.internshipmanagement.data.remote.APIService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 class MentorRepository(private val apiService: APIService) {
@@ -48,5 +50,17 @@ class MentorRepository(private val apiService: APIService) {
 
     suspend fun getDetailReference(referenceId: String): Response<DetailTaskReference> {
         return apiService.getDetailReference(referenceId)
+    }
+
+    suspend fun updateSpecificReferenceOfTask(
+        referenceId: String,
+        mark: String,
+        comment: String
+    ): Response<String> {
+        var response: Response<String>
+        withContext(Dispatchers.IO) {
+            response = apiService.updateSpecificReferenceOfTask(referenceId, mark, comment)
+        }
+        return response
     }
 }
