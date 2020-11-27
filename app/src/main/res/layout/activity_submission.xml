@@ -77,7 +77,9 @@
                 android:layout_marginTop="@dimen/lv4"
                 android:layout_marginEnd="@dimen/lv3"
                 android:background="@color/white"
+                android:gravity="left"
                 android:hint="@string/submission_note"
+                android:minLines="5"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textBody"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -43,9 +43,18 @@ class MentorRepository(private val apiService: APIService) {
         fromDate: String,
         toDate: String,
         evaluation: String,
-        mark: String
+        marks: MutableList<Criterion>
     ): Response<String> {
-        return apiService.addEvaluation(mentorId, menteeId, fromDate, toDate, evaluation, mark)
+        return apiService.addEvaluation(
+            mentorId,
+            menteeId,
+            fromDate,
+            toDate,
+            evaluation,
+            marks[0].mark,
+            marks[1].mark,
+            marks[2].mark
+        )
     }
 
     suspend fun getDetailReference(referenceId: String): Response<DetailTaskReference> {

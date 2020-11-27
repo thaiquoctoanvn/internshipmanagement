@@ -37,6 +37,11 @@ class MenteesTaskAdapter(
                 itemView.tvItemMenteesTaskReviewedState.visibility = View.VISIBLE
                 itemView.tvIconIndex.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.mentor_strong_color))
             }
+            if(menteesTask.isSubmitted == "0") {
+                itemView.tvMenteesTaskSubmittedState.visibility = View.GONE
+            } else {
+                itemView.tvMenteesTaskSubmittedState.visibility = View.VISIBLE
+            }
 
             itemView.setOnClickListener { onItemClick(menteesTask.id) }
         }

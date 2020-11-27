@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.internshipmanagement.data.entity.CriterionPoint
+import com.example.internshipmanagement.data.entity.Notification
 import com.example.internshipmanagement.data.entity.PersonalInfo
 import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.data.repository.UserRepository
@@ -32,6 +34,14 @@ class UserViewModel(
     private val _searchResult = MutableLiveData<MutableList<UserProfile>>()
     val searchResult: LiveData<MutableList<UserProfile>>
         get() = _searchResult
+
+    private val _criteriaPoints = MutableLiveData<MutableList<CriterionPoint>>()
+    val criteriaPoints: LiveData<MutableList<CriterionPoint>>
+        get() = _criteriaPoints
+
+    private val _notifications = MutableLiveData<MutableList<Notification>>()
+    val notifications: LiveData<MutableList<Notification>>
+        get() = _notifications
 
 
     fun getSharedPref() = sharedPref
@@ -192,6 +202,27 @@ class UserViewModel(
             putString("type", type)
             putString("avatarUrl", avatarUrl)
         }.apply()
+    }
+
+    fun getCriteriaPoints() {
+        viewModelScope.launch {
+            val menteeId = userProfile.value?.userId.toString()
+            val res = userRepository.getCriteriaPoints(menteeId).body()
+            if(res != null) {
+                _criteriaPoints.value = res
+            }
+        }
+    }
+
+    fun getUsersNotifications() {
+        viewModelScope.launch {
+            val toId = sharedPref.getString("userId", "")
+            val res = userRepository.getUsersNotifications(toId.toString()).body()
+            if(res != null) {
+                res.sortByDescending { it.createdAt.toLong() }
+                _notifications.value = res
+            }
+        }
     }
 
 }

@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/lv3">
+    android:layout_marginStart="@dimen/lv3"
+    android:layout_marginEnd="@dimen/lv3"
+    android:layout_marginBottom="@dimen/lv3"
+    android:background="@drawable/item_rv_background"
+    android:elevation="@dimen/lv1"
+    android:padding="@dimen/lv2">
 
     <TextView
         android:id="@+id/tvIconIndex"
@@ -51,12 +56,4 @@
         app:layout_constraintTop_toBottomOf="@id/tvItemMentorTaskDeadline"
         tools:text="3/4 mentees is submitted" />
 
-    <View
-        android:id="@+id/separateLineItemMenteesTask"
-        android:layout_width="@dimen/lv2"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/lv1"
-        android:background="@color/grey"
-        app:layout_constraintStart_toStartOf="@id/tvItemMentorTaskName"
-        app:layout_constraintTop_toBottomOf="@id/tvItemMentorTaskStatus" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -56,96 +57,105 @@
             app:layout_constraintTop_toTopOf="@id/tvGreeting" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/etSearchDashBoard"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/searchBoxHeight"
-        android:layout_marginStart="@dimen/lv3"
-        android:layout_marginTop="@dimen/lv5"
-        android:layout_marginEnd="@dimen/lv3"
-        android:background="@drawable/et_or_btn_round_corner"
-        android:backgroundTint="@color/separate_line_or_et_background_color"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="@dimen/lv1"
-        android:hint="@string/et_search_task"
-        android:inputType="text"
-        android:maxLines="1"
-        android:paddingStart="@dimen/lv1"
-        android:paddingEnd="@dimen/lv3"
-        android:textSize="@dimen/textBody"
-        app:layout_constraintTop_toBottomOf="@id/dashBoardHeader" />
-
-    <ImageButton
-        android:id="@+id/ibClearAllSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/lv1"
-        android:background="@color/colorTransparent"
-        android:src="@drawable/ic_circle_cancel"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/etSearchDashBoard"
-        app:layout_constraintEnd_toEndOf="@id/etSearchDashBoard"
-        app:layout_constraintTop_toTopOf="@id/etSearchDashBoard" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMentorsTasksSearch"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/slDashBoard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingStart="@dimen/lv3"
-        android:paddingTop="@dimen/lv2"
-        android:paddingEnd="@dimen/lv3"
-        android:paddingBottom="@dimen/lv2"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvYourTaskTitle" />
+        app:layout_constraintTop_toBottomOf="@id/dashBoardHeader">
 
-    <TextView
-        android:id="@+id/tvYourTaskTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/lv3"
-        android:layout_marginTop="@dimen/lv4"
-        android:text="@string/tv_all_task_dash_board"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textBody"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etSearchDashBoard" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
-    <ImageButton
-        android:id="@+id/ibAddTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/lv3"
-        android:background="@color/colorTransparent"
-        android:src="@drawable/ic_add"
-        android:tint="@color/mentee_strong_color"
-        app:layout_constraintBottom_toBottomOf="@id/tvYourTaskTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvYourTaskTitle" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvYourTask"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingStart="@dimen/lv3"
-        android:paddingTop="@dimen/lv2"
-        android:paddingEnd="@dimen/lv3"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvYourTaskTitle" />
+                <EditText
+                    android:id="@+id/etSearchDashBoard"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/searchBoxHeight"
+                    android:layout_marginStart="@dimen/lv3"
+                    android:layout_marginTop="@dimen/lv3"
+                    android:layout_marginEnd="@dimen/lv3"
+                    android:background="@drawable/et_or_btn_round_corner"
+                    android:backgroundTint="@color/separate_line_or_et_background_color"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="@dimen/lv1"
+                    android:hint="@string/et_search_task"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/lv1"
+                    android:paddingEnd="@dimen/lv3"
+                    android:textSize="@dimen/textBody"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvNoTaskDashBoard"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="@string/no_task"
-        android:textColor="@color/icon_or_text_color"
-        android:textSize="@dimen/textBody"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/rvYourTask" />
+                <ImageButton
+                    android:id="@+id/ibClearAllSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/lv1"
+                    android:background="@color/colorTransparent"
+                    android:src="@drawable/ic_circle_cancel"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/etSearchDashBoard"
+                    app:layout_constraintEnd_toEndOf="@id/etSearchDashBoard"
+                    app:layout_constraintTop_toTopOf="@id/etSearchDashBoard" />
 
+
+                <TextView
+                    android:id="@+id/tvYourTaskTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/lv3"
+                    android:layout_marginTop="@dimen/lv4"
+                    android:text="@string/tv_all_task_dash_board"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textBody"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etSearchDashBoard" />
+
+                <ImageButton
+                    android:id="@+id/ibAddTask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/lv3"
+                    android:background="@color/colorTransparent"
+                    android:src="@drawable/ic_add"
+                    android:tint="@color/mentee_strong_color"
+                    app:layout_constraintBottom_toBottomOf="@id/tvYourTaskTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvYourTaskTitle" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvYourTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/lv2"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvYourTaskTitle" />
+
+                <TextView
+                    android:id="@+id/tvNoTaskDashBoard"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="@string/no_task"
+                    android:textColor="@color/icon_or_text_color"
+                    android:textSize="@dimen/textBody"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/rvYourTask" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+

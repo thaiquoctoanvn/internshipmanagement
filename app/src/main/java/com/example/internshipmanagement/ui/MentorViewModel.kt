@@ -155,8 +155,10 @@ class MentorViewModel(
                 // Các điều kiện đã thỏa
                 super.setIsLoadingValue(true)
                 val res = mentorRepository.addNewTask(ownerId, deadline, taskBody, menteeIds, gcmIds).body()
-                _isSuccessful.value = res != null
                 super.setIsLoadingValue(false)
+                super.setMessageResponseValue("Add task successfully")
+                delay(1000)
+                _isSuccessful.value = res != null
             }
 
         }
@@ -169,6 +171,7 @@ class MentorViewModel(
             if(!mentorId.isNullOrEmpty()) {
                 val res = mentorRepository.getMentorsTasks(mentorId).body()
                 if(res != null) {
+                    res.sortByDescending { it.deadline.toLong() }
                     _mentorsTasks.value = res
                 }
             }
@@ -247,17 +250,28 @@ class MentorViewModel(
         return average / counter
     }
 
+    fun hasMarked(): Boolean {
+        criteria.value?.forEach {
+            if(it.mark.toInt() <= 0) {
+                return false
+            }
+        }
+        return true
+    }
+
     fun addEvaluation(
         mentorId: String,
         menteeId: String,
         fromDate: String,
         toDate: String,
-        evaluation: String,
-        mark: String) {
+        evaluation: String
+    ) {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
-            val res = mentorRepository.addEvaluation(mentorId, menteeId, fromDate, toDate, evaluation, mark).body()
+            val res = mentorRepository.addEvaluation(mentorId, menteeId, fromDate, toDate, evaluation, criteria.value!!).body()
             super.setIsLoadingValue(false)
+            super.setMessageResponseValue("Evaluation added successfully")
+            delay(1000)
             _isSuccessful.value = res != null
         }
     }

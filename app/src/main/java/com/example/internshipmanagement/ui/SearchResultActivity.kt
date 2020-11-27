@@ -32,6 +32,7 @@ class SearchResultActivity : BaseActivity() {
         etSearchUser.doAfterTextChanged {
             if(TextUtils.isEmpty(it)) {
                 ibClearAllSearch.visibility = View.GONE
+                pbSearchLoading.visibility = View.GONE
             } else {
                 ibClearAllSearch.visibility = View.VISIBLE
                 pbSearchLoading.visibility = View.VISIBLE

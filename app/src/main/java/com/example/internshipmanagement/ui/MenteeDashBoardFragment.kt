@@ -1,6 +1,9 @@
 package com.example.internshipmanagement.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -14,6 +17,7 @@ import com.example.internshipmanagement.data.entity.MenteesTask
 import com.example.internshipmanagement.ui.adapter.MenteesTaskAdapter
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
+import com.example.internshipmanagement.util.SUBMISSION_PUSH
 import kotlinx.android.synthetic.main.fragment_mentee_dash_board.*
 import kotlinx.android.synthetic.main.fragment_mentee_dash_board.ibClearAllSearch
 import kotlinx.android.synthetic.main.fragment_mentee_dash_board.rvYourTask
@@ -31,6 +35,7 @@ class MenteeDashBoardFragment : BaseFragment() {
     private val menteeViewModel by viewModel<MenteeViewModel>()
 
     private lateinit var menteesTaskAdapter: MenteesTaskAdapter
+    private lateinit var submissionPush: BroadcastReceiver
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_mentee_dash_board
@@ -46,6 +51,10 @@ class MenteeDashBoardFragment : BaseFragment() {
             menteeViewModel.filterTasks(it.toString())
         }
         ibClearAllSearch.setOnClickListener { etSearchDashBoard.setText("") }
+        ibNotificationMenteeDashBoard.setOnClickListener {
+            startActivity(Intent(requireActivity(), NotificationActivity::class.java))
+        }
+        slMenteeDashBoard.setOnRefreshListener { refreshMenteeTaskData() }
     }
 
     override fun setObserverFragment() {
@@ -60,8 +69,31 @@ class MenteeDashBoardFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sayGreeting()
+        listenBroadcast()
+        registerBroadcast()
         userViewModel.registerFCM()
         menteeViewModel.getMenteesTask()
+    }
+
+    private fun registerBroadcast() {
+        activity?.registerReceiver(submissionPush, IntentFilter(SUBMISSION_PUSH))
+    }
+
+    private fun listenBroadcast() {
+        submissionPush = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if(intent != null) {
+                    val referId = intent.getStringExtra("referId")
+                    val targetItem = menteeViewModel.menteesTasks.value?.find { it.id == referId }
+                    targetItem?.let {
+                        it.isSubmitted = "1"
+                        val position = menteeViewModel.menteesTasks.value?.indexOf(it)
+                        menteesTaskAdapter.notifyItemChanged(position!!)
+                    }
+
+                }
+            }
+        }
     }
 
     private fun sayGreeting() {
@@ -84,6 +116,7 @@ class MenteeDashBoardFragment : BaseFragment() {
     }
 
     private fun updateTaskContainerUI(tasks: MutableList<MenteesTask>) {
+        slMenteeDashBoard.isRefreshing = false
         if(!this::menteesTaskAdapter.isInitialized) {
             menteesTaskAdapter = MenteesTaskAdapter(onItemClick)
             tvYourTaskTitle.text = getString(R.string.tv_all_task_dash_board, tasks.size)
@@ -92,6 +125,15 @@ class MenteeDashBoardFragment : BaseFragment() {
 
         menteesTaskAdapter.submitList(tasks)
         rvYourTask.adapter = menteesTaskAdapter
+    }
+
+    private fun refreshMenteeTaskData() {
+        slMenteeDashBoard.setColorSchemeResources(
+            R.color.behavior_color,
+            R.color.knowledge_color,
+            R.color.proactive_color
+        )
+        menteeViewModel.getMenteesTask()
     }
 
     private val onItemClick: (referId: String) -> Unit = {

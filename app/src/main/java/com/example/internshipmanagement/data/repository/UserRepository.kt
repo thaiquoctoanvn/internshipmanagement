@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import com.example.internshipmanagement.data.entity.CriterionPoint
+import com.example.internshipmanagement.data.entity.Notification
 import com.example.internshipmanagement.data.entity.PersonalInfo
 import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.data.remote.APIService
@@ -102,6 +104,20 @@ class UserRepository(private val apiService: APIService) {
             response = apiService.searchAllUsers(key)
         }
         return response
+    }
+
+    suspend fun getCriteriaPoints(menteeId: String): Response<MutableList<CriterionPoint>> {
+        var response: Response<MutableList<CriterionPoint>>
+        withContext(Dispatchers.IO) {
+            response = apiService.getCriteriaPoints(menteeId)
+        }
+        return response
+    }
+
+    suspend fun getUsersNotifications(toId: String): Response<MutableList<Notification>> {
+        return withContext(Dispatchers.IO) {
+            apiService.getUsersNotifications(toId)
+        }
     }
 
 }

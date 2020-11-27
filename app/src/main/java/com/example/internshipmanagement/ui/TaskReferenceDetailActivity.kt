@@ -77,7 +77,8 @@ class TaskReferenceDetailActivity : BaseActivity() {
         tvNoData.visibility = View.GONE
         if(data.materials.size > 0) {
             layoutMaterialContainer.visibility = View.VISIBLE
-            generateImageMaterials(data.materials)
+
+            generateThumbnails(data.materials)
         }
         val name = "${data.menteeName} (${data.menteeNickName})"
         tvReferenceDetailName.text = name
@@ -116,151 +117,10 @@ class TaskReferenceDetailActivity : BaseActivity() {
 
     }
 
-    private fun generateImageMaterials(materials: MutableList<String>) {
-        val number = materials.size
-        if(number > 0) {
-            val widthScreen = resources.displayMetrics.widthPixels
-            val set = ConstraintSet()
-            when(number) {
-                0 -> return
-                1 -> {
-                    val image = ImageView(this).apply {
-                        layoutParams = ConstraintLayout.LayoutParams(Constraints.LayoutParams.MATCH_PARENT, widthScreen / 2)
-                        id = View.generateViewId()
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-
-                    }
-                    Glide.with(this)
-                        .load("$SERVER_URL${materials[0]}")
-                        .placeholder(R.drawable.app_logo)
-                        .into(image)
-
-                    layoutMaterialContainer.addView(image)
-                    set.clone(layoutMaterialContainer)
-
-                    set.connect(image.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-                    set.connect(image.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-
-                    image.setOnClickListener { openFullImage(0, materials) }
-                }
-                2 -> {
-                    val firstImage = ImageView(this).apply {
-                        layoutParams = ConstraintLayout.LayoutParams(widthScreen / 2, widthScreen / 2)
-                        id = View.generateViewId()
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-                    }
-                    val secondImage = ImageView(this).apply {
-                        layoutParams = ConstraintLayout.LayoutParams(widthScreen / 2, widthScreen / 2)
-                        id = View.generateViewId()
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-                    }
-                    Glide.with(this)
-                        .load("$SERVER_URL${materials[0]}")
-                        .placeholder(R.drawable.app_logo)
-                        .into(firstImage)
-                    Glide.with(this)
-                        .load("$SERVER_URL${materials[1]}")
-                        .placeholder(R.drawable.app_logo)
-                        .into(secondImage)
-                    layoutMaterialContainer.apply {
-                        addView(firstImage)
-                        addView(secondImage)
-                    }
-                    set.clone(layoutMaterialContainer)
-                    set.connect(firstImage.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-                    set.connect(secondImage.id, ConstraintSet.TOP, firstImage.id, ConstraintSet.TOP)
-                    set.createHorizontalChain(
-                        ConstraintSet.PARENT_ID,
-                        ConstraintSet.LEFT,
-                        ConstraintSet.PARENT_ID,
-                        ConstraintSet.RIGHT,
-                        arrayOf(firstImage.id, secondImage.id).toIntArray(),
-                        null,
-                        ConstraintSet.CHAIN_SPREAD
-                    )
-
-                    firstImage.setOnClickListener { openFullImage(0, materials) }
-                    secondImage.setOnClickListener { openFullImage(1, materials) }
-                }
-                else -> {
-
-                    val firstImage = ImageView(this).apply {
-                        layoutParams = ConstraintLayout.LayoutParams((widthScreen * 0.6).toInt(), widthScreen / 2)
-                        id = View.generateViewId()
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-                    }
-                    val secondImage = ImageView(this).apply {
-                        layoutParams = ConstraintLayout.LayoutParams(0, widthScreen / 2 / 2)
-                        id = View.generateViewId()
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-                    }
-                    val thirdImage = ImageView(this).apply {
-                        layoutParams = ConstraintLayout.LayoutParams(0, widthScreen / 2 / 2)
-                        id = View.generateViewId()
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-                    }
-                    Glide.with(this)
-                        .load("$SERVER_URL${materials[0]}")
-                        .placeholder(R.drawable.app_logo)
-                        .into(firstImage)
-                    Glide.with(this)
-                        .load("$SERVER_URL${materials[1]}")
-                        .placeholder(R.drawable.app_logo)
-                        .into(secondImage)
-                    Glide.with(this)
-                        .load("$SERVER_URL${materials[2]}")
-                        .placeholder(R.drawable.app_logo)
-                        .into(thirdImage)
-
-                    layoutMaterialContainer.apply {
-                        addView(firstImage)
-                        addView(secondImage)
-                        addView(thirdImage)
-                    }
-
-                    set.clone(layoutMaterialContainer)
-                    set.connect(firstImage.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-                    set.connect(firstImage.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-
-                    set.connect(secondImage.id, ConstraintSet.START, firstImage.id, ConstraintSet.END)
-                    set.connect(secondImage.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-
-                    set.connect(thirdImage.id, ConstraintSet.START, secondImage.id, ConstraintSet.START)
-                    set.connect(thirdImage.id, ConstraintSet.END, secondImage.id, ConstraintSet.END)
-
-                    set.createVerticalChain(
-                        firstImage.id,
-                        ConstraintSet.TOP,
-                        firstImage.id,
-                        ConstraintSet.BOTTOM,
-                        arrayOf(secondImage.id, thirdImage.id).toIntArray(),
-                        null,
-                        ConstraintSet.CHAIN_SPREAD
-                    )
-                    if(number > 3) {
-                        val viewOpacity = TextView(this).apply {
-                            layoutParams = ConstraintLayout.LayoutParams(0, 0)
-                            typeface = Typeface.DEFAULT_BOLD
-                            text = "+${materials.size - 3}"
-                            gravity = Gravity.CENTER
-                            setBackgroundResource(R.color.black_opacity)
-                            setTextColor(ContextCompat.getColor(this.context, R.color.white))
-                            id = View.generateViewId()
-                        }
-                        layoutMaterialContainer.addView(viewOpacity)
-
-                        set.connect(viewOpacity.id, ConstraintSet.START, thirdImage.id, ConstraintSet.START)
-                        set.connect(viewOpacity.id, ConstraintSet.END, thirdImage.id, ConstraintSet.END)
-                        set.connect(viewOpacity.id, ConstraintSet.TOP, thirdImage.id, ConstraintSet.TOP)
-                        set.connect(viewOpacity.id, ConstraintSet.BOTTOM, thirdImage.id, ConstraintSet.BOTTOM)
-                        viewOpacity.setOnClickListener { openFullImage(2, materials) }
-                    }
-                    firstImage.setOnClickListener { openFullImage(0, materials) }
-                    secondImage.setOnClickListener { openFullImage(1, materials) }
-                    thirdImage.setOnClickListener { openFullImage(2, materials) }
-                }
-            }
-            set.applyTo(layoutMaterialContainer)
+    private fun generateThumbnails(materials: MutableList<String>) {
+        val thumbnails = FunctionHelper.generateImageMaterials(this, materials, layoutMaterialContainer)
+        thumbnails.forEachIndexed { index, view ->
+            view.setOnClickListener { openFullImage(index, materials) }
         }
     }
 

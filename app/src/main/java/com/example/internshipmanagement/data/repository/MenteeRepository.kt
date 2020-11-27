@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import com.example.internshipmanagement.data.entity.MenteeTaskDetail
 import com.example.internshipmanagement.data.entity.MenteesTask
+import com.example.internshipmanagement.data.entity.MyMentor
 import com.example.internshipmanagement.data.remote.APIService
 import com.example.internshipmanagement.util.FunctionHelper
 import kotlinx.coroutines.Dispatchers
@@ -93,6 +94,14 @@ class MenteeRepository(private val apiService: APIService) {
                 taskNoteRequest,
                 imageNumberRequest
             )
+        }
+        return response
+    }
+
+    suspend fun getMyMentor(menteeId: String): Response<MutableList<MyMentor>> {
+        var response: Response<MutableList<MyMentor>>
+        withContext(Dispatchers.IO) {
+            response = apiService.getMyMentor(menteeId)
         }
         return response
     }

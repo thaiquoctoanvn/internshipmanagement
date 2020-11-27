@@ -38,6 +38,7 @@ class PersonalFragment : BaseFragment() {
         ibPersonalOption.setOnClickListener { showPersonalOptions() }
         tvEditProfile.setOnClickListener { switchToEditProfileActivity() }
         tvProfileEvaluation.setOnClickListener { switchToEvaluationProfile() }
+        slPersonalFragment.setOnRefreshListener { retrievePersonalInfo() }
     }
 
     override fun setObserverFragment() {
@@ -55,10 +56,6 @@ class PersonalFragment : BaseFragment() {
         registerBroadcast()
         retrievePersonalInfo()
         super.setBaseObserverFragment(userViewModel)
-        if(super.isMentorAccount(userViewModel.getSharedPref().getString("type", "")!!)) {
-            ivIconEvaluation.visibility = View.GONE
-            tvProfileEvaluation.visibility = View.GONE
-        }
     }
 
     private fun retrievePersonalInfo() {
@@ -69,6 +66,11 @@ class PersonalFragment : BaseFragment() {
     }
 
     private fun updateUI(userProfile: UserProfile) {
+        slPersonalFragment.isRefreshing = false
+        if(super.isMentorAccount(userViewModel.getSharedPref().getString("type", "")!!)) {
+            ivIconEvaluation.visibility = View.GONE
+            tvProfileEvaluation.visibility = View.GONE
+        }
         val nickName = "@" + userProfile.nickName
         tvProfileName.text = userProfile.name
         tvNickName.text = nickName

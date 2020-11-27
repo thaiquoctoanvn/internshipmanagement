@@ -21,6 +21,8 @@ class MainActivity : BaseActivity() {
     private lateinit var dashboardFragment: DashboardFragment
     private lateinit var searchFragment: SearchFragment
     private lateinit var menteeDashBoardFragment: MenteeDashBoardFragment
+    private lateinit var menteeSearchFragment: MenteeSearchFragment
+
     private lateinit var calendarFragment: CalendarFragment
     private lateinit var personalFragment: PersonalFragment
 
@@ -77,16 +79,18 @@ class MainActivity : BaseActivity() {
             baseScreen2 = searchFragment
             baseScreen3 = calendarFragment
             baseScreen4 = personalFragment
+
             activeFragment = dashboardFragment
         } else {
             menteeDashBoardFragment = MenteeDashBoardFragment()
-            searchFragment = SearchFragment()
+            menteeSearchFragment = MenteeSearchFragment()
             calendarFragment = CalendarFragment()
             personalFragment = PersonalFragment()
             baseScreen1 = menteeDashBoardFragment
-            baseScreen2 = searchFragment
+            baseScreen2 = menteeSearchFragment
             baseScreen3 = calendarFragment
             baseScreen4 = personalFragment
+
             activeFragment = menteeDashBoardFragment
         }
         supportFragmentManager.beginTransaction().apply {

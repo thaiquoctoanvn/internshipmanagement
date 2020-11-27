@@ -97,7 +97,9 @@ interface APIService {
         @Field("from_date") fromDate: String,
         @Field("to_date") toDate: String,
         @Field("evaluation") evaluation: String,
-        @Field("mark") mark: String
+        @Field("mark1") mark1: String,
+        @Field("mark2") mark2: String,
+        @Field("mark3") mark3: String
     ): Response<String>
 
     // Lấy chi tiết bài nộp của mentee
@@ -125,4 +127,13 @@ interface APIService {
         @Part("note") taskNote: RequestBody,
         @Part("image_number")  materialsSize: RequestBody
     ): Response<String>
+
+    @GET("getMyMentor.php")
+    suspend fun getMyMentor(@Query("mentee_id") menteeId: String): Response<MutableList<MyMentor>>
+
+    @GET("getCriteriaPoints.php")
+    suspend fun getCriteriaPoints(@Query("mentee_id") menteeId: String): Response<MutableList<CriterionPoint>>
+
+    @GET("getUsersNotifications.php")
+    suspend fun getUsersNotifications(@Query("to_id") toId: String): Response<MutableList<Notification>>
 }

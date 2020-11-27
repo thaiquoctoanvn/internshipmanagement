@@ -10,7 +10,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.internshipmanagement.data.entity.MenteeTaskDetail
 import com.example.internshipmanagement.data.entity.MenteesTask
+import com.example.internshipmanagement.data.entity.MyMentor
 import com.example.internshipmanagement.data.repository.MenteeRepository
+import com.example.internshipmanagement.di.apiModule
 import com.example.internshipmanagement.ui.base.BaseViewModel
 import com.example.internshipmanagement.util.SUCCEED_MESSAGE
 import kotlinx.coroutines.delay
@@ -37,6 +39,10 @@ class MenteeViewModel(
     val menteeTaskDetail: LiveData<MenteeTaskDetail>
         get() = _menteeTaskDetail
 
+    private val _myMentor = MutableLiveData<MutableList<MyMentor>>()
+    val myMentor: LiveData<MutableList<MyMentor>>
+        get() = _myMentor
+
 
     fun getMenteesTask() {
         viewModelScope.launch {
@@ -45,6 +51,9 @@ class MenteeViewModel(
             if(!menteeId.isNullOrEmpty()) {
                 val res = menteeRepository.getMenteesTasks(menteeId).body()
                 if(res != null) {
+                    res.sortByDescending {
+                        it.deadline.toLong()
+                    }
                     _menteesTasks.value = res
                 }
             }
@@ -121,6 +130,18 @@ class MenteeViewModel(
                 }
             } else {
                 _isSuccessful.value = false
+            }
+        }
+    }
+
+    fun getMyMentor() {
+        viewModelScope.launch {
+            val menteeId = sharedPref.getString("userId", "")
+            if(!menteeId.isNullOrEmpty()) {
+                val res = menteeRepository.getMyMentor(menteeId).body()
+                if(res != null) {
+                    _myMentor.value = res
+                }
             }
         }
     }

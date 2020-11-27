@@ -5,12 +5,16 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.Criterion
+import com.example.internshipmanagement.util.FunctionHelper
+import kotlinx.android.synthetic.main.activity_task_reference_detail.*
 import kotlinx.android.synthetic.main.item_criterion.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,9 +37,17 @@ class CriterionAdapter(
     inner class CriterionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(criterion: Criterion) {
             itemView.tvItemCriterion.text = criterion.content
-            itemView.etItemCriterionMark.doAfterTextChanged {
-                if(!TextUtils.isEmpty(it.toString())) {
-                    criterion.mark = it.toString().trim()
+            ArrayAdapter(itemView.context, android.R.layout.simple_spinner_item, FunctionHelper.provideMarkLevel()).also {
+                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                itemView.spItemCriterionMark.adapter = it
+            }
+            itemView.spItemCriterionMark.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    criterion.mark = position.toString()
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>?) {
+
                 }
             }
         }

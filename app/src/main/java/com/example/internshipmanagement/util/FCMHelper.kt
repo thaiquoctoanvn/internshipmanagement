@@ -19,6 +19,7 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import kotlin.random.Random
 
 class FCMHelper : FirebaseMessagingService() {
 
@@ -48,6 +49,8 @@ class FCMHelper : FirebaseMessagingService() {
             val toId = data.get("toId").toString()
             val content = (data.get("message")).toString()
 
+            Log.d("###", "ToId: $toId")
+            Log.d("###", "Content: $content")
             if(userId == toId) {
                 // Báo cho dash board cập nhật badge notification
                 val pushIntent = Intent(FCM_PUSH)
@@ -63,7 +66,9 @@ class FCMHelper : FirebaseMessagingService() {
 
     private fun showNotification(id: Int, message: String) {
         val miniIcon = R.drawable.app_logo
-        val desIntent = Intent(this, MainActivity::class.java)
+        val desIntent = Intent(this, MainActivity::class.java).apply {
+            putExtra("taskId", id.toString())
+        }
         val desPendingIntent = PendingIntent.getActivity(this.applicationContext, id, desIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -81,7 +86,7 @@ class FCMHelper : FirebaseMessagingService() {
             .setContentIntent(desPendingIntent)
             .setAutoCancel(true)
 
-        notificationManager.notify(id, notificationBuilder.build())
+        notificationManager.notify(Random.nextInt(0, 800), notificationBuilder.build())
     }
 
 }

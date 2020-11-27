@@ -31,6 +31,8 @@ const val CAMERA_PERMISSION = android.Manifest.permission.CAMERA
 const val REFERENCES_PUSH = "references"
 const val FCM_PUSH = "gcm"
 const val INFO_UPDATED = "infoUpdated"
+const val SUBMISSION_PUSH = "submitted"
+const val TASK_ADDING_PUSH = "task added"
 
 // Transformer Effect
 const val MIN_SCALE = 0.75f

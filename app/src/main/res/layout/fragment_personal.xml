@@ -1,159 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slPersonalFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:paddingBottom="@dimen/lv8"
-    tools:context=".ui.PersonalFragment">
+    android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/ivCover"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/coverImageHeight"
-        android:scaleType="centerCrop"
-        android:src="@drawable/cover"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/lv8"
+        tools:context=".ui.PersonalFragment">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/cover_image_gradient"
-        app:layout_constraintBottom_toBottomOf="@id/ivCover"
-        app:layout_constraintTop_toTopOf="@id/ivCover" />
+        <ImageView
+            android:id="@+id/ivCover"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/coverImageHeight"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cover"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/ivAvatarProfile"
-        android:layout_width="@dimen/avatarSize"
-        android:layout_height="@dimen/avatarSize"
-        android:layout_marginStart="@dimen/lv3"
-        android:background="@drawable/circle_corner"
-        android:padding="@dimen/lv0"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@id/ivCover"
-        app:layout_constraintStart_toStartOf="@id/ivCover"
-        app:layout_constraintTop_toTopOf="@id/ivCover"
-        app:layout_constraintVertical_bias="1.5" />
-
-    <ImageButton
-        android:id="@+id/ibPersonalOption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/lv3"
-        android:background="@drawable/icon_circle_corner_background"
-        android:padding="@dimen/lv0"
-        android:src="@drawable/ic_three_dots_more_indicator"
-        android:tint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvEditProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/lv3"
-        android:background="@drawable/tv_round_corner"
-        android:paddingStart="@dimen/lv2"
-        android:paddingTop="@dimen/lv0"
-        android:paddingEnd="@dimen/lv2"
-        android:paddingBottom="@dimen/lv0"
-        android:text="@string/tv_edit_profile"
-        android:textColor="@color/mentee_strong_color"
-        android:textSize="@dimen/textBody"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/ivAvatarProfile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivCover" />
-
-    <TextView
-        android:id="@+id/tvProfileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lv1"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textTitle"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
-        app:layout_constraintTop_toBottomOf="@id/ivAvatarProfile"
-        tools:text="Thai Quoc Toan" />
-
-    <TextView
-        android:id="@+id/tvNickName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/icon_or_text_color"
-        android:textSize="@dimen/textBody"
-        app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
-        app:layout_constraintTop_toBottomOf="@id/tvProfileName"
-        tools:text="eden" />
-
-    <ImageView
-        android:id="@+id/ivIconPosition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lv3"
-        android:background="@color/colorTransparent"
-        android:scaleType="center"
-        android:src="@drawable/ic_work"
-        app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
-        app:layout_constraintTop_toBottomOf="@id/tvNickName" />
-
-    <TextView
-        android:id="@+id/tvProfilePosition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/lv2"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/ivIconPosition"
-        app:layout_constraintStart_toEndOf="@id/ivIconPosition"
-        app:layout_constraintTop_toTopOf="@id/ivIconPosition"
-        tools:text="Mobile dev" />
-
-    <ImageView
-        android:id="@+id/ivIconEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lv2"
-        android:background="@color/colorTransparent"
-        android:scaleType="center"
-        android:src="@drawable/ic_email"
-        app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
-        app:layout_constraintTop_toBottomOf="@id/ivIconPosition" />
-
-    <TextView
-        android:id="@+id/tvProfileEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/lv2"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/ivIconEmail"
-        app:layout_constraintStart_toEndOf="@id/ivIconPosition"
-        app:layout_constraintTop_toTopOf="@id/ivIconEmail"
-        tools:text="Email" />
-
-    <ImageView
-        android:id="@+id/ivIconEvaluation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lv2"
-        android:background="@color/colorTransparent"
-        android:scaleType="center"
-        android:src="@drawable/ic_three_dots_more_indicator"
-        app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
-        app:layout_constraintTop_toBottomOf="@id/ivIconEmail" />
-
-    <TextView
-        android:id="@+id/tvProfileEvaluation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/lv2"
-        android:text="@string/evaluations"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/ivIconEvaluation"
-        app:layout_constraintStart_toEndOf="@id/ivIconEvaluation"
-        app:layout_constraintTop_toTopOf="@id/ivIconEvaluation" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/cover_image_gradient"
+            app:layout_constraintBottom_toBottomOf="@id/ivCover"
+            app:layout_constraintTop_toTopOf="@id/ivCover" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/ivAvatarProfile"
+            android:layout_width="@dimen/avatarSize"
+            android:layout_height="@dimen/avatarSize"
+            android:layout_marginStart="@dimen/lv3"
+            android:padding="@dimen/lv0"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/ivCover"
+            app:layout_constraintStart_toStartOf="@id/ivCover"
+            app:layout_constraintTop_toTopOf="@id/ivCover"
+            app:layout_constraintVertical_bias="1.5" />
+
+        <ImageButton
+            android:id="@+id/ibPersonalOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/lv3"
+            android:background="@drawable/icon_circle_corner_background"
+            android:padding="@dimen/lv0"
+            android:src="@drawable/ic_three_dots_more_indicator"
+            android:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/lv3"
+            android:background="@drawable/tv_round_corner"
+            android:paddingStart="@dimen/lv2"
+            android:paddingTop="@dimen/lv0"
+            android:paddingEnd="@dimen/lv2"
+            android:paddingBottom="@dimen/lv0"
+            android:text="@string/tv_edit_profile"
+            android:textColor="@color/mentee_strong_color"
+            android:textSize="@dimen/textBody"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ivAvatarProfile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCover" />
+
+        <TextView
+            android:id="@+id/tvProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textTitle"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
+            app:layout_constraintTop_toBottomOf="@id/ivAvatarProfile"
+            tools:text="Thai Quoc Toan" />
+
+        <TextView
+            android:id="@+id/tvNickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/icon_or_text_color"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
+            app:layout_constraintTop_toBottomOf="@id/tvProfileName"
+            tools:text="eden" />
+
+        <ImageView
+            android:id="@+id/ivIconPosition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv3"
+            android:background="@color/colorTransparent"
+            android:scaleType="center"
+            android:src="@drawable/ic_work"
+            app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
+            app:layout_constraintTop_toBottomOf="@id/tvNickName" />
+
+        <TextView
+            android:id="@+id/tvProfilePosition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lv2"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/ivIconPosition"
+            app:layout_constraintStart_toEndOf="@id/ivIconPosition"
+            app:layout_constraintTop_toTopOf="@id/ivIconPosition"
+            tools:text="Mobile dev" />
+
+        <ImageView
+            android:id="@+id/ivIconEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv2"
+            android:background="@color/colorTransparent"
+            android:scaleType="center"
+            android:src="@drawable/ic_email"
+            app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
+            app:layout_constraintTop_toBottomOf="@id/ivIconPosition" />
+
+        <TextView
+            android:id="@+id/tvProfileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lv2"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/ivIconEmail"
+            app:layout_constraintStart_toEndOf="@id/ivIconPosition"
+            app:layout_constraintTop_toTopOf="@id/ivIconEmail"
+            tools:text="Email" />
+
+        <ImageView
+            android:id="@+id/ivIconEvaluation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv2"
+            android:background="@color/colorTransparent"
+            android:scaleType="center"
+            android:src="@drawable/ic_three_dots_more_indicator"
+            app:layout_constraintStart_toStartOf="@id/ivAvatarProfile"
+            app:layout_constraintTop_toBottomOf="@id/ivIconEmail" />
+
+        <TextView
+            android:id="@+id/tvProfileEvaluation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lv2"
+            android:layout_marginEnd="@dimen/lv3"
+            android:text="@string/evaluations"
+            android:textColor="@color/black"
+            app:drawableEndCompat="@drawable/ic_keyboard_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@id/ivIconEvaluation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivIconEvaluation"
+            app:layout_constraintTop_toTopOf="@id/ivIconEvaluation" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -129,33 +129,19 @@
 
 
             <TextView
-                android:id="@+id/tvMenteeTaskDetailStatus"
+                android:id="@+id/tvMenteeTaskDetailMark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/lv3"
                 android:layout_marginTop="@dimen/lv2"
-                android:drawablePadding="@dimen/lv1"
-                android:text="@string/not_submitted_state"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textBody"
-                app:drawableStartCompat="@drawable/ic_history"
-                app:drawableTint="@color/mentee_strong_color"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/separateLineMentorTaskDetail" />
-
-            <TextView
-                android:id="@+id/tvMenteeTaskDetailMark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/lv1"
                 android:drawablePadding="@dimen/lv1"
                 android:text="@string/mark_title"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textBody"
                 app:drawableStartCompat="@drawable/ic_label"
                 app:drawableTint="@color/mentee_strong_color"
-                app:layout_constraintStart_toStartOf="@id/tvMenteeTaskDetailStatus"
-                app:layout_constraintTop_toBottomOf="@id/tvMenteeTaskDetailStatus" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separateLineMentorTaskDetail" />
 
             <TextView
                 android:id="@+id/tvYourMentorTitle"
@@ -166,7 +152,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textBody"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tvMenteeTaskDetailStatus"
+                app:layout_constraintStart_toStartOf="@id/tvMenteeTaskDetailMark"
                 app:layout_constraintTop_toBottomOf="@id/tvMenteeTaskDetailMark" />
 
             <TextView
@@ -192,7 +178,8 @@
         android:layout_marginStart="@dimen/lv3"
         android:layout_marginEnd="@dimen/lv3"
         android:layout_marginBottom="@dimen/lv3"
-        android:background="@drawable/tv_round_corner_full_solid"
+        android:background="@drawable/et_or_btn_round_corner"
+        android:backgroundTint="@color/mentee_strong_color"
         android:gravity="center"
         android:paddingTop="@dimen/lv2"
         android:paddingBottom="@dimen/lv2"

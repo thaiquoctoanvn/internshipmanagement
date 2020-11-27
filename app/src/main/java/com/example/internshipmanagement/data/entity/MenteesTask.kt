@@ -8,6 +8,6 @@ data class MenteesTask(
     val taskId: String,
     val content: String,
     val deadline: String,
-    val isSubmitted: String,
+    var isSubmitted: String,
     val isReviewed: String
 )

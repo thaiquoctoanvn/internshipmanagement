@@ -1,6 +1,9 @@
 package com.example.internshipmanagement.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -12,6 +15,7 @@ import com.example.internshipmanagement.data.entity.MentorsTask
 import com.example.internshipmanagement.ui.adapter.MentorsTaskAdapter
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
+import com.example.internshipmanagement.util.TASK_ADDING_PUSH
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.etSearchDashBoard
 import kotlinx.android.synthetic.main.fragment_dashboard.ibClearAllSearch
@@ -31,6 +35,8 @@ import kotlin.time.hours
 * Màn hình dash board của mentor
 * */
 class DashboardFragment : BaseFragment() {
+
+    private lateinit var taskAddingPush: BroadcastReceiver
 
     private val userViewModel by viewModel<UserViewModel>()
     private val mentorViewModel by viewModel<MentorViewModel>()
@@ -52,6 +58,10 @@ class DashboardFragment : BaseFragment() {
             mentorViewModel.filterTasks(it.toString())
         }
         ibClearAllSearch.setOnClickListener { etSearchDashBoard.setText("") }
+        ibNotificationDashBoard.setOnClickListener {
+            startActivity(Intent(requireActivity(), NotificationActivity::class.java))
+        }
+        slDashBoard.setOnRefreshListener { refreshTaskData() }
     }
 
     override fun setObserverFragment() {
@@ -65,6 +75,8 @@ class DashboardFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        listenBroadcast()
+        registerBroadcast()
         sayGreeting()
         userViewModel.registerFCM()
         mentorViewModel.getMentorsTasks()
@@ -94,6 +106,7 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun updateUI(tasks: MutableList<MentorsTask>) {
+        slDashBoard.isRefreshing = false
         if(!this::mentorsTaskAdapter.isInitialized) {
             mentorsTaskAdapter = MentorsTaskAdapter(onItemTaskClick)
             tvYourTaskTitle.text = getString(R.string.tv_all_task_dash_board, tasks.size)
@@ -103,6 +116,28 @@ class DashboardFragment : BaseFragment() {
         mentorsTaskAdapter.submitList(tasks)
         rvYourTask.adapter = mentorsTaskAdapter
 
+    }
+
+    private fun refreshTaskData() {
+        Log.d("###", "swiping")
+        slDashBoard.setColorSchemeResources(
+            R.color.behavior_color,
+            R.color.knowledge_color,
+            R.color.proactive_color
+        )
+        mentorViewModel.getMentorsTasks()
+    }
+
+    private fun listenBroadcast() {
+        taskAddingPush = object : BroadcastReceiver() {
+            override fun onReceive(contect: Context?, intent: Intent?) {
+                mentorViewModel.getMentorsTasks()
+            }
+        }
+    }
+
+    private fun registerBroadcast() {
+        requireActivity().registerReceiver(taskAddingPush, IntentFilter(TASK_ADDING_PUSH))
     }
 
     private val onItemTaskClick: (mentorsTask: MentorsTask) -> Unit = {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/lv3"
+    android:layout_marginEnd="@dimen/lv3"
+    android:layout_marginBottom="@dimen/lv3">
+
+    <ImageView
+        android:id="@+id/ivItemNotification"
+        android:layout_width="@dimen/menteeItemList"
+        android:layout_height="@dimen/menteeItemList"
+        android:elevation="@dimen/lv1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvBodyItemNotification"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv2"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivItemNotification"
+        app:layout_constraintTop_toTopOf="@id/ivItemNotification"
+        tools:text="Mentor X added a task which is referred to you" />
+
+    <TextView
+        android:id="@+id/tvTimeItemNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv0"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        app:layout_constraintStart_toStartOf="@id/tvBodyItemNotification"
+        app:layout_constraintTop_toBottomOf="@id/tvBodyItemNotification"
+        tools:text="18/09/2020 13:07" />
+</androidx.constraintlayout.widget.ConstraintLayout>

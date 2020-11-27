@@ -7,6 +7,7 @@
     <string name="edit_profile">Edit profile</string>
     <string name="add_new_task">New task</string>
     <string name="search_header">Search</string>
+    <string name="notification">Notifications</string>
     <string name="your_mentees">Your mentees</string>
     <string name="mentor_task_detail">Detail task</string>
     <string name="save">Save</string>
@@ -38,6 +39,7 @@
     <string name="et_search_task">Search your task</string>
     <string name="et_search_your_mentee">Search your mentees</string>
     <string name="tv_edit_profile">Edit profile</string>
+    <string name="log_in">Log in</string>
     <string name="tv_log_out">Log out</string>
     <string name="tv_all_task_dash_board">Your tasks (%d)</string>
     <string name="et_task_name">Whatever you want to do?</string>
@@ -58,7 +60,9 @@
     <string name="submit_button">Submit</string>
     <string name="submission_note">Make your notes for the submission here..</string>
     <string name="attach_image">Attach your images</string>
-
+    <string name="over_view">| Overview</string>
+    <string name="your_mentors">Your mentors</string>
+    <string name="have_not_mentor_yet">You have no mentor yet</string>
     <string name="good_morning">Good morning</string>
     <string name="good_afternoon">Good afternoon</string>
     <string name="good_evening">Good evening</string>

@@ -33,12 +33,12 @@
 
 
         <ImageButton
-            android:id="@+id/ibMenteeList"
+            android:id="@+id/ibAddReport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorTransparent"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_group"
+            android:src="@drawable/ic_note_add"
             android:tint="@color/mentee_strong_color"
             app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
             app:layout_constraintEnd_toEndOf="parent"

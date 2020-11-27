@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/lv3"
+    android:layout_marginEnd="@dimen/lv3"
+    android:background="@drawable/item_rv_background"
+    android:elevation="@dimen/lv1"
+    android:padding="@dimen/lv2"
     android:layout_marginBottom="@dimen/lv3">
 
     <TextView
@@ -26,25 +31,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Behave with colleges" />
 
-    <EditText
-        android:id="@+id/etItemCriterionMark"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/lv1"
-        android:background="@color/white"
-        android:hint="@string/criteria_mark"
-        android:inputType="numberDecimal"
-        android:textColor="@color/black"
-        android:textSize="@dimen/textBody"
+        android:background="@color/item_rv_color"
         app:layout_constraintStart_toStartOf="@id/tvItemCriterion"
-        app:layout_constraintTop_toBottomOf="@id/tvItemCriterion" />
-
-    <View
-        android:id="@+id/separateLineItemMenteesTask"
-        android:layout_width="@dimen/lv2"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/lv2"
-        android:background="@color/grey"
-        app:layout_constraintStart_toStartOf="@id/etItemCriterionMark"
-        app:layout_constraintTop_toBottomOf="@id/etItemCriterionMark" />
+        app:layout_constraintTop_toBottomOf="@id/tvItemCriterion"
+        android:id="@+id/spItemCriterionMark"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

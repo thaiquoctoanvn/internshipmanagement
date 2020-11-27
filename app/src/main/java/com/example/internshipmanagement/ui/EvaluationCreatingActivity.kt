@@ -116,8 +116,8 @@ class EvaluationCreatingActivity : BaseActivity() {
                 super.showSnackBar("From date and To date must be 20 days apart")
                 return
             }
-            if(criteriaMark == null) {
-                super.showSnackBar("Invalid mark for a criterion")
+            if(!mentorViewModel.hasMarked()) {
+                super.showSnackBar("Mark for criterion is at least 1")
                 return
             }
             if(mentorId.isEmpty() || menteeId.isEmpty()) {
@@ -129,8 +129,7 @@ class EvaluationCreatingActivity : BaseActivity() {
                 menteeId,
                 fromDate.toString(),
                 toDate.toString(),
-                etComment.text.toString().trim(),
-                criteriaMark.toString()
+                etComment.text.toString().trim()
             )
         } else {
             super.showSnackBar("Date must be not empty")

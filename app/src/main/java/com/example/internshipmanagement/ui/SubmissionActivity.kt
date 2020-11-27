@@ -28,6 +28,7 @@ import com.example.internshipmanagement.ui.adapter.AttachedImageAdapter
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.CAMERA_PERMISSION
 import com.example.internshipmanagement.util.READ_STORAGE_PERMISSION
+import com.example.internshipmanagement.util.SUBMISSION_PUSH
 import com.example.internshipmanagement.util.WRITE_TO_STORAGE_PERMISSION
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_submission.*
@@ -43,6 +44,7 @@ class SubmissionActivity : BaseActivity() {
     private val uriList = mutableListOf<String>()
     private var cameraBitmap: Bitmap? = null
     private var fromCamera = true
+    private var referId = ""
 
     @RequiresApi(Build.VERSION_CODES.M)
     private val requestPermissionLauncher =
@@ -83,6 +85,11 @@ class SubmissionActivity : BaseActivity() {
                 val bitmap: Bitmap = intent?.extras?.get("data") as Bitmap
 
                 layoutCameraAttach.visibility = View.VISIBLE
+                rvAttachImage.visibility = View.GONE
+                if(uriList.size > 0) {
+                    uriList.clear()
+                }
+
                 Glide.with(this)
                     .load(bitmap)
                     .placeholder(R.drawable.app_logo)
@@ -113,6 +120,7 @@ class SubmissionActivity : BaseActivity() {
 
                 fromCamera = false
                 layoutCameraAttach.visibility = View.GONE
+                rvAttachImage.visibility = View.VISIBLE
             }
         }
 
@@ -125,6 +133,7 @@ class SubmissionActivity : BaseActivity() {
         ibSubmitTaskBack.setOnClickListener { this.finish() }
         tvSubmitTask.setOnClickListener { submitWork() }
         tvAttachImage.setOnClickListener { takeImageFrom() }
+        ibAttachedImageRemove.setOnClickListener { removeCameraAttached() }
     }
 
     override fun setObserver() {
@@ -204,9 +213,15 @@ class SubmissionActivity : BaseActivity() {
         rvAttachImage.adapter = attachedImageAdapter
     }
 
+    private fun removeCameraAttached() {
+        ivAttachedImage.setImageDrawable(null)
+        layoutCameraAttach.visibility = View.GONE
+        cameraBitmap = null
+    }
+
     private fun submitWork() {
         val taskNote = etSubmissionNote.text.toString().trim()
-        val referId = intent.getStringExtra("referId")
+        referId = intent.getStringExtra("referId").toString()
         if(!referId.isNullOrEmpty()) {
             if(fromCamera) {
                 if(cameraBitmap != null) {
@@ -224,6 +239,10 @@ class SubmissionActivity : BaseActivity() {
 
     private fun completeSubmitWork(flag: Boolean) {
         if(flag) {
+            val intent = Intent(SUBMISSION_PUSH)
+            intent.putExtra("referId", referId)
+            sendBroadcast(intent)
+
             this.finish()
         } else {
             super.showSnackBar("Submit error, retry")

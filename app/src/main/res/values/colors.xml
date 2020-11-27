@@ -13,15 +13,22 @@
     <color name="mentor_light_color">#D1CDEF</color>
     <color name="mentee_strong_color">#1AA2F6</color>
     <color name="mentee_light_color">#7DBBFF</color>
-    <color name="separate_line_or_et_background_color">#F5F5F5</color>
+    <color name="separate_line_or_et_background_color">#F7F8FA</color>
     <color name="icon_or_text_color">#A0A0A0</color>
     <color name="top_or_bottom_view_color">#FBFBFD</color>
     <color name="top_or_bottom_view_color_80">#F3FBFBFD</color> <!--opacity 95% approximate 243-->
+
     <color name="grey">#A0A0A0</color>
-    <color name="selected_tab_background">#ECECEC</color>
+    <color name="selected_tab_background">#F7F8FA</color>
     <color name="grey80">#CCA0A0A0</color>
     <color name="black_opacity">#4D000000</color>
     <color name="status_bar_color">#66007AFF</color>
     <color name="colorTransparent">#00000000</color>
     <color name="color_strong_alert">#ec0101</color>
+
+    <color name="item_rv_color">#F7F8FA</color>
+
+    <color name="behavior_color">#aab8c2</color>
+    <color name="knowledge_color">#8898a4</color>
+    <color name="proactive_color">#657786</color>
 </resources>

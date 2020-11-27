@@ -99,7 +99,14 @@ class AddNewTaskActivity : BaseActivity() {
 
     private fun getDeadlineTime(): Long {
         val calendar = Calendar.getInstance()
-        calendar.set(newTaskDatePicker.year, newTaskDatePicker.month, newTaskDatePicker.dayOfMonth)
+        calendar.set(
+            newTaskDatePicker.year,
+            newTaskDatePicker.month,
+            newTaskDatePicker.dayOfMonth,
+            0,
+            0,
+            0
+        )
         return calendar.timeInMillis
     }
 
