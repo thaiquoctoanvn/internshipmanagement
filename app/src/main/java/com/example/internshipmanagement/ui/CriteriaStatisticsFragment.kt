@@ -6,6 +6,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.CriterionPoint
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.example.internshipmanagement.util.FunctionHelper
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.LegendEntry
@@ -93,35 +95,6 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
         }
     }
 
-    // Tạo chú thích cho sơ đồ
-    private fun generateCustomLegends(legend: Legend, pieDataSet: PieDataSet) {
-        val colors = pieDataSet.colors
-        val behaviorLegend =
-            LegendEntry("Behavior Criterion", Legend.LegendForm.CIRCLE, 20f, 8f, null, colors[0])
-        val knowledgeLegend =
-            LegendEntry("Knowledge Criterion", Legend.LegendForm.CIRCLE, 20f, 8f, null, colors[1])
-        val proactiveLegend =
-            LegendEntry("Proactive Criterion", Legend.LegendForm.CIRCLE, 20f, 8f, null, colors[2])
-        legend.apply {
-            // Vị trí của chú thích
-            verticalAlignment = Legend.LegendVerticalAlignment.TOP
-            horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-
-            // Chiều hiển thị của chú thích
-            orientation = Legend.LegendOrientation.HORIZONTAL
-
-            // Khoảng cách giữa các mục (vertical - y / horizontal - x)
-            xEntrySpace = 96f
-
-            isWordWrapEnabled = true
-
-            // Khoảng cách của chú thích so với chart
-            //yOffset = -50f
-
-            setCustom(mutableListOf(behaviorLegend, knowledgeLegend, proactiveLegend))
-        }
-    }
-
     private fun setChartData(criteriaPoints: MutableList<CriterionPoint>) {
 
         setUpPieChart()
@@ -153,14 +126,10 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
             // Độ dày phần được chọn
             selectionShift = 8f
 
-            // Bộ màu dùng cho chart
             colors = mutableListOf(
-                R.color.behavior_color,
-                R.color.knowledge_color,
-                R.color.proactive_color
-//                Color.parseColor("#aab8c2"),
-//                Color.parseColor("#8898a4"),
-//                Color.parseColor("#657786")
+                ContextCompat.getColor(requireActivity(), R.color.behavior_color),
+                ContextCompat.getColor(requireActivity(), R.color.knowledge_color),
+                ContextCompat.getColor(requireActivity(), R.color.proactive_color)
             )
         }
 
@@ -171,12 +140,17 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
             setValueTypeface(Typeface.DEFAULT_BOLD)
             setValueTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         }
+
         pcCriteria.apply {
             data = pieData
             highlightValue(null)
             invalidate()
         }
-        generateCustomLegends(pcCriteria.legend, pieDataSet)
+
+        pcCriteria.legend.isEnabled = false
+        FunctionHelper.generateCustomLegends(layoutCriteriaStatisticLegend, pieDataSet)
+
+        println("ColorCode: ${pieDataSet.colors}")
     }
 
     override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
@@ -185,6 +159,34 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
 
     override fun onNothingSelected() {
 
+    }
+
+    private fun generateCustomLegends(legend: Legend, pieDataSet: PieDataSet) {
+        val colors = pieDataSet.colors
+        val behaviorLegend =
+            LegendEntry("Behavior Criterion", Legend.LegendForm.CIRCLE, 20f, 8f, null, colors[0])
+        val knowledgeLegend =
+            LegendEntry("Knowledge Criterion", Legend.LegendForm.CIRCLE, 20f, 8f, null, colors[1])
+        val proactiveLegend =
+            LegendEntry("Proactive Criterion", Legend.LegendForm.CIRCLE, 20f, 8f, null, colors[2])
+        legend.apply {
+            // Vị trí của chú thích
+            verticalAlignment = Legend.LegendVerticalAlignment.TOP
+            horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+
+            // Chiều hiển thị của chú thích
+            orientation = Legend.LegendOrientation.HORIZONTAL
+
+            // Khoảng cách giữa các mục (vertical - y / horizontal - x)
+            xEntrySpace = 96f
+
+            isWordWrapEnabled = true
+
+            // Khoảng cách của chú thích so với chart
+            //yOffset = -50f
+
+            setCustom(mutableListOf(behaviorLegend, knowledgeLegend, proactiveLegend))
+        }
     }
 
 }

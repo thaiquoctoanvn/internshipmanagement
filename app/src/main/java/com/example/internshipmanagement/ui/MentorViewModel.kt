@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 
 class MentorViewModel(
     private val mentorRepository: MentorRepository,
@@ -75,18 +76,6 @@ class MentorViewModel(
     val detailReference: LiveData<DetailTaskReference>
     get() = _detailReference
 
-//    fun getIsSucceedValue() = isSucceed
-//    fun getMyMenteesValue() = myMentees
-//    fun getFilterListValue() = filteredReferences
-//    fun getMentorsTasksValue() = mentorsTasks
-//    fun getTaskReferencesValue() = taskReferences
-
-//    fun getAllMenteesValue() = allMentees
-//    fun getMenteesEvaluationsValue() = menteesEvaluations
-//    fun getIsMyMenteeValue() = isMyMentee
-//    fun getFilteredTasksValue() = filteredTasks
-//    fun getCriteriaValue() = criteria
-//    fun getDetailReferenceValue() = detailReference
 
     fun getSharedPref() = sharedPref
 
@@ -116,18 +105,6 @@ class MentorViewModel(
             }
         }
     }
-
-//    fun observerSelectedItem(id: String) {
-//        val selection = _myMentees.value?.find {
-//            it.menteeId == id
-//        }
-//        if(selection != null) {
-//            if(selection.isReferred == "false") {
-//                selection.isReferred = "true"
-//
-//            }
-//        }
-//    }
 
     fun filterTasks(keyWords: String) {
         viewModelScope.launch {
@@ -299,5 +276,17 @@ class MentorViewModel(
             }
             super.setIsLoadingValue(false)
         }
+    }
+
+    fun updateCurrentInteractedItem(id: String): Int {
+        var position = -1
+        mentorsTasks.value?.let { tasks ->
+            val targetItem = tasks.find { it.taskId == id }
+            targetItem?.let {
+                position = tasks.indexOf(it)
+                Collections.swap(tasks, position, 0)
+            }
+        }
+        return position
     }
 }

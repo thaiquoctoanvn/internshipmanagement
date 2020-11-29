@@ -31,4 +31,6 @@
     <color name="behavior_color">#aab8c2</color>
     <color name="knowledge_color">#8898a4</color>
     <color name="proactive_color">#657786</color>
+
+    <color name="day_calendar_color">#505155</color>
 </resources>

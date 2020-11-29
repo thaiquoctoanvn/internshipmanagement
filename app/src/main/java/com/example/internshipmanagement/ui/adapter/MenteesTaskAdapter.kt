@@ -14,7 +14,7 @@ import com.example.internshipmanagement.util.FunctionHelper
 import kotlinx.android.synthetic.main.item_mentees_task.view.*
 
 class MenteesTaskAdapter(
-    private val onItemClick: (referId: String) -> Unit
+    private val onItemClick: (taskId: String) -> Unit
 ) : ListAdapter<MenteesTask, MenteesTaskAdapter.MenteesTaskViewHolder>(MenteesTaskDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenteesTaskViewHolder {
@@ -31,19 +31,21 @@ class MenteesTaskAdapter(
             val deadline = "Deadline: ${FunctionHelper.getDateFromTimeMilliSecond(menteesTask.deadline)}"
             itemView.tvItemMenteeTaskName.text = menteesTask.content
             itemView.tvItemMenteesTaskDeadline.text = deadline
+
             if(menteesTask.isReviewed == "0") {
                 itemView.tvItemMenteesTaskReviewedState.visibility = View.GONE
             } else {
                 itemView.tvItemMenteesTaskReviewedState.visibility = View.VISIBLE
                 itemView.tvIconIndex.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.mentor_strong_color))
             }
+
             if(menteesTask.isSubmitted == "0") {
                 itemView.tvMenteesTaskSubmittedState.visibility = View.GONE
             } else {
                 itemView.tvMenteesTaskSubmittedState.visibility = View.VISIBLE
             }
 
-            itemView.setOnClickListener { onItemClick(menteesTask.id) }
+            itemView.setOnClickListener { onItemClick(menteesTask.taskId) }
         }
     }
 }

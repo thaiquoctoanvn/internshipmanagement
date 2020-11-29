@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:paddingBottom="@dimen/lv8"
     tools:context=".ui.CalendarFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,42 +31,60 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageButton
-            android:id="@+id/ibAddReport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorTransparent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_note_add"
-            android:tint="@color/mentee_strong_color"
-            app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvGreeting" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/ibAddReport"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/colorTransparent"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_note_add"-->
+<!--            android:tint="@color/mentee_strong_color"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/tvGreeting"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/tvGreeting" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <CalendarView
+    <com.haibin.calendarview.CalendarView
         android:id="@+id/calendarView"
-        android:scrollbarStyle="outsideInset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendarHeader" />
-
-    <View
-        android:id="@+id/separateLineCalendar"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/separate_line_or_et_background_color"
-        app:layout_constraintTop_toBottomOf="@id/calendarView" />
+        android:background="@color/white"
+        app:calendar_padding_left="@dimen/lv2"
+        app:calendar_padding_right="@dimen/lv2"
+        app:current_day_text_color="@color/mentee_strong_color"
+        app:current_month_text_color="@color/day_calendar_color"
+        app:day_text_size="@dimen/textBody"
+        app:layout_constraintTop_toBottomOf="@id/calendarHeader"
+        app:lunar_text_size="0dp"
+        app:month_view_scrollable="true"
+        app:month_view_show_mode="mode_only_current"
+        app:selected_text_color="@color/white"
+        app:selected_theme_color="@color/mentee_strong_color"
+        app:week_background="@color/white"
+        app:week_line_background="@color/separate_line_or_et_background_color"
+        app:week_start_with="mon"
+        app:week_text_color="@color/day_calendar_color" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCalendarEvent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingStart="@dimen/lv3"
-        android:paddingTop="@dimen/lv2"
-        android:paddingEnd="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv3"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/separateLineCalendar" />
+        app:layout_constraintTop_toBottomOf="@id/calendarView" />
+
+    <TextView
+        android:id="@+id/tvNoEvent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/no_event_yet"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintBottom_toBottomOf="@id/rvCalendarEvent"
+        app:layout_constraintEnd_toEndOf="@id/rvCalendarEvent"
+        app:layout_constraintStart_toStartOf="@id/rvCalendarEvent"
+        app:layout_constraintTop_toTopOf="@id/rvCalendarEvent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

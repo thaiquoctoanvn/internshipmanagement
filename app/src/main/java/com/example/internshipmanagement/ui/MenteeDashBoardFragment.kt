@@ -84,13 +84,16 @@ class MenteeDashBoardFragment : BaseFragment() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if(intent != null) {
                     val referId = intent.getStringExtra("referId")
-                    val targetItem = menteeViewModel.menteesTasks.value?.find { it.id == referId }
-                    targetItem?.let {
-                        it.isSubmitted = "1"
-                        val position = menteeViewModel.menteesTasks.value?.indexOf(it)
-                        menteesTaskAdapter.notifyItemChanged(position!!)
-                    }
+                    val position = menteeViewModel.updateCurrentInteractedItem(referId.toString())
+                    if(position > -1) {
+                        menteesTaskAdapter.apply {
+                            // Di chuyển task vừa tương tác lên đầu
+                            notifyItemChanged(position)
+                            notifyItemMoved(position, 0)
+                            // Cập nhật giao diện task
 
+                        }
+                    }
                 }
             }
         }
@@ -136,9 +139,9 @@ class MenteeDashBoardFragment : BaseFragment() {
         menteeViewModel.getMenteesTask()
     }
 
-    private val onItemClick: (referId: String) -> Unit = {
+    private val onItemClick: (taskId: String) -> Unit = {
         val intent = Intent(requireActivity(), MenteeTaskDetailActivity::class.java)
-        intent.putExtra("referId", it)
+        intent.putExtra("taskId", it)
         startActivity(intent)
     }
 }

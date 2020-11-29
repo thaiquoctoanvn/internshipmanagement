@@ -116,8 +116,10 @@ interface APIService {
     ): Response<String>
 
     @GET("getMenteeTaskDetail.php")
-    suspend fun getMenteeTaskDetail(@Query("task_refer_id") referenceId: String):
-            Response<MenteeTaskDetail>
+    suspend fun getMenteeTaskDetail(
+        @Query("taskId") taskId: String,
+        @Query("menteeId") menteeId: String
+    ): Response<MenteeTaskDetail>
 
     @Multipart
     @POST("uploadTaskMaterials.php")
@@ -136,4 +138,12 @@ interface APIService {
 
     @GET("getUsersNotifications.php")
     suspend fun getUsersNotifications(@Query("to_id") toId: String): Response<MutableList<Notification>>
+
+    @GET("getDayEvents.php")
+    suspend fun getDayEvents(
+        @Query("requested_by") requestedBy: String,
+        @Query("millisecond") time: String,
+        @Query("mentor_id") mentorId: String,
+        @Query("mentee_id") menteeId: String
+    ): Response<MutableList<DayEvent>>
 }

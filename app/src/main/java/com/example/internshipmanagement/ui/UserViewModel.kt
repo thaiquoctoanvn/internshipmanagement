@@ -6,15 +6,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.internshipmanagement.data.entity.CriterionPoint
-import com.example.internshipmanagement.data.entity.Notification
-import com.example.internshipmanagement.data.entity.PersonalInfo
-import com.example.internshipmanagement.data.entity.UserProfile
+import com.example.internshipmanagement.data.entity.*
 import com.example.internshipmanagement.data.repository.UserRepository
 import com.example.internshipmanagement.ui.base.BaseViewModel
 import com.example.internshipmanagement.util.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.haibin.calendarview.Calendar
+import com.haibin.calendarview.CalendarUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -42,6 +41,10 @@ class UserViewModel(
     private val _notifications = MutableLiveData<MutableList<Notification>>()
     val notifications: LiveData<MutableList<Notification>>
         get() = _notifications
+
+    private val _dayEvents = MutableLiveData<MutableList<DayEvent>>()
+    val dayEvents: LiveData<MutableList<DayEvent>>
+        get() = _dayEvents
 
 
     fun getSharedPref() = sharedPref
@@ -169,12 +172,10 @@ class UserViewModel(
 
     suspend fun searchAllUsers(key: String) {
         viewModelScope.launch {
-            super.setIsLoadingValue(true)
             val res = userRepository.searchAllUsers(key).body()
             if(res != null) {
                 _searchResult.value = res
             }
-            super.setIsLoadingValue(false)
         }
     }
 
@@ -221,6 +222,25 @@ class UserViewModel(
             if(res != null) {
                 res.sortByDescending { it.createdAt.toLong() }
                 _notifications.value = res
+            }
+        }
+    }
+
+    fun getDayEvents(calendar: java.util.Calendar) {
+        viewModelScope.launch {
+            delay(2000)
+
+            var mentorId = ""
+            var menteeId = ""
+            val requestedBy = sharedPref.getString("type", "").toString()
+            if(requestedBy == "1") {
+                mentorId = sharedPref.getString("userId", "").toString()
+            } else {
+                menteeId = sharedPref.getString("userId", "").toString()
+            }
+            val res = userRepository.getDayEvents(requestedBy, calendar.timeInMillis.toString(), mentorId, menteeId).body()
+            if(res != null) {
+                _dayEvents.value = res
             }
         }
     }

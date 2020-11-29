@@ -15,8 +15,11 @@ import com.example.internshipmanagement.data.repository.MenteeRepository
 import com.example.internshipmanagement.di.apiModule
 import com.example.internshipmanagement.ui.base.BaseViewModel
 import com.example.internshipmanagement.util.SUCCEED_MESSAGE
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
 class MenteeViewModel(
     private val menteeRepository: MenteeRepository,
@@ -74,10 +77,11 @@ class MenteeViewModel(
         }
     }
 
-    fun getMenteeTaskDetail(referId: String) {
+    fun getMenteeTaskDetail(taskId: String) {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
-            val res = menteeRepository.getMenteeTaskDetail(referId).body()
+            val menteeId = sharedPref.getString("userId", "").toString()
+            val res = menteeRepository.getMenteeTaskDetail(taskId, menteeId).body()
             if(res != null) {
                 _menteeTaskDetail.value = res
             }
@@ -144,5 +148,18 @@ class MenteeViewModel(
                 }
             }
         }
+    }
+
+    fun updateCurrentInteractedItem(id: String): Int {
+        var position = -1
+        menteesTasks.value?.let { tasks ->
+            val targetItem = tasks.find { it.id == id }
+            targetItem?.let {
+                it.isSubmitted = "1"
+                position = tasks.indexOf(it)
+                Collections.swap(tasks, position, 0)
+            }
+        }
+        return position
     }
 }

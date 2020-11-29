@@ -7,10 +7,7 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import com.example.internshipmanagement.data.entity.CriterionPoint
-import com.example.internshipmanagement.data.entity.Notification
-import com.example.internshipmanagement.data.entity.PersonalInfo
-import com.example.internshipmanagement.data.entity.UserProfile
+import com.example.internshipmanagement.data.entity.*
 import com.example.internshipmanagement.data.remote.APIService
 import com.example.internshipmanagement.util.FCMHelper
 import com.example.internshipmanagement.util.FunctionHelper
@@ -117,6 +114,17 @@ class UserRepository(private val apiService: APIService) {
     suspend fun getUsersNotifications(toId: String): Response<MutableList<Notification>> {
         return withContext(Dispatchers.IO) {
             apiService.getUsersNotifications(toId)
+        }
+    }
+
+    suspend fun getDayEvents(
+        requestedBy: String,
+        time: String,
+        mentorId: String,
+        menteeId: String
+    ): Response<MutableList<DayEvent>> {
+        return withContext(Dispatchers.IO) {
+            apiService.getDayEvents(requestedBy, time, mentorId, menteeId)
         }
     }
 

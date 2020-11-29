@@ -67,6 +67,7 @@
     <string name="good_afternoon">Good afternoon</string>
     <string name="good_evening">Good evening</string>
     <string name="no_data">Data not available</string>
+    <string name="no_event_yet">No event yet</string>
     <string name="submitted_state">Submitted</string>
     <string name="not_submitted_state">Not submitted</string>
     <string name="reviewed_state">Reviewed</string>
@@ -79,6 +80,9 @@
     <string name="permission_message">Opp!, We need your permission to process this function. Please go to settings and turn on permission for us</string>
     <string name="avatar_update_failed">Avatar update failed</string>
     <string name="info_update_failed">Info update failed</string>
+    <string name="behavior_mark">Behavior mark</string>
+    <string name="knowledge_mark">Knowledge mark</string>
+    <string name="proactive_mark">Proactive mark</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <!-- TODO: Remove or change this placeholder text -->

@@ -125,10 +125,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/et_or_btn_round_corner"
-                    android:backgroundTint="@color/separate_line_or_et_background_color"
+                    android:backgroundTint="@color/mentee_light_color"
                     android:gravity="center"
                     android:text="@string/log_in"
-                    android:textColor="@color/icon_or_text_color"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/textLargeBody"
                     android:textStyle="bold"
                      />

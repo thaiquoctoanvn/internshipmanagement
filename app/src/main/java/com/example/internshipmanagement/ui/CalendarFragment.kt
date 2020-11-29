@@ -1,60 +1,88 @@
 package com.example.internshipmanagement.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
+import com.example.internshipmanagement.data.entity.DayEvent
+import com.example.internshipmanagement.ui.adapter.DayEventAdapter
+import com.example.internshipmanagement.ui.base.BaseFragment
+import com.haibin.calendarview.Calendar
+import com.haibin.calendarview.CalendarView
+import kotlinx.android.synthetic.main.fragment_calendar.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class CalendarFragment : BaseFragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CalendarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CalendarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var dayEventAdapter: DayEventAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val userViewModel by viewModel<UserViewModel>()
+
+    override fun getRootLayoutId(): Int {
+        return R.layout.fragment_calendar
+    }
+
+    override fun setViewOnEventListener() {
+        calendarView.setOnMonthChangeListener { year, month ->
+            val time = "$month | $year"
+            tvGreeting.text = time
+        }
+        calendarView.setOnCalendarSelectListener(object : CalendarView.OnCalendarSelectListener {
+            override fun onCalendarOutOfRange(calendar: Calendar?) {
+
+            }
+
+            override fun onCalendarSelect(calendar: Calendar?, isClick: Boolean) {
+                Log.d("###", "Select: ${calendar?.month}")
+                calendar?.let {
+                    val calendar = java.util.Calendar.getInstance().apply {
+                        set(it.year, it.month - 1, it.day, 0, 0, 0)
+                    }
+                    userViewModel.getDayEvents(calendar)
+                }
+            }
+        })
+    }
+
+    override fun setObserverFragment() {
+        userViewModel.dayEvents.observe(viewLifecycleOwner, Observer {
+            updateEventContainer(it)
+        })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setCurrentMonth()
+        setUpEventContainer()
+    }
+
+    private fun setCurrentMonth() {
+        val current = "${calendarView.curMonth} | ${calendarView.curYear}"
+        tvGreeting.text = current
+        val calendar = java.util.Calendar.getInstance().apply {
+            set(calendarView.curYear, calendarView.curMonth, calendarView.curDay, 0, 0, 0)
+        }
+        userViewModel.getDayEvents(calendar)
+    }
+
+    private fun updateEventContainer(dayEvents: MutableList<DayEvent>) {
+        if(dayEvents.size > 0) {
+            tvNoEvent.visibility = View.GONE
+            dayEventAdapter.submitList(dayEvents)
+        } else {
+            tvNoEvent.visibility = View.VISIBLE
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+    private fun setUpEventContainer() {
+        if(!this::dayEventAdapter.isInitialized) {
+            dayEventAdapter = DayEventAdapter()
+        }
+        rvCalendarEvent.adapter = dayEventAdapter
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalendarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CalendarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

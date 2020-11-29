@@ -23,6 +23,7 @@ import com.example.internshipmanagement.data.entity.DetailTaskReference
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.FunctionHelper
 import com.example.internshipmanagement.util.SERVER_URL
+import com.example.internshipmanagement.util.TASK_REVIEWING_PUSH
 import kotlinx.android.synthetic.main.activity_task_reference_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.ArrayList
@@ -44,8 +45,8 @@ class TaskReferenceDetailActivity : BaseActivity() {
 
     override fun setObserver() {
         mentorViewModel.detailReference.observe(this, Observer {
-            updateDetailReferenceUI(it)
             loadMarkLevel()
+            updateDetailReferenceUI(it)
         })
         mentorViewModel.isSuccessful.observe(this, Observer {
             completeReviewing(it)
@@ -74,6 +75,7 @@ class TaskReferenceDetailActivity : BaseActivity() {
 
     private fun updateDetailReferenceUI(data: DetailTaskReference) {
         // Load các thông tin
+        Log.d("###", "Mark: ${data.mark}")
         tvNoData.visibility = View.GONE
         if(data.materials.size > 0) {
             layoutMaterialContainer.visibility = View.VISIBLE
@@ -98,6 +100,10 @@ class TaskReferenceDetailActivity : BaseActivity() {
                 isFocusable = false
             }
             etTaskReferenceComment.setText(data.comment)
+            spTaskReferenceMark.apply {
+                setSelection(data.mark.toInt(), true)
+                isEnabled = false
+            }
         }
 
         // Nếu đã hết hạn deadline hoặc đã nộp bài enable nút save
@@ -140,6 +146,10 @@ class TaskReferenceDetailActivity : BaseActivity() {
 
     private fun completeReviewing(isSucceed: Boolean) {
         if(isSucceed) {
+            val intent = Intent(TASK_REVIEWING_PUSH).apply {
+                putExtra("taskId", mentorViewModel.detailReference.value?.taskId)
+            }
+            sendBroadcast(intent)
             this.finish()
         } else {
             super.showSnackBar("We have some error, retry!")

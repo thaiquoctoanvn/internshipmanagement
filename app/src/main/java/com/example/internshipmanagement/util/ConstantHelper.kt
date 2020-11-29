@@ -1,7 +1,7 @@
 package com.example.internshipmanagement.util
 
 // Cần dùng địa chỉ IP, ko dùng localhost 10.0.1.244, 172.16.10.68
-const val SERVER_URL = "http://10.0.1.244:83/miniproject/"
+const val SERVER_URL = "http://172.16.10.68:83/miniproject/"
 
 // File name
 const val SHARED_PREF_NAME = "InternManagement"
@@ -33,6 +33,7 @@ const val FCM_PUSH = "gcm"
 const val INFO_UPDATED = "infoUpdated"
 const val SUBMISSION_PUSH = "submitted"
 const val TASK_ADDING_PUSH = "task added"
+const val TASK_REVIEWING_PUSH = "reviewed"
 
 // Transformer Effect
 const val MIN_SCALE = 0.75f

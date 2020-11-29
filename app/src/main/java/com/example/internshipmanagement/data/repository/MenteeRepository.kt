@@ -27,10 +27,10 @@ class MenteeRepository(private val apiService: APIService) {
         return response
     }
 
-    suspend fun getMenteeTaskDetail(referId: String): Response<MenteeTaskDetail> {
+    suspend fun getMenteeTaskDetail(taskId: String, menteeId: String): Response<MenteeTaskDetail> {
         var response: Response<MenteeTaskDetail>
         withContext(Dispatchers.IO) {
-            response = apiService.getMenteeTaskDetail(referId)
+            response = apiService.getMenteeTaskDetail(taskId, menteeId)
         }
         return response
     }

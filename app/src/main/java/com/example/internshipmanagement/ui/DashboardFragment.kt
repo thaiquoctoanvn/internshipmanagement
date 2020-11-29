@@ -16,6 +16,7 @@ import com.example.internshipmanagement.ui.adapter.MentorsTaskAdapter
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
 import com.example.internshipmanagement.util.TASK_ADDING_PUSH
+import com.example.internshipmanagement.util.TASK_REVIEWING_PUSH
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.etSearchDashBoard
 import kotlinx.android.synthetic.main.fragment_dashboard.ibClearAllSearch
@@ -37,6 +38,7 @@ import kotlin.time.hours
 class DashboardFragment : BaseFragment() {
 
     private lateinit var taskAddingPush: BroadcastReceiver
+    private lateinit var taskReviewingPush: BroadcastReceiver
 
     private val userViewModel by viewModel<UserViewModel>()
     private val mentorViewModel by viewModel<MentorViewModel>()
@@ -134,10 +136,22 @@ class DashboardFragment : BaseFragment() {
                 mentorViewModel.getMentorsTasks()
             }
         }
+        taskReviewingPush = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if(intent != null) {
+                    val taskId = intent.getStringExtra("taskId")
+                    val position = mentorViewModel.updateCurrentInteractedItem(taskId.toString())
+                    if(position > -1) {
+                        mentorsTaskAdapter.notifyItemMoved(position, 0)
+                    }
+                }
+            }
+        }
     }
 
     private fun registerBroadcast() {
         requireActivity().registerReceiver(taskAddingPush, IntentFilter(TASK_ADDING_PUSH))
+        requireActivity().registerReceiver(taskReviewingPush, IntentFilter(TASK_REVIEWING_PUSH))
     }
 
     private val onItemTaskClick: (mentorsTask: MentorsTask) -> Unit = {

@@ -4,6 +4,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class DetailTaskReference(
+    val taskId: String,
     val referenceId: String,
     val menteeId: String,
     val menteeName: String,

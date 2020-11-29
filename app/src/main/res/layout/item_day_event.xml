@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/lv3"
+    android:layout_marginEnd="@dimen/lv3"
+    android:layout_marginBottom="@dimen/lv3"
+    app:cardCornerRadius="@dimen/lv3"
+    app:cardElevation="@dimen/lv1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/lv2"
+        android:paddingBottom="@dimen/lv2">
+
+        <TextView
+            android:id="@+id/tvItemEventIndex"
+            android:layout_width="@dimen/lv0"
+            android:layout_height="0dp"
+            android:background="@color/mentee_strong_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvItemEventName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lv2"
+            android:layout_marginEnd="@dimen/lv2"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textBody"
+            app:layout_constraintEnd_toStartOf="@id/tvItemEventIndex"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ajhgkahgkhfkhakghkghakhagkahgkahgkhgkahkhhgakdhgkaghkhghgkahgkahfhagkhdfkhafgkhkahkghakghakgkagkakafhkahkhgkahgakhgkhafkghakgakhgkafhgkagkhg" />
+
+        <TextView
+            android:id="@+id/tvItemEventDeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv0"
+            android:layout_marginBottom="@dimen/lv2"
+            android:textColor="@color/icon_or_text_color"
+            android:textSize="@dimen/textCaption"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvItemEventName"
+            app:layout_constraintTop_toBottomOf="@id/tvItemEventName"
+            tools:text="Deadline: 18/09/2020 20:00:00" />
+
+        <TextView
+            android:id="@+id/tvItemEventOwner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/lv1"
+            android:textColor="@color/icon_or_text_color"
+            android:textSize="@dimen/textCaption"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvItemEventName"
+            app:layout_constraintTop_toBottomOf="@id/tvItemEventDeadline"
+            tools:text="Created by mentor x" />
+
+        <ImageView
+            android:id="@+id/ivItemEventOwner"
+            android:layout_width="@dimen/lv3"
+            android:layout_height="@dimen/lv3"
+            android:layout_marginStart="@dimen/lv1"
+            app:layout_constraintBottom_toBottomOf="@id/tvItemEventOwner"
+            app:layout_constraintStart_toEndOf="@id/tvItemEventOwner"
+            app:layout_constraintTop_toTopOf="@id/tvItemEventOwner" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

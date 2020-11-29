@@ -26,12 +26,16 @@ class MentorsTaskAdapter(private val onItemClick: (task: MentorsTask) -> Unit) :
 
     inner class MentorsTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(mentorsTask: MentorsTask) {
+            val deadline = "Deadline: ${FunctionHelper.getDateFromTimeMilliSecond(mentorsTask.deadline)}"
             itemView.tvItemMentorTaskName.text = mentorsTask.content
-            itemView.tvItemMentorTaskDeadline.text = FunctionHelper.getDateFromTimeMilliSecond(mentorsTask.deadline)
+            itemView.tvItemMentorTaskDeadline.text = deadline
             val state = "${mentorsTask.numberSubmitted} / ${mentorsTask.referenceNumber} submitted"
             itemView.tvItemMentorTaskStatus.text = state
-            if(mentorsTask.numberSubmitted.toInt() > mentorsTask.referenceNumber.toInt() / 2) {
+
+            if(mentorsTask.deadline.toLong() < System.currentTimeMillis()) {
                 itemView.tvIconIndex.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.mentor_strong_color))
+            } else {
+                itemView.tvIconIndex.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.mentee_strong_color))
             }
 
             itemView.setOnClickListener { onItemClick(mentorsTask) }

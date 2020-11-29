@@ -70,9 +70,9 @@ class MenteeTaskDetailActivity : BaseActivity() {
     private fun loadMenteeTaskDetail() {
         val intenData = intent
         if(intenData != null) {
-            val referId = intenData.getStringExtra("referId")
-            if(!referId.isNullOrEmpty()) {
-                menteeViewModel.getMenteeTaskDetail(referId)
+            val taskId = intenData.getStringExtra("taskId")
+            if(!taskId.isNullOrEmpty()) {
+                menteeViewModel.getMenteeTaskDetail(taskId)
             }
         }
     }

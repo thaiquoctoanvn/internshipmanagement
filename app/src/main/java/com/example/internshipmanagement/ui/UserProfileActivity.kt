@@ -74,7 +74,6 @@ class UserProfileActivity : BaseActivity() {
         if(data != null) {
             data.getStringExtra("userId")?.let { userViewModel.getUserProfile(it) }
         }
-//        setUpPieChart()
     }
 
     private fun updateUserProfileUI(userProfile: UserProfile) {
@@ -121,103 +120,4 @@ class UserProfileActivity : BaseActivity() {
             }
         }.attach()
     }
-
-//    private fun setUpPieChart() {
-//        menteePieChart.apply {
-//
-//            isDrawHoleEnabled = true
-//            holeRadius = 58f
-//            transparentCircleRadius = 100f
-//            rotationAngle = 0f
-//            isRotationEnabled = true
-//            isHighlightPerTapEnabled = true
-//
-//            // Tắt chart decryption
-//            description.isEnabled = false
-//
-//            // Vị trí, khoảng cách giữa các phần trong chú thích
-////            setExtraOffsets(5f, 30f, 5f, 5f)
-//
-////            setUsePercentValues(true)
-//            setDrawCenterText(true)
-//
-//
-//            // set màu phần lỗ tròn ở giữa
-//            setHoleColor(ContextCompat.getColor(this@UserProfileActivity, R.color.white))
-//
-//            // Set màu và opacity phần giữa lỗ tròn và vòng màu chính
-//            setTransparentCircleColor(ContextCompat.getColor(this@UserProfileActivity, R.color.top_or_bottom_view_color))
-//            setTransparentCircleAlpha(102)
-//
-//            animateY(5000, Easing.EaseInOutQuad)
-////            animateXY(2000, 2000)
-//
-//            setEntryLabelColor(ContextCompat.getColor(this@UserProfileActivity, R.color.black))
-//            setEntryLabelTextSize(14f)
-//
-//            // Điều chỉnh vị trí của phần chú thích
-//            legend.apply {
-//                verticalAlignment = Legend.LegendVerticalAlignment.TOP
-//                horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-//                orientation = Legend.LegendOrientation.VERTICAL
-//                setDrawInside(false)
-//                xEntrySpace = 0f
-//                yEntrySpace = 24f
-//                yOffset = 10f
-//                isWordWrapEnabled = true
-//                isEnabled = false
-//            }
-//
-//            setOnChartValueSelectedListener(this@UserProfileActivity)
-//        }
-//
-//        setChartData()
-//    }
-//
-//    private fun setChartData() {
-//
-//        // PieEntry('giá trị sẽ hiển thị trên chart', 'giá trị sẽ get khi click lên chart')
-//        val pieEntries = mutableListOf<PieEntry>(
-//            PieEntry(50f, 0),
-//            PieEntry(13f, 1),
-//            PieEntry(5f, 2),
-//            PieEntry(26f, 3)
-//        )
-//        val pieDataSet = PieDataSet(pieEntries, "Task Statistical").apply {
-//            setDrawIcons(false)
-//
-//            // Khoảng cách giữa các phần
-//            sliceSpace = 3f
-//
-//            // Độ dày phần được chọn
-//            selectionShift = 8f
-//
-//
-//            // Bộ màu dùng cho chart
-//            colors = ColorTemplate.LIBERTY_COLORS.toMutableList()
-//
-//
-//        }
-//        val chartNotes = mutableListOf<String>("1", "2", "3", "4")
-//        val pieData = PieData(pieDataSet).apply {
-//            setValueFormatter(PercentFormatter())
-//            setValueTextSize(11f)
-//            setValueTextColor(ContextCompat.getColor(this@UserProfileActivity, R.color.white))
-//        }
-//        menteePieChart.apply {
-//            data = pieData
-//            highlightValue(null)
-//            invalidate()
-//        }
-//
-//    }
-
-//    override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
-//        Log.d("###", "Entry selected: ${entry?.data}")
-//        menteePieChart.highlightValue(highlight)
-//    }
-//
-//    override fun onNothingSelected() {
-//        Log.d("###", "Nothing selected")
-//    }
 }

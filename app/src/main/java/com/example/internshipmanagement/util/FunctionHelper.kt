@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.provider.DocumentsContract
@@ -11,12 +12,15 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Constraints
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginStart
+import androidx.core.view.marginTop
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.Criterion
@@ -58,17 +62,18 @@ class FunctionHelper {
         }
 
         fun getDateFromTimeMilliSecond(timeStamp: String): String {
-            if(timeStamp.isNotEmpty()) {
+            if (timeStamp.isNotEmpty()) {
                 val date = Date(timeStamp.toLong())
                 val language = "en"
-                val formattedDateAsShortMonth = SimpleDateFormat("dd MMM yyyy HH:mm", Locale(language))
+                val formattedDateAsShortMonth =
+                    SimpleDateFormat("dd MMM yyyy HH:mm", Locale(language))
                 return formattedDateAsShortMonth.format(date)
             }
             return ""
         }
 
         fun getMilliSecondFromDate(dateInString: String): Long? {
-            if(dateInString.isNotEmpty()) {
+            if (dateInString.isNotEmpty()) {
                 val language = "en"
                 val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale(language))
                 val date = simpleDateFormat.parse(dateInString)
@@ -96,13 +101,16 @@ class FunctionHelper {
         ): MutableList<View> {
             val number = materials.size
             val thumbnails = mutableListOf<View>()
-            if(number > 0) {
+            if (number > 0) {
                 val widthScreen = context.resources.displayMetrics.widthPixels
                 val set = ConstraintSet()
-                when(number) {
+                when (number) {
                     1 -> {
                         val image = ImageView(context).apply {
-                            layoutParams = ConstraintLayout.LayoutParams(Constraints.LayoutParams.MATCH_PARENT, widthScreen / 2)
+                            layoutParams = ConstraintLayout.LayoutParams(
+                                Constraints.LayoutParams.MATCH_PARENT,
+                                widthScreen / 2
+                            )
                             id = View.generateViewId()
                             scaleType = ImageView.ScaleType.CENTER_CROP
 
@@ -115,19 +123,31 @@ class FunctionHelper {
                         layoutMaterialContainer.addView(image)
                         set.clone(layoutMaterialContainer)
 
-                        set.connect(image.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-                        set.connect(image.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+                        set.connect(
+                            image.id,
+                            ConstraintSet.TOP,
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.TOP
+                        )
+                        set.connect(
+                            image.id,
+                            ConstraintSet.START,
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.START
+                        )
 
                         thumbnails.add(image)
                     }
                     2 -> {
                         val firstImage = ImageView(context).apply {
-                            layoutParams = ConstraintLayout.LayoutParams(widthScreen / 2, widthScreen / 2)
+                            layoutParams =
+                                ConstraintLayout.LayoutParams(widthScreen / 2, widthScreen / 2)
                             id = View.generateViewId()
                             scaleType = ImageView.ScaleType.CENTER_CROP
                         }
                         val secondImage = ImageView(context).apply {
-                            layoutParams = ConstraintLayout.LayoutParams(widthScreen / 2, widthScreen / 2)
+                            layoutParams =
+                                ConstraintLayout.LayoutParams(widthScreen / 2, widthScreen / 2)
                             id = View.generateViewId()
                             scaleType = ImageView.ScaleType.CENTER_CROP
                         }
@@ -145,8 +165,18 @@ class FunctionHelper {
                         }
 
                         set.clone(layoutMaterialContainer)
-                        set.connect(firstImage.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-                        set.connect(secondImage.id, ConstraintSet.TOP, firstImage.id, ConstraintSet.TOP)
+                        set.connect(
+                            firstImage.id,
+                            ConstraintSet.TOP,
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.TOP
+                        )
+                        set.connect(
+                            secondImage.id,
+                            ConstraintSet.TOP,
+                            firstImage.id,
+                            ConstraintSet.TOP
+                        )
                         set.createHorizontalChain(
                             ConstraintSet.PARENT_ID,
                             ConstraintSet.LEFT,
@@ -165,7 +195,10 @@ class FunctionHelper {
                     else -> {
 
                         val firstImage = ImageView(context).apply {
-                            layoutParams = ConstraintLayout.LayoutParams((widthScreen * 0.6).toInt(), widthScreen / 2)
+                            layoutParams = ConstraintLayout.LayoutParams(
+                                (widthScreen * 0.6).toInt(),
+                                widthScreen / 2
+                            )
                             id = View.generateViewId()
                             scaleType = ImageView.ScaleType.CENTER_CROP
                         }
@@ -199,14 +232,44 @@ class FunctionHelper {
                         }
 
                         set.clone(layoutMaterialContainer)
-                        set.connect(firstImage.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-                        set.connect(firstImage.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+                        set.connect(
+                            firstImage.id,
+                            ConstraintSet.TOP,
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.TOP
+                        )
+                        set.connect(
+                            firstImage.id,
+                            ConstraintSet.START,
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.START
+                        )
 
-                        set.connect(secondImage.id, ConstraintSet.START, firstImage.id, ConstraintSet.END)
-                        set.connect(secondImage.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+                        set.connect(
+                            secondImage.id,
+                            ConstraintSet.START,
+                            firstImage.id,
+                            ConstraintSet.END
+                        )
+                        set.connect(
+                            secondImage.id,
+                            ConstraintSet.END,
+                            ConstraintSet.PARENT_ID,
+                            ConstraintSet.END
+                        )
 
-                        set.connect(thirdImage.id, ConstraintSet.START, secondImage.id, ConstraintSet.START)
-                        set.connect(thirdImage.id, ConstraintSet.END, secondImage.id, ConstraintSet.END)
+                        set.connect(
+                            thirdImage.id,
+                            ConstraintSet.START,
+                            secondImage.id,
+                            ConstraintSet.START
+                        )
+                        set.connect(
+                            thirdImage.id,
+                            ConstraintSet.END,
+                            secondImage.id,
+                            ConstraintSet.END
+                        )
 
                         set.createVerticalChain(
                             firstImage.id,
@@ -224,7 +287,7 @@ class FunctionHelper {
                             add(thirdImage)
                         }
 
-                        if(number > 3) {
+                        if (number > 3) {
                             val viewOpacity = TextView(context).apply {
                                 layoutParams = ConstraintLayout.LayoutParams(0, 0)
                                 typeface = Typeface.DEFAULT_BOLD
@@ -236,10 +299,30 @@ class FunctionHelper {
                             }
                             layoutMaterialContainer.addView(viewOpacity)
 
-                            set.connect(viewOpacity.id, ConstraintSet.START, thirdImage.id, ConstraintSet.START)
-                            set.connect(viewOpacity.id, ConstraintSet.END, thirdImage.id, ConstraintSet.END)
-                            set.connect(viewOpacity.id, ConstraintSet.TOP, thirdImage.id, ConstraintSet.TOP)
-                            set.connect(viewOpacity.id, ConstraintSet.BOTTOM, thirdImage.id, ConstraintSet.BOTTOM)
+                            set.connect(
+                                viewOpacity.id,
+                                ConstraintSet.START,
+                                thirdImage.id,
+                                ConstraintSet.START
+                            )
+                            set.connect(
+                                viewOpacity.id,
+                                ConstraintSet.END,
+                                thirdImage.id,
+                                ConstraintSet.END
+                            )
+                            set.connect(
+                                viewOpacity.id,
+                                ConstraintSet.TOP,
+                                thirdImage.id,
+                                ConstraintSet.TOP
+                            )
+                            set.connect(
+                                viewOpacity.id,
+                                ConstraintSet.BOTTOM,
+                                thirdImage.id,
+                                ConstraintSet.BOTTOM
+                            )
 
                             thumbnails.add(viewOpacity)
                         }
@@ -250,19 +333,150 @@ class FunctionHelper {
             return thumbnails
         }
 
-        fun generateCustomLegends(container: ConstraintLayout, pieDataSet: PieDataSet) {
+        fun generateCustomLegends(
+            container: ConstraintLayout,
+            pieDataSet: PieDataSet
+        ) {
             val colorCodes = pieDataSet.colors
             val context = container.context
             val constConverter = context.resources.displayMetrics.density
-            val colorIconSize = (context.resources.getDimension(R.dimen.lv3) * constConverter).toInt()
+            val colorIconSize =
+                (context.resources.getDimension(R.dimen.lv0) * constConverter).toInt()
+            val marginDistance =
+                (context.resources.getDimension(R.dimen.lv0) * constConverter).toInt()
 
-            colorCodes.forEach {
-                val tvFirstColor = TextView(context).apply {
-                    layoutParams = ConstraintLayout.LayoutParams(colorIconSize, colorIconSize)
-                    id = View.generateViewId()
-                    backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, it))
+            Log.d("###", "ColorCode: ${colorCodes[0]}")
+
+            val tvFirstColor = TextView(context).apply {
+                layoutParams = ConstraintLayout.LayoutParams(colorIconSize, colorIconSize)
+                id = View.generateViewId()
+                setBackgroundColor(colorCodes[0])
+            }
+            val tvFirstLegend = TextView(context).apply {
+                layoutParams = ConstraintLayout.LayoutParams(
+                    Constraints.LayoutParams.WRAP_CONTENT,
+                    Constraints.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginStart = marginDistance
                 }
+                id = View.generateViewId()
+                text = context.getString(R.string.behavior_mark)
+                gravity = Gravity.START
+                setTextColor(ContextCompat.getColor(context, R.color.black))
+            }
+            val tvSecondColor = TextView(context).apply {
+                layoutParams = ConstraintLayout.LayoutParams(colorIconSize, colorIconSize).apply {
+                    topMargin = marginDistance
+                }
+                id = View.generateViewId()
+                setBackgroundColor(colorCodes[1])
+            }
+            val tvSecondLegend = TextView(context).apply {
+                layoutParams = ConstraintLayout.LayoutParams(
+                    Constraints.LayoutParams.WRAP_CONTENT,
+                    Constraints.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginStart = marginDistance
+                }
+                id = View.generateViewId()
+                text = context.getString(R.string.knowledge_mark)
+                gravity = Gravity.START
+                setTextColor(ContextCompat.getColor(context, R.color.black))
+            }
+            val tvThirdColor = TextView(context).apply {
+                layoutParams = ConstraintLayout.LayoutParams(colorIconSize, colorIconSize).apply {
+                    topMargin = marginDistance
+                }
+                id = View.generateViewId()
+                setBackgroundColor(colorCodes[2])
+            }
+            val tvThirdLegend = TextView(context).apply {
+                layoutParams = ConstraintLayout.LayoutParams(
+                    Constraints.LayoutParams.WRAP_CONTENT,
+                    Constraints.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginStart = marginDistance
+                }
+                id = View.generateViewId()
+                text = context.getString(R.string.proactive_mark)
+                setTextColor(ContextCompat.getColor(context, R.color.black))
+            }
 
+            container.apply {
+                addView(tvFirstColor)
+                addView(tvFirstLegend)
+                addView(tvSecondColor)
+                addView(tvSecondLegend)
+                addView(tvThirdColor)
+                addView(tvThirdLegend)
+            }
+
+            ConstraintSet().apply {
+                clone(container)
+
+                connect(
+                    tvFirstColor.id,
+                    ConstraintSet.TOP,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.TOP
+                )
+                connect(tvFirstLegend.id, ConstraintSet.START, tvFirstColor.id, ConstraintSet.END)
+                connect(tvFirstLegend.id, ConstraintSet.TOP, tvFirstColor.id, ConstraintSet.TOP)
+                connect(
+                    tvFirstLegend.id,
+                    ConstraintSet.BOTTOM,
+                    tvFirstColor.id,
+                    ConstraintSet.BOTTOM
+                )
+                createHorizontalChain(
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.LEFT,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.RIGHT,
+                    arrayOf(tvFirstColor.id, tvFirstLegend.id).toIntArray(),
+                    null,
+                    ConstraintSet.CHAIN_SPREAD
+                )
+
+                connect(tvSecondColor.id, ConstraintSet.TOP, tvFirstColor.id, ConstraintSet.BOTTOM)
+                connect(tvSecondLegend.id, ConstraintSet.START, tvSecondColor.id, ConstraintSet.END)
+                connect(tvSecondLegend.id, ConstraintSet.TOP, tvSecondColor.id, ConstraintSet.TOP)
+                connect(
+                    tvSecondLegend.id,
+                    ConstraintSet.BOTTOM,
+                    tvSecondColor.id,
+                    ConstraintSet.BOTTOM
+                )
+                createHorizontalChain(
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.LEFT,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.RIGHT,
+                    arrayOf(tvSecondColor.id, tvSecondLegend.id).toIntArray(),
+                    null,
+                    ConstraintSet.CHAIN_SPREAD
+                )
+
+                connect(tvThirdColor.id, ConstraintSet.TOP, tvSecondColor.id, ConstraintSet.BOTTOM)
+                connect(tvThirdLegend.id, ConstraintSet.START, tvThirdColor.id, ConstraintSet.END)
+                connect(tvThirdLegend.id, ConstraintSet.TOP, tvThirdColor.id, ConstraintSet.TOP)
+                connect(
+                    tvThirdLegend.id,
+                    ConstraintSet.BOTTOM,
+                    tvThirdColor.id,
+                    ConstraintSet.BOTTOM
+                )
+                createHorizontalChain(
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.LEFT,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.RIGHT,
+                    arrayOf(tvThirdColor.id, tvThirdLegend.id).toIntArray(),
+                    null,
+                    ConstraintSet.CHAIN_SPREAD
+                )
+
+                applyTo(container)
             }
         }
     }

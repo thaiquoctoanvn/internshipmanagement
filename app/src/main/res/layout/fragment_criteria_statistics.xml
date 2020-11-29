@@ -5,15 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:paddingTop="@dimen/lv2"
     android:paddingStart="@dimen/lv1"
+    android:paddingTop="@dimen/lv2"
     android:paddingEnd="@dimen/lv1"
     tools:context=".ui.CriteriaStatisticsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutCriteriaStatisticLegend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginEnd="@dimen/lv3"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pcCriteria"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutCriteriaStatisticLegend" />
 </androidx.constraintlayout.widget.ConstraintLayout>
