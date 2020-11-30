@@ -52,10 +52,6 @@ class MentorViewModel(
     val allMentees: LiveData<MutableList<MyMentee>>
         get() = _allMentees
 
-
-
-
-
     private val _menteesEvaluations = MutableLiveData<MutableList<MenteesEvaluation>>()
     val menteesEvaluations: LiveData<MutableList<MenteesEvaluation>>
     get() = _menteesEvaluations
@@ -133,7 +129,6 @@ class MentorViewModel(
                 super.setIsLoadingValue(true)
                 val res = mentorRepository.addNewTask(ownerId, deadline, taskBody, menteeIds, gcmIds).body()
                 super.setIsLoadingValue(false)
-                super.setMessageResponseValue("Add task successfully")
                 delay(1000)
                 _isSuccessful.value = res != null
             }
@@ -247,9 +242,13 @@ class MentorViewModel(
             super.setIsLoadingValue(true)
             val res = mentorRepository.addEvaluation(mentorId, menteeId, fromDate, toDate, evaluation, criteria.value!!).body()
             super.setIsLoadingValue(false)
-            super.setMessageResponseValue("Evaluation added successfully")
-            delay(1000)
-            _isSuccessful.value = res != null
+            if(res != null) {
+                super.setMessageResponseValue("Give a evaluation successfully")
+                delay(500)
+                _isSuccessful.value = true
+            } else {
+                _isSuccessful.value = false
+            }
         }
     }
 
@@ -269,12 +268,12 @@ class MentorViewModel(
             super.setIsLoadingValue(true)
             val referId = detailReference.value?.referenceId.toString()
             val res = mentorRepository.updateSpecificReferenceOfTask(referId, mark, comment).body()
+            super.setIsLoadingValue(false)
             if(res != null) {
                 super.setMessageResponseValue("Reviewed successfully")
-                delay(2000)
+                delay(500)
                 _isSuccessful.value = true
             }
-            super.setIsLoadingValue(false)
         }
     }
 
@@ -288,5 +287,15 @@ class MentorViewModel(
             }
         }
         return position
+    }
+
+    fun setReviewedStateReference(id: String): Int {
+        taskReferences.value?.forEachIndexed { index, taskReference ->
+            if(id == taskReference.id) {
+                taskReference.isReviewed = "1"
+                return index
+            }
+        }
+        return -1
     }
 }

@@ -27,18 +27,46 @@ class MentorTaskDetailAdapter(
 
     inner class MentorTaskDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(taskReference: TaskReference) {
-            val name = "${taskReference.name} (${taskReference.nickName})"
-            itemView.tvItemMenteeName.text = name
-            Glide.with(itemView)
-                .load("$SERVER_URL${taskReference.avatarUrl}")
-                .circleCrop()
-                .placeholder(R.drawable.default_avatar)
-                .into(itemView.ivItemMentee)
-            if(taskReference.isSubmitted == "1") {
-                itemView.tvStateReferTaskDetail.text = itemView.context.getString(R.string.submitted_state)
-            }
+            itemView.apply {
+                val name = "${taskReference.name} (${taskReference.nickName})"
+                tvItemMenteeName.text = name
+                Glide.with(this)
+                    .load("$SERVER_URL${taskReference.avatarUrl}")
+                    .circleCrop()
+                    .placeholder(R.drawable.default_avatar)
+                    .into(ivItemMentee)
+                if(taskReference.isSubmitted == "1") {
+                    tvStateReferTaskDetail.text = context.getString(R.string.submitted_state)
+                } else {
+                    tvStateReferTaskDetail.text = context.getString(R.string.not_submitted_state)
+                }
+                if(taskReference.isReviewed == "1") {
+                    tvReviewedState.visibility = View.VISIBLE
+                } else {
+                    tvReviewedState.visibility = View.GONE
+                }
 
-            itemView.setOnClickListener { onItemClick(taskReference.id) }
+                setOnClickListener { onItemClick(taskReference.id) }
+            }
+//            val name = "${taskReference.name} (${taskReference.nickName})"
+//            itemView.tvItemMenteeName.text = name
+//            Glide.with(itemView)
+//                .load("$SERVER_URL${taskReference.avatarUrl}")
+//                .circleCrop()
+//                .placeholder(R.drawable.default_avatar)
+//                .into(itemView.ivItemMentee)
+//            if(taskReference.isSubmitted == "1") {
+//                itemView.tvStateReferTaskDetail.text = itemView.context.getString(R.string.submitted_state)
+//            } else {
+//                itemView.tvStateReferTaskDetail.text = itemView.context.getString(R.string.not_submitted_state)
+//            }
+//            if(taskReference.isReviewed == "1") {
+//                itemView.tvReviewedState.visibility = View.VISIBLE
+//            } else {
+//                itemView.tvReviewedState.visibility = View.GONE
+//            }
+//
+//            itemView.setOnClickListener { onItemClick(taskReference.id) }
         }
     }
 }

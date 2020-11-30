@@ -30,8 +30,6 @@ import java.util.ArrayList
 
 class TaskReferenceDetailActivity : BaseActivity() {
 
-    
-
     private val mentorViewModel by viewModel<MentorViewModel>()
 
     override fun getActivityRootLayout(): Int {
@@ -148,6 +146,7 @@ class TaskReferenceDetailActivity : BaseActivity() {
         if(isSucceed) {
             val intent = Intent(TASK_REVIEWING_PUSH).apply {
                 putExtra("taskId", mentorViewModel.detailReference.value?.taskId)
+                putExtra("referId", mentorViewModel.detailReference.value?.referenceId)
             }
             sendBroadcast(intent)
             this.finish()

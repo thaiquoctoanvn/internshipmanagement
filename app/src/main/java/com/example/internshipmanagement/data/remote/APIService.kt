@@ -97,9 +97,9 @@ interface APIService {
         @Field("from_date") fromDate: String,
         @Field("to_date") toDate: String,
         @Field("evaluation") evaluation: String,
-        @Field("mark1") mark1: String,
-        @Field("mark2") mark2: String,
-        @Field("mark3") mark3: String
+        @Field("behavior_mark") mark1: String,
+        @Field("knowledge_mark") mark2: String,
+        @Field("proactive_mark") mark3: String
     ): Response<String>
 
     // Lấy chi tiết bài nộp của mentee

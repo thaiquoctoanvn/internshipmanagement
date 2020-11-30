@@ -179,35 +179,14 @@ class UserViewModel(
         }
     }
 
-    private fun updateFCMId(fcmId: String) {
-        viewModelScope.launch {
-            val userId = sharedPref.getString("userId", "")
-            if(!userId.isNullOrEmpty()) {
-                val res = userRepository.updateFCMId(userId, fcmId).body()
-                if(res != null) {
-                    Log.d("###", "Update FCM OK")
-                }
-            }
-        }
-    }
-
-    private fun setUserInfoToPref(
-        userId: String,
-        token: String,
-        type: String,
-        avatarUrl: String
-    ) {
-        sharedPref.edit().apply {
-            putString("userId", userId)
-            putString("token", token)
-            putString("type", type)
-            putString("avatarUrl", avatarUrl)
-        }.apply()
-    }
-
     fun getCriteriaPoints() {
         viewModelScope.launch {
-            val menteeId = userProfile.value?.userId.toString()
+            var menteeId = ""
+            menteeId = if(userProfile.value != null) {
+                userProfile.value?.userId.toString()
+            } else {
+                getMyAccountId().toString()
+            }
             val res = userRepository.getCriteriaPoints(menteeId).body()
             if(res != null) {
                 _criteriaPoints.value = res
@@ -243,6 +222,36 @@ class UserViewModel(
                 _dayEvents.value = res
             }
         }
+    }
+
+    fun getMyAccountType() = sharedPref.getString("type", "")
+
+    fun getMyAccountId() = sharedPref.getString("userId", "")
+
+    private fun updateFCMId(fcmId: String) {
+        viewModelScope.launch {
+            val userId = sharedPref.getString("userId", "")
+            if(!userId.isNullOrEmpty()) {
+                val res = userRepository.updateFCMId(userId, fcmId).body()
+                if(res != null) {
+                    Log.d("###", "Update FCM OK")
+                }
+            }
+        }
+    }
+
+    private fun setUserInfoToPref(
+        userId: String,
+        token: String,
+        type: String,
+        avatarUrl: String
+    ) {
+        sharedPref.edit().apply {
+            putString("userId", userId)
+            putString("token", token)
+            putString("type", type)
+            putString("avatarUrl", avatarUrl)
+        }.apply()
     }
 
 }

@@ -100,10 +100,13 @@ class EvaluationProfileActivity : BaseActivity() {
         if(!this::evaluationProfileAdapter.isInitialized) {
             evaluationProfileAdapter = EvaluationProfileAdapter()
         }
-        evaluationProfileAdapter.submitList(evaluations)
-        rvAllEvaluations.adapter = evaluationProfileAdapter
+        if(evaluations.size > 0) {
+            evaluationProfileAdapter.submitList(evaluations)
+            rvAllEvaluations.adapter = evaluationProfileAdapter
+            tvNoEvaluationResult.visibility = View.GONE
+        }
         tvAllEvaluationsTitle.text = getString(R.string.all_evaluations, evaluations.size)
-        tvNoEvaluationResult.visibility = View.GONE
+
     }
 
     private fun switchToEvaluationCreating() {

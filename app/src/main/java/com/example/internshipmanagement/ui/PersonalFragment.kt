@@ -8,27 +8,42 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TableLayout
 import android.widget.TextView
+import androidx.compose.ui.geometry.Rect
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.UserProfile
+import com.example.internshipmanagement.ui.adapter.TabStatisticAdapter
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.INFO_UPDATED
 import com.example.internshipmanagement.util.SERVER_URL
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_personal.*
+import kotlinx.android.synthetic.main.fragment_personal.ivAvatarProfile
+import kotlinx.android.synthetic.main.fragment_personal.tabLayoutPieChart
+import kotlinx.android.synthetic.main.fragment_personal.tvNickName
+import kotlinx.android.synthetic.main.fragment_personal.tvProfileEmail
+import kotlinx.android.synthetic.main.fragment_personal.tvProfileName
+import kotlinx.android.synthetic.main.fragment_personal.tvProfilePosition
+import kotlinx.android.synthetic.main.fragment_personal.vpPieChart
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PersonalFragment : BaseFragment() {
 
-    private val userViewModel by viewModel<UserViewModel>()
-
+    private lateinit var tabStatisticAdapter: TabStatisticAdapter
     private lateinit var infoUpdatePush: BroadcastReceiver
-
     private lateinit var personalOptionsView: View
     private lateinit var bottomSheetDialog: BottomSheetDialog
+
+    private val userViewModel by viewModel<UserViewModel>()
+
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_personal
@@ -39,6 +54,25 @@ class PersonalFragment : BaseFragment() {
         tvEditProfile.setOnClickListener { switchToEditProfileActivity() }
         tvProfileEvaluation.setOnClickListener { switchToEvaluationProfile() }
         slPersonalFragment.setOnRefreshListener { retrievePersonalInfo() }
+        tabLayoutPieChart.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
+        appBarPersonalFragment.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            // Chỉ enable swipe layout khi trở lên đầu màn hình
+            val rect = android.graphics.Rect()
+            slPersonalFragment.isEnabled = ivCover.getGlobalVisibleRect(rect) && ivCover.height == rect.height()
+        })
     }
 
     override fun setObserverFragment() {
@@ -58,8 +92,10 @@ class PersonalFragment : BaseFragment() {
         super.setBaseObserverFragment(userViewModel)
     }
 
+
+
     private fun retrievePersonalInfo() {
-        val id = userViewModel.getSharedPref().getString("userId", "")
+        val id = userViewModel.getMyAccountId()
         if (id != null) {
             userViewModel.getUserProfile(id)
         }
@@ -67,9 +103,13 @@ class PersonalFragment : BaseFragment() {
 
     private fun updateUI(userProfile: UserProfile) {
         slPersonalFragment.isRefreshing = false
-        if(super.isMentorAccount(userViewModel.getSharedPref().getString("type", "")!!)) {
+        if(super.isMentorAccount(userProfile.type)) {
             ivIconEvaluation.visibility = View.GONE
             tvProfileEvaluation.visibility = View.GONE
+            tabLayoutPieChart.visibility = View.GONE
+            nsvPersonalFragment.visibility = View.GONE
+        } else {
+            launchTab()
         }
         val nickName = "@" + userProfile.nickName
         tvProfileName.text = userProfile.name
@@ -141,5 +181,18 @@ class PersonalFragment : BaseFragment() {
 
     private fun registerBroadcast() {
         activity?.registerReceiver(infoUpdatePush, IntentFilter(INFO_UPDATED))
+    }
+
+    private fun launchTab() {
+        if(!this::tabStatisticAdapter.isInitialized) {
+            tabStatisticAdapter = TabStatisticAdapter(childFragmentManager, this.lifecycle)
+        }
+        vpPieChart.adapter = tabStatisticAdapter
+        TabLayoutMediator(tabLayoutPieChart, vpPieChart) { tab: TabLayout.Tab, position: Int ->
+            when(position) {
+                0 -> tab.text = "Criteria statistic"
+                else -> tab.text = "Task statistic"
+            }
+        }.attach()
     }
 }

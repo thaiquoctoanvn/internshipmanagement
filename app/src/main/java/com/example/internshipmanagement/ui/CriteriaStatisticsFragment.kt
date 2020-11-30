@@ -52,6 +52,7 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userViewModel.getCriteriaPoints()
+        Log.d("###", "Chart tab has loaded")
     }
 
     private fun setUpPieChart() {
@@ -97,60 +98,67 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
 
     private fun setChartData(criteriaPoints: MutableList<CriterionPoint>) {
 
-        setUpPieChart()
+        pbCriteriaStatisticLoading.visibility = View.GONE
 
-        // PieEntry('giá trị sẽ hiển thị trên chart', 'giá trị sẽ get khi click lên chart')
-        var behaviorAverage = 0f
-        var knowledgeAverage = 0f
-        var proactiveAverage = 0f
-        val counter = criteriaPoints.size
+        if(criteriaPoints.size > 0) {
+            tvNoCriteriaStatistic.visibility = View.GONE
 
-        criteriaPoints.forEach {
-            behaviorAverage += it.behaviorMark.toFloat()
-            knowledgeAverage += it.knowledgeMark.toFloat()
-            proactiveAverage += it.proactiveMark.toFloat()
-        }
+            setUpPieChart()
 
-        val pieEntries = mutableListOf<PieEntry>(
-            PieEntry(behaviorAverage / counter, 0),
-            PieEntry(knowledgeAverage / counter, 1),
-            PieEntry(proactiveAverage / counter, 2)
-        )
+            // PieEntry('giá trị sẽ hiển thị trên chart', 'giá trị sẽ get khi click lên chart')
+            var behaviorAverage = 0f
+            var knowledgeAverage = 0f
+            var proactiveAverage = 0f
+            val counter = criteriaPoints.size
 
-        val pieDataSet = PieDataSet(pieEntries, "Task Statistical").apply {
-            setDrawIcons(false)
+            criteriaPoints.forEach {
+                behaviorAverage += it.behaviorMark.toFloat()
+                knowledgeAverage += it.knowledgeMark.toFloat()
+                proactiveAverage += it.proactiveMark.toFloat()
+            }
 
-            // Khoảng cách giữa các phần
-            sliceSpace = 3f
-
-            // Độ dày phần được chọn
-            selectionShift = 8f
-
-            colors = mutableListOf(
-                ContextCompat.getColor(requireActivity(), R.color.behavior_color),
-                ContextCompat.getColor(requireActivity(), R.color.knowledge_color),
-                ContextCompat.getColor(requireActivity(), R.color.proactive_color)
+            val pieEntries = mutableListOf<PieEntry>(
+                PieEntry(behaviorAverage / counter, 0),
+                PieEntry(knowledgeAverage / counter, 1),
+                PieEntry(proactiveAverage / counter, 2)
             )
+
+            val pieDataSet = PieDataSet(pieEntries, "Task Statistical").apply {
+                setDrawIcons(false)
+
+                // Khoảng cách giữa các phần
+                sliceSpace = 3f
+
+                // Độ dày phần được chọn
+                selectionShift = 8f
+
+                colors = mutableListOf(
+                    ContextCompat.getColor(requireActivity(), R.color.behavior_color),
+                    ContextCompat.getColor(requireActivity(), R.color.knowledge_color),
+                    ContextCompat.getColor(requireActivity(), R.color.proactive_color)
+                )
+            }
+
+            val pieData = PieData(pieDataSet).apply {
+                // Set dạng cho value hiển thị trên chart
+                setValueFormatter(PercentFormatter())
+                setValueTextSize(16f)
+                setValueTypeface(Typeface.DEFAULT_BOLD)
+                setValueTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            }
+
+            pcCriteria.apply {
+                data = pieData
+                highlightValue(null)
+                invalidate()
+            }
+
+            pcCriteria.legend.isEnabled = false
+            FunctionHelper.generateCustomLegends(layoutCriteriaStatisticLegend, pieDataSet)
+        } else {
+            tvNoCriteriaStatistic.visibility = View.VISIBLE
         }
 
-        val pieData = PieData(pieDataSet).apply {
-            // Set dạng cho value hiển thị trên chart
-            setValueFormatter(PercentFormatter())
-            setValueTextSize(16f)
-            setValueTypeface(Typeface.DEFAULT_BOLD)
-            setValueTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        }
-
-        pcCriteria.apply {
-            data = pieData
-            highlightValue(null)
-            invalidate()
-        }
-
-        pcCriteria.legend.isEnabled = false
-        FunctionHelper.generateCustomLegends(layoutCriteriaStatisticLegend, pieDataSet)
-
-        println("ColorCode: ${pieDataSet.colors}")
     }
 
     override fun onValueSelected(entry: Entry?, highlight: Highlight?) {

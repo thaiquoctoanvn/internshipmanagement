@@ -16,7 +16,7 @@ import com.example.internshipmanagement.util.FunctionHelper
 import kotlinx.android.synthetic.main.item_day_event.view.*
 import kotlinx.android.synthetic.main.item_mentees_task.view.*
 
-class DayEventAdapter : ListAdapter<DayEvent, DayEventAdapter.DayEventViewHolder>(DayEventDiffUtil()) {
+class DayEventAdapter(private val onItemEventClick: (event: DayEvent) -> Unit) : ListAdapter<DayEvent, DayEventAdapter.DayEventViewHolder>(DayEventDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayEventViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -58,6 +58,8 @@ class DayEventAdapter : ListAdapter<DayEvent, DayEventAdapter.DayEventViewHolder
                     .circleCrop()
                     .into(ivItemEventOwner)
             }
+
+            itemView.setOnClickListener { onItemEventClick(event) }
         }
     }
 }

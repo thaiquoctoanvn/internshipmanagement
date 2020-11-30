@@ -112,12 +112,16 @@ class EvaluationCreatingActivity : BaseActivity() {
                 super.showSnackBar("From date must be lower now")
                 return
             }
+            if(toDate >= currentTime) {
+                super.showSnackBar("To date must be lower now")
+                return
+            }
             if(fromDate >= toDate - 90000000 * 20) {
                 super.showSnackBar("From date and To date must be 20 days apart")
                 return
             }
             if(!mentorViewModel.hasMarked()) {
-                super.showSnackBar("Mark for criterion is at least 1")
+                super.showSnackBar("Mark for a criterion is at least 1")
                 return
             }
             if(mentorId.isEmpty() || menteeId.isEmpty()) {

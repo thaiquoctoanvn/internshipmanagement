@@ -1,5 +1,6 @@
 package com.example.internshipmanagement.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -39,10 +40,13 @@ class CalendarFragment : BaseFragment() {
             override fun onCalendarSelect(calendar: Calendar?, isClick: Boolean) {
                 Log.d("###", "Select: ${calendar?.month}")
                 calendar?.let {
-                    val calendar = java.util.Calendar.getInstance().apply {
+                    val date = java.util.Calendar.getInstance().apply {
                         set(it.year, it.month - 1, it.day, 0, 0, 0)
                     }
-                    userViewModel.getDayEvents(calendar)
+                    pbEventLoading.visibility = View.VISIBLE
+                    tvNoEvent.visibility = View.GONE
+                    rvCalendarEvent.visibility = View.GONE
+                    userViewModel.getDayEvents(date)
                 }
             }
         })
@@ -70,9 +74,11 @@ class CalendarFragment : BaseFragment() {
     }
 
     private fun updateEventContainer(dayEvents: MutableList<DayEvent>) {
+        pbEventLoading.visibility = View.GONE
         if(dayEvents.size > 0) {
             tvNoEvent.visibility = View.GONE
             dayEventAdapter.submitList(dayEvents)
+            rvCalendarEvent.visibility = View.VISIBLE
         } else {
             tvNoEvent.visibility = View.VISIBLE
         }
@@ -80,9 +86,27 @@ class CalendarFragment : BaseFragment() {
 
     private fun setUpEventContainer() {
         if(!this::dayEventAdapter.isInitialized) {
-            dayEventAdapter = DayEventAdapter()
+            dayEventAdapter = DayEventAdapter(onItemEventClick)
         }
         rvCalendarEvent.adapter = dayEventAdapter
+    }
+
+    private val onItemEventClick: (event: DayEvent) -> Unit = {
+        // Is mentor
+        if(userViewModel.getMyAccountType() == "1") {
+            val mentorTaskIntent = Intent(requireActivity(), MentorTaskDetailActivity::class.java).apply {
+                putExtra("taskDeadline", it.deadline)
+                putExtra("taskContent", it.taskContent)
+                putExtra("taskId", it.taskId)
+            }
+            startActivity(mentorTaskIntent)
+        } else {
+            // Is mentee
+            val menteeTaskIntent = Intent(requireActivity(), MenteeTaskDetailActivity::class.java).apply {
+                putExtra("taskId", it.taskId)
+            }
+            startActivity(menteeTaskIntent)
+        }
     }
 
 }

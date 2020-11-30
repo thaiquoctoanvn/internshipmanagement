@@ -18,6 +18,7 @@ import com.example.internshipmanagement.data.entity.MyMentee
 import com.example.internshipmanagement.ui.adapter.AddNewTaskAdapter
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.REFERENCES_PUSH
+import com.example.internshipmanagement.util.TASK_ADDING_PUSH
 import kotlinx.android.synthetic.main.activity_add_new_task.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.ref.PhantomReference
@@ -132,7 +133,10 @@ class AddNewTaskActivity : BaseActivity() {
 
     private fun completeTaskAdding(isSucceed: Boolean) {
         if(isSucceed) {
+            sendBroadcast(Intent(TASK_ADDING_PUSH))
             this.finish()
+        } else {
+            super.showSnackBar("Add task failed")
         }
     }
 }

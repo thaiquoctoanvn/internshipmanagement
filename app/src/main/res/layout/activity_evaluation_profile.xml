@@ -122,10 +122,8 @@
         android:id="@+id/rvAllEvaluations"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="@dimen/lv5"
-        android:paddingStart="@dimen/lv3"
-        android:paddingEnd="@dimen/lv3"
-        android:paddingBottom="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv2"
+        android:layout_marginBottom="@dimen/lv2"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAllEvaluationsTitle" />

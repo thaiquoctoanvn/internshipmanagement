@@ -31,17 +31,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/ibAddReport"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@color/colorTransparent"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            android:src="@drawable/ic_note_add"-->
-<!--            android:tint="@color/mentee_strong_color"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/tvGreeting"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@id/tvGreeting" />-->
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/ibAddReport"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@color/colorTransparent"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            android:src="@drawable/ic_note_add"-->
+        <!--            android:tint="@color/mentee_strong_color"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@id/tvGreeting"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/tvGreeting" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.haibin.calendarview.CalendarView
@@ -83,8 +83,23 @@
         android:text="@string/no_event_yet"
         android:textColor="@color/icon_or_text_color"
         android:textSize="@dimen/textBody"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/rvCalendarEvent"
         app:layout_constraintEnd_toEndOf="@id/rvCalendarEvent"
         app:layout_constraintStart_toStartOf="@id/rvCalendarEvent"
         app:layout_constraintTop_toTopOf="@id/rvCalendarEvent" />
+
+    <ProgressBar
+        android:id="@+id/pbEventLoading"
+        android:layout_width="@dimen/lv3"
+        android:layout_height="@dimen/lv3"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/status_bar_color"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvCalendarEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rvCalendarEvent"
+        app:layout_constraintVertical_bias="0.3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

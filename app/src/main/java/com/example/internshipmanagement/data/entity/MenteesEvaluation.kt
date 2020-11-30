@@ -11,7 +11,7 @@ data class MenteesEvaluation(
     val fromDate: String,
     val toDate: String,
     val evaluation: String,
-    val mark1: String,
-    val mark2: String,
-    val mark3: String
+    val behaviorMark: String,
+    val knowledgeMark: String,
+    val proactiveMark: String
 )

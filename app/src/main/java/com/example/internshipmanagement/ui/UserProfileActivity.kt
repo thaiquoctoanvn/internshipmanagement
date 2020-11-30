@@ -77,14 +77,23 @@ class UserProfileActivity : BaseActivity() {
     }
 
     private fun updateUserProfileUI(userProfile: UserProfile) {
-        if(isMentorAccount(userProfile.type)) {
-            ibProfileEvaluation.visibility = View.GONE
-            tabLayoutPieChart.visibility = View.GONE
-            vpPieChart.visibility = View.GONE
-            tvUserProfileStatus.text = getString(R.string.mentor)
-        } else {
-            tvUserProfileStatus.text = getString(R.string.mentee)
-            launchTab()
+        val amIMentor = userViewModel.getMyAccountType() == "1"
+        val isItMentor = isMentorAccount(userProfile.type)
+        when {
+            isItMentor || !amIMentor -> {
+                if(isItMentor) {
+                    tvUserProfileStatus.text = getString(R.string.mentor)
+                } else if(!amIMentor) {
+                    tvUserProfileStatus.text = getString(R.string.mentee)
+                }
+                ibProfileEvaluation.visibility = View.GONE
+                tabLayoutPieChart.visibility = View.GONE
+                vpPieChart.visibility = View.GONE
+            }
+            else -> {
+                tvUserProfileStatus.text = getString(R.string.mentee)
+                launchTab()
+            }
         }
         tvProfileName.text = userProfile.name
         tvNickName.text = "@" + userProfile.nickName
@@ -115,8 +124,8 @@ class UserProfileActivity : BaseActivity() {
         vpPieChart.adapter = tabStatisticAdapter
         TabLayoutMediator(tabLayoutPieChart, vpPieChart) { tab: TabLayout.Tab, position: Int ->
             when(position) {
-                0 -> tab.text = "Criteria"
-                else -> tab.text = "Task mark"
+                0 -> tab.text = "Criteria statistic"
+                else -> tab.text = "Task statistic"
             }
         }.attach()
     }

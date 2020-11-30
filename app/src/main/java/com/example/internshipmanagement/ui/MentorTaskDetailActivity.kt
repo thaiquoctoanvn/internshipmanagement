@@ -1,6 +1,9 @@
 package com.example.internshipmanagement.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,16 +13,21 @@ import com.example.internshipmanagement.data.entity.TaskReference
 import com.example.internshipmanagement.ui.adapter.MentorTaskDetailAdapter
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.FunctionHelper
+import com.example.internshipmanagement.util.TASK_REVIEWING_PUSH
 import kotlinx.android.synthetic.main.activity_mentor_task_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MentorTaskDetailActivity : BaseActivity() {
 
-    private val mentorViewModel by viewModel<MentorViewModel>()
     private lateinit var mentorTaskDetailAdapter: MentorTaskDetailAdapter
+    private lateinit var reviewingPush: BroadcastReceiver
+
+    private val mentorViewModel by viewModel<MentorViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        listenBroadcast()
+        registerBroadcast()
         loadTaskInfo()
     }
 
@@ -65,6 +73,23 @@ class MentorTaskDetailActivity : BaseActivity() {
         }
         mentorTaskDetailAdapter.submitList(references)
         rvMentorTaskDetail.adapter = mentorTaskDetailAdapter
+    }
+
+    private fun listenBroadcast() {
+        reviewingPush = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                intent?.getStringExtra("referId")?.let {
+                    val position = mentorViewModel.setReviewedStateReference(it)
+                    if(position > -1) {
+                        mentorTaskDetailAdapter.notifyItemChanged(position)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun registerBroadcast() {
+        registerReceiver(reviewingPush, IntentFilter(TASK_REVIEWING_PUSH))
     }
 
     private val onItemClick: (referenceId: String) -> Unit = {

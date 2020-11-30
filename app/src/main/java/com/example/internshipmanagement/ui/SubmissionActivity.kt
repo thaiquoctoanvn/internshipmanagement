@@ -224,13 +224,15 @@ class SubmissionActivity : BaseActivity() {
         referId = intent.getStringExtra("referId").toString()
         if(!referId.isNullOrEmpty()) {
             if(fromCamera) {
-                if(cameraBitmap != null) {
-                    menteeViewModel.uploadMaterialsFromBitmap(this, cameraBitmap!!, taskNote)
+                if(cameraBitmap == null) {
+                    super.showSnackBar("You must submit your work with at least one image")
                 }
+                menteeViewModel.uploadMaterialsFromBitmap(this, cameraBitmap!!, taskNote)
             } else {
-                if(uriList.size > 0) {
-                    menteeViewModel.uploadMaterialSFromUri(this, referId, uriList, taskNote)
+                if(uriList.size == 0) {
+                    super.showSnackBar("You must submit your work with at least one image")
                 }
+                menteeViewModel.uploadMaterialSFromUri(this, referId, uriList, taskNote)
             }
         } else {
             super.showSnackBar("Oops! Error, retry")
