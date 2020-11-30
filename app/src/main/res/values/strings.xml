@@ -84,6 +84,11 @@
     <string name="behavior_mark">Behavior mark</string>
     <string name="knowledge_mark">Knowledge mark</string>
     <string name="proactive_mark">Proactive mark</string>
+    <string name="good_task">Well completed tasks</string>
+    <string name="bad_task">Medium completed tasks</string>
+    <string name="uncompleted_task">Uncompleted tasks</string>
+    <string name="task_statistic_note">The task is considered well completed must be higher than 7 points</string>
+
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <!-- TODO: Remove or change this placeholder text -->

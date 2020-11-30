@@ -1,18 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="@dimen/lv1"
+    android:paddingTop="@dimen/lv2"
+    android:paddingEnd="@dimen/lv1"
     tools:context=".ui.TaskStatisticsFragment">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutTaskLegendContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv2"
+        android:layout_marginEnd="@dimen/lv3"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pcTask"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/tvTaskStatisticNote"
+        app:layout_constraintTop_toBottomOf="@id/layoutTaskLegendContainer" />
+
     <TextView
+        android:id="@+id/tvTaskStatisticNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lv3"
+        android:layout_marginTop="@dimen/lv2"
+        android:layout_marginEnd="@dimen/lv3"
+        android:layout_marginBottom="@dimen/lv1"
+        android:text="@string/task_statistic_note"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textCaption"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pcTask" />
+
+    <TextView
+        android:id="@+id/tvNoTaskStatistic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Task statistics"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
         android:gravity="center"
-        android:textSize="@dimen/textBody"/>
+        android:text="@string/no_event_yet"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textBody"
+        android:visibility="gone" />
 
+    <ProgressBar
+        android:id="@+id/pbTaskStatisticLoading"
+        android:layout_width="@dimen/lv3"
+        android:layout_height="@dimen/lv3"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/status_bar_color"
+        android:indeterminateTintMode="src_atop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

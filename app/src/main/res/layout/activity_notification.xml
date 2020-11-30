@@ -23,6 +23,18 @@
             android:paddingBottom="@dimen/lv2"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:id="@+id/ibNotificationBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTransparent"
+                android:scaleType="center"
+                android:src="@drawable/ic_arrow_back_ios"
+                android:tint="@color/mentee_strong_color"
+                app:layout_constraintBottom_toBottomOf="@id/tvNotificationsHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvNotificationsHeader" />
+
             <TextView
                 android:id="@+id/tvNotificationsHeader"
                 android:layout_width="wrap_content"
@@ -32,6 +44,7 @@
                 android:textSize="@dimen/textTitle"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,7 +69,8 @@
             android:text="@string/no_data"
             android:textColor="@color/icon_or_text_color"
             android:textSize="@dimen/textBody"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/notificationsHeader" />
 
         <ProgressBar
             android:id="@+id/pbNotificationLoading"

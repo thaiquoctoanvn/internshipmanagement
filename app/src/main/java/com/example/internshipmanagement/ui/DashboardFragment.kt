@@ -10,11 +10,13 @@ import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MentorsTask
 import com.example.internshipmanagement.ui.adapter.MentorsTaskAdapter
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
+import com.example.internshipmanagement.util.SERVER_URL
 import com.example.internshipmanagement.util.TASK_ADDING_PUSH
 import com.example.internshipmanagement.util.TASK_REVIEWING_PUSH
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -60,9 +62,6 @@ class DashboardFragment : BaseFragment() {
             mentorViewModel.filterTasks(it.toString())
         }
         ibClearAllSearch.setOnClickListener { etSearchDashBoard.setText("") }
-        ibNotificationDashBoard.setOnClickListener {
-            startActivity(Intent(requireActivity(), NotificationActivity::class.java))
-        }
         slDashBoard.setOnRefreshListener { refreshTaskData() }
     }
 
@@ -89,8 +88,11 @@ class DashboardFragment : BaseFragment() {
         tvDate.text = FunctionHelper.getDateFromTimeMilliSecond(time.toString())
         tvYourTaskTitle.text = getString(R.string.tv_all_task_dash_board, 0)
 
+        val date = Date(time)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
         Log.d("###", "Time: ${TimeUnit.MILLISECONDS.toHours(time).toInt()}")
-        when(TimeUnit.MILLISECONDS.toHours(time).toInt()) {
+        when(calendar[Calendar.HOUR_OF_DAY]) {
             in 4..10 -> {
                 tvGreeting.text = getString(R.string.good_morning)
             }
@@ -101,6 +103,11 @@ class DashboardFragment : BaseFragment() {
                 tvGreeting.text = getString(R.string.good_evening)
             }
         }
+        Glide.with(this)
+            .load("$SERVER_URL${userViewModel.getUserAvatarUrl()}")
+            .placeholder(R.drawable.default_avatar)
+            .circleCrop()
+            .into(ivMiniMentorAvatar)
     }
 
     private fun switchToAddNewTaskActivity() {

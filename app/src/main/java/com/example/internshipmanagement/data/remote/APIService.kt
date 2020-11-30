@@ -136,6 +136,9 @@ interface APIService {
     @GET("getCriteriaPoints.php")
     suspend fun getCriteriaPoints(@Query("mentee_id") menteeId: String): Response<MutableList<CriterionPoint>>
 
+    @GET("getTaskPoints.php")
+    suspend fun getTaskPoints(@Query("mentee_id") menteeId: String): Response<MutableList<TaskPoint>>
+
     @GET("getUsersNotifications.php")
     suspend fun getUsersNotifications(@Query("to_id") toId: String): Response<MutableList<Notification>>
 

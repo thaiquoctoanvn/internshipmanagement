@@ -15,6 +15,7 @@
     <dimen name="avatarSize">96dp</dimen>
     <dimen name="menteeItemList">40dp</dimen>
     <dimen name="pickedMentee">64dp</dimen>
+    <dimen name="miniAvatar">32dp</dimen>
 
     <!--Margin and padding-->
     <dimen name="lv0">4dp</dimen>

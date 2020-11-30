@@ -104,8 +104,11 @@ class MenteeDashBoardFragment : BaseFragment() {
         tvDate.text = FunctionHelper.getDateFromTimeMilliSecond(time.toString())
         tvYourTaskTitle.text = getString(R.string.tv_all_task_dash_board, 0)
 
+        val date = Date(time)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
         Log.d("###", "Time: ${TimeUnit.MILLISECONDS.toHours(time)}")
-        when(TimeUnit.MILLISECONDS.toHours(time).toInt()) {
+        when(calendar[Calendar.HOUR_OF_DAY]) {
             in 4..10 -> {
                 tvGreeting.text = getString(R.string.good_morning)
             }

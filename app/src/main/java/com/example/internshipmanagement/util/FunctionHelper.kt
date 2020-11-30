@@ -66,7 +66,7 @@ class FunctionHelper {
                 val date = Date(timeStamp.toLong())
                 val language = "en"
                 val formattedDateAsShortMonth =
-                    SimpleDateFormat("dd MMM yyyy HH:mm", Locale(language))
+                    SimpleDateFormat("dd MMM yyyy", Locale(language))
                 return formattedDateAsShortMonth.format(date)
             }
             return ""
@@ -335,7 +335,8 @@ class FunctionHelper {
 
         fun generateCustomLegends(
             container: ConstraintLayout,
-            pieDataSet: PieDataSet
+            pieDataSet: PieDataSet,
+            legends: MutableList<String>
         ) {
             val colorCodes = pieDataSet.colors
             val context = container.context
@@ -345,7 +346,6 @@ class FunctionHelper {
             val marginDistance =
                 (context.resources.getDimension(R.dimen.lv0) * constConverter).toInt()
 
-            Log.d("###", "ColorCode: ${colorCodes[0]}")
 
             val tvFirstColor = TextView(context).apply {
                 layoutParams = ConstraintLayout.LayoutParams(colorIconSize, colorIconSize)
@@ -360,7 +360,7 @@ class FunctionHelper {
                     marginStart = marginDistance
                 }
                 id = View.generateViewId()
-                text = context.getString(R.string.behavior_mark)
+                text = legends[0]
                 gravity = Gravity.START
                 setTextColor(ContextCompat.getColor(context, R.color.black))
             }
@@ -379,7 +379,7 @@ class FunctionHelper {
                     marginStart = marginDistance
                 }
                 id = View.generateViewId()
-                text = context.getString(R.string.knowledge_mark)
+                text = legends[1]
                 gravity = Gravity.START
                 setTextColor(ContextCompat.getColor(context, R.color.black))
             }
@@ -398,7 +398,7 @@ class FunctionHelper {
                     marginStart = marginDistance
                 }
                 id = View.generateViewId()
-                text = context.getString(R.string.proactive_mark)
+                text = legends[2]
                 setTextColor(ContextCompat.getColor(context, R.color.black))
             }
 

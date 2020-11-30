@@ -38,6 +38,10 @@ class UserViewModel(
     val criteriaPoints: LiveData<MutableList<CriterionPoint>>
         get() = _criteriaPoints
 
+    private val _taskPoints = MutableLiveData<MutableList<TaskPoint>>()
+    val taskPoints: LiveData<MutableList<TaskPoint>>
+        get() = _taskPoints
+
     private val _notifications = MutableLiveData<MutableList<Notification>>()
     val notifications: LiveData<MutableList<Notification>>
         get() = _notifications
@@ -194,6 +198,21 @@ class UserViewModel(
         }
     }
 
+    fun getTaskPoints() {
+        viewModelScope.launch {
+            var menteeId = ""
+            menteeId = if(userProfile.value != null) {
+                userProfile.value?.userId.toString()
+            } else {
+                getMyAccountId().toString()
+            }
+            val res = userRepository.getTaskPoints(menteeId).body()
+            if(res != null) {
+                _taskPoints.value = res
+            }
+        }
+    }
+
     fun getUsersNotifications() {
         viewModelScope.launch {
             val toId = sharedPref.getString("userId", "")
@@ -227,6 +246,8 @@ class UserViewModel(
     fun getMyAccountType() = sharedPref.getString("type", "")
 
     fun getMyAccountId() = sharedPref.getString("userId", "")
+
+    fun getUserAvatarUrl() = sharedPref.getString("avatarUrl", "")
 
     private fun updateFCMId(fcmId: String) {
         viewModelScope.launch {

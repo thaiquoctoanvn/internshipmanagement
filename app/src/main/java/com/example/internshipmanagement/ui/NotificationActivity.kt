@@ -23,6 +23,7 @@ class NotificationActivity : BaseActivity() {
 
     override fun setViewOnEventListener() {
         slNotifications.setOnRefreshListener { refreshNotifications() }
+        ibNotificationBack.setOnClickListener { this.finish() }
     }
 
     override fun setObserver() {

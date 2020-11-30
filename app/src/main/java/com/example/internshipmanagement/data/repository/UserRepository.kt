@@ -111,6 +111,12 @@ class UserRepository(private val apiService: APIService) {
         return response
     }
 
+    suspend fun getTaskPoints(menteeId: String): Response<MutableList<TaskPoint>> {
+        return withContext(Dispatchers.IO) {
+            apiService.getTaskPoints(menteeId)
+        }
+    }
+
     suspend fun getUsersNotifications(toId: String): Response<MutableList<Notification>> {
         return withContext(Dispatchers.IO) {
             apiService.getUsersNotifications(toId)

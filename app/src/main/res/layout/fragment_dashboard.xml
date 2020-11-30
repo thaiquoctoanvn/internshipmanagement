@@ -44,14 +44,11 @@
             app:layout_constraintTop_toBottomOf="@id/tvGreeting"
             tools:text="18 thang 9 2020" />
 
-        <ImageButton
-            android:id="@+id/ibNotificationDashBoard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorTransparent"
+        <ImageView
+            android:id="@+id/ivMiniMentorAvatar"
+            android:layout_width="@dimen/miniAvatar"
+            android:layout_height="@dimen/miniAvatar"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_notifications"
-            android:tint="@color/mentee_strong_color"
             app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvGreeting" />

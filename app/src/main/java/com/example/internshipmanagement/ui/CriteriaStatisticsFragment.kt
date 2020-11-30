@@ -149,12 +149,17 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
 
             pcCriteria.apply {
                 data = pieData
+                legend.isEnabled = false
                 highlightValue(null)
                 invalidate()
             }
 
-            pcCriteria.legend.isEnabled = false
-            FunctionHelper.generateCustomLegends(layoutCriteriaStatisticLegend, pieDataSet)
+            val legends = mutableListOf(
+                getString(R.string.behavior_mark),
+                getString(R.string.knowledge_mark),
+                getString(R.string.proactive_mark)
+            )
+            FunctionHelper.generateCustomLegends(layoutCriteriaStatisticLegend, pieDataSet, legends)
         } else {
             tvNoCriteriaStatistic.visibility = View.VISIBLE
         }
