@@ -17,7 +17,15 @@ class MentorRepository(private val apiService: APIService) {
         menteeIds: MutableList<String>,
         gcmIds: MutableList<String>
     ): Response<String> {
-        return apiService.addNewTask(TaskRequestBody(ownerId, deadline, taskBody, menteeIds, gcmIds))
+        return apiService.addNewTask(
+            TaskRequestBody(
+                ownerId,
+                deadline,
+                taskBody,
+                menteeIds,
+                gcmIds
+            )
+        )
     }
 
     suspend fun getMentorsTasks(mentorId: String): Response<MutableList<MentorsTask>> =
@@ -26,7 +34,8 @@ class MentorRepository(private val apiService: APIService) {
     suspend fun getTaskReferences(taskId: String): Response<MutableList<TaskReference>> =
         apiService.getReferencesOfTask(taskId)
 
-    suspend fun getAllMentees(): Response<MutableList<MyMentee>> = apiService.getAllMentees()
+    suspend fun getAllMentees(mentorId: String): Response<MutableList<MyMentee>> =
+        apiService.getAllMentees(mentorId)
 
     suspend fun getMyMentee(mentorId: String): Response<MutableList<MyMentee>> =
         apiService.getMyMentees(mentorId)
@@ -71,5 +80,11 @@ class MentorRepository(private val apiService: APIService) {
             response = apiService.updateSpecificReferenceOfTask(referenceId, mark, comment)
         }
         return response
+    }
+
+    suspend fun addToMyMentee(mentorId: String, menteeId: String): Response<MyMentee> {
+        return withContext(Dispatchers.IO) {
+            apiService.addToMyMentee(mentorId, menteeId)
+        }
     }
 }

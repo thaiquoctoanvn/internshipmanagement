@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/lv2">
+
+    <TextView
+        android:id="@+id/tvAddMenteeDialogTitle"
+        android:drawablePadding="@dimen/lv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_mentee_statement"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableStartCompat="@drawable/ic_person_add_alt"
+        app:drawableTint="@color/day_calendar_color" />
+
+    <View
+        android:id="@+id/separateLineAddMenteeAlert"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/lv2"
+        android:background="@color/separate_line_or_et_background_color"
+        app:layout_constraintTop_toBottomOf="@id/tvAddMenteeDialogTitle" />
+
+    <TextView
+        android:id="@+id/tvCancelDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lv2"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textStyle="bold"
+        android:textColor="@color/icon_or_text_color"
+        android:textSize="@dimen/textBody"
+        app:layout_constraintTop_toBottomOf="@id/separateLineAddMenteeAlert" />
+</androidx.constraintlayout.widget.ConstraintLayout>

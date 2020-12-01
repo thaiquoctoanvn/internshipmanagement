@@ -48,12 +48,13 @@
         app:layout_constraintTop_toTopOf="@id/ivItemYourMentee"
         app:tint="@color/mentee_strong_color" />
 
-    <ImageView
-        android:id="@+id/ivItemYourMenteeOption"
+    <ImageButton
+        android:id="@+id/ibItemYourMenteeOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/colorTransparent"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_three_dots_more_indicator"
+        android:src="@drawable/ic_person_add_alt"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/ivItemYourMentee"
         app:layout_constraintEnd_toEndOf="parent"

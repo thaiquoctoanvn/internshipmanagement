@@ -25,12 +25,15 @@ class MyMenteeFragment : BaseFragment() {
     }
 
     override fun setViewOnEventListener() {
-
+        slMyMentee.setOnRefreshListener { mentorViewModel.getMyMentees() }
     }
 
     override fun setObserverFragment() {
         mentorViewModel.myMentees.observe(viewLifecycleOwner, Observer {
             updateMyMenteesUI(it)
+        })
+        mentorViewModel.myNewMenteePosition.observe(viewLifecycleOwner, Observer {
+            menteesAdapter.notifyItemInserted(it)
         })
     }
 
@@ -40,6 +43,7 @@ class MyMenteeFragment : BaseFragment() {
     }
 
     private fun updateMyMenteesUI(myMentees: MutableList<MyMentee>) {
+        slMyMentee.isRefreshing = false
         if(!this::menteesAdapter.isInitialized) {
             menteesAdapter = MenteesAdapter(onItemClick, onItemOptionIconClick)
         }

@@ -56,7 +56,7 @@ interface APIService {
             Response<MutableList<MyMentee>>
 
     @GET("getAllMentees.php")
-    suspend fun getAllMentees(): Response<MutableList<MyMentee>>
+    suspend fun getAllMentees(@Query("mentor_id") mentorId: String): Response<MutableList<MyMentee>>
 
     @POST("addNewTask.php")
     suspend fun addNewTask(@Body taskRequestBody: TaskRequestBody): Response<String>
@@ -149,4 +149,11 @@ interface APIService {
         @Query("mentor_id") mentorId: String,
         @Query("mentee_id") menteeId: String
     ): Response<MutableList<DayEvent>>
+
+    @FormUrlEncoded
+    @POST("addToMyMentee.php")
+    suspend fun addToMyMentee(
+        @Field("mentor_id") mentorId: String,
+        @Field("mentee_id") menteeId: String
+    ): Response<MyMentee>
 }

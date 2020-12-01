@@ -6,9 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/lv3"
     android:layout_marginEnd="@dimen/lv3"
-    android:layout_marginBottom="@dimen/lv3"
-    android:background="@drawable/item_rv_background"
-
+    android:layout_marginBottom="@dimen/lv2"
     android:paddingTop="@dimen/lv2"
     android:paddingBottom="@dimen/lv2">
 
@@ -16,25 +14,22 @@
         android:id="@+id/tvItemEventIndex"
         android:layout_width="@dimen/lv0"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/lv0"
-        android:layout_marginBottom="@dimen/lv0"
         android:background="@drawable/tv_round_corner_full_solid"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvItemEventName"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/lv2"
         android:layout_marginEnd="@dimen/lv2"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         android:textColor="@color/black"
         android:textSize="@dimen/textBody"
-        app:layout_constraintEnd_toStartOf="@id/tvItemEventIndex"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvItemEventIndex"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="ajhgkahgkhfkhakghkghakhagkahgkahgkhgkahkhhgakdhgkaghkhghgkahgkahfhagkhdfkhafgkhkahkghakghakgkagkakafhkahkhgkahgakhgkhafkghakgakhgkafhgkagkhg" />
 

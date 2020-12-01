@@ -30,16 +30,26 @@ class MenteesAdapter(
     inner class MenteesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(myMentee: MyMentee) {
             val name = "${myMentee.menteeName} (${myMentee.menteeNickName})"
-            itemView.ivItemYourMenteeCheck.visibility = View.GONE
-            itemView.ivItemYourMenteeOption.visibility = View.VISIBLE
-            itemView.tvItemYourMenteeName.text = name
-            Glide.with(itemView)
-                .load("$SERVER_URL${myMentee.avatarUrl}")
-                .placeholder(R.drawable.default_avatar)
-                .circleCrop()
-                .into(itemView.ivItemYourMentee)
-            itemView.setOnClickListener { onItemClick(myMentee.menteeId) }
-            itemView.ivItemYourMenteeOption.setOnClickListener { onItemOptionIconClick(myMentee.menteeId) }
+            itemView.apply {
+                if(myMentee.isMyMentee == "true") {
+                    ibItemYourMenteeOption.visibility = View.GONE
+                } else {
+                    ibItemYourMenteeOption.visibility = View.VISIBLE
+                }
+                ivItemYourMenteeCheck.visibility = View.GONE
+
+                tvItemYourMenteeName.text = name
+                Glide.with(this)
+                    .load("$SERVER_URL${myMentee.avatarUrl}")
+                    .placeholder(R.drawable.default_avatar)
+                    .circleCrop()
+                    .into(ivItemYourMentee)
+                setOnClickListener { onItemClick(myMentee.menteeId) }
+                ibItemYourMenteeOption.setOnClickListener {
+                    onItemOptionIconClick(myMentee.menteeId)
+                    itemView.ibItemYourMenteeOption.isEnabled = false
+                }
+            }
         }
     }
 }

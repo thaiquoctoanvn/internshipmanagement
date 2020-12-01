@@ -13,6 +13,7 @@ data class MyMentee(
     val menteeNickName: String,
     val menteePosition: String,
     var isReferred: String,
+    var isMyMentee: String,
     val avatarUrl: String,
     val gcmId: String
 ) : Parcelable

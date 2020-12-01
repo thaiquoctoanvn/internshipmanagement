@@ -54,23 +54,27 @@ class MentorViewModel(
 
     private val _menteesEvaluations = MutableLiveData<MutableList<MenteesEvaluation>>()
     val menteesEvaluations: LiveData<MutableList<MenteesEvaluation>>
-    get() = _menteesEvaluations
+        get() = _menteesEvaluations
 
     private val _isMyMentee = MutableLiveData<Boolean>()
     val isMyMentee: LiveData<Boolean>
-    get() = _isMyMentee
+        get() = _isMyMentee
 
     private val _filteredTasks = MutableLiveData<MutableList<MentorsTask>>()
     val filteredTasks: LiveData<MutableList<MentorsTask>>
-    get() = _filteredTasks
+        get() = _filteredTasks
 
     private val _criteria = MutableLiveData<MutableList<Criterion>>()
     val criteria: LiveData<MutableList<Criterion>>
-    get() = _criteria
+        get() = _criteria
 
     private val _detailReference = MutableLiveData<DetailTaskReference>()
     val detailReference: LiveData<DetailTaskReference>
-    get() = _detailReference
+        get() = _detailReference
+
+    private val _myNewMenteePosition = MutableLiveData<Int>()
+    val myNewMenteePosition: LiveData<Int>
+        get() = _myNewMenteePosition
 
 
     fun getSharedPref() = sharedPref
@@ -164,8 +168,8 @@ class MentorViewModel(
 
     fun getAllMentees() {
         viewModelScope.launch {
-            super.setIsLoadingValue(true)
-            val res = mentorRepository.getAllMentees().body()
+            val mentorId = sharedPref.getString("userId", "")
+            val res = mentorRepository.getAllMentees(mentorId.toString()).body()
             if(res != null) {
                 _allMentees.value = res
             }
@@ -174,12 +178,10 @@ class MentorViewModel(
 
     fun getMyMentees() {
         viewModelScope.launch {
-            super.setIsLoadingValue(true)
             val res = mentorRepository.getMyMentee(sharedPref.getString("userId", "")!!).body()
             if(res != null) {
                 _myMentees.value = res
             }
-            super.setIsLoadingValue(false)
         }
     }
 
@@ -273,6 +275,17 @@ class MentorViewModel(
                 super.setMessageResponseValue("Reviewed successfully")
                 delay(500)
                 _isSuccessful.value = true
+            }
+        }
+    }
+
+    fun addToMyMentee(menteeId: String) {
+        viewModelScope.launch {
+            val mentorId = sharedPref.getString("userId", "")
+            val res = mentorRepository.addToMyMentee(mentorId.toString(), menteeId).body()
+            if(res != null) {
+                _myMentees.value?.add(res)
+                _myNewMenteePosition.value = _myMentees.value?.size?.minus(1)
             }
         }
     }

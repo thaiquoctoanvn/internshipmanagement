@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MyMentee
 import com.example.internshipmanagement.ui.adapter.MenteesAdapter
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_all_mentee.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -25,6 +27,7 @@ class AllMenteeFragment : BaseFragment() {
     }
 
     override fun setViewOnEventListener() {
+        slAllMentee.setOnRefreshListener { mentorViewModel.getAllMentees() }
     }
 
     override fun setObserverFragment() {
@@ -39,6 +42,7 @@ class AllMenteeFragment : BaseFragment() {
     }
 
     private fun updateAllMenteesUI(allMentees: MutableList<MyMentee>) {
+        slAllMentee.isRefreshing = false
         if(!this::menteesAdapter.isInitialized) {
             menteesAdapter = MenteesAdapter(onItemClick, onItemOptionIconClick)
         }
@@ -52,8 +56,17 @@ class AllMenteeFragment : BaseFragment() {
         startActivity(intent)
     }
 
-    private val onItemOptionIconClick: (id: String) -> Unit = {
-
+    private val onItemOptionIconClick: (id: String) -> Unit = { id ->
+        val view = LayoutInflater.from(requireActivity()).inflate(R.layout.item_mentee_options, null)
+        BottomSheetDialog(requireActivity()).apply {
+            setContentView(view)
+            view.findViewById<TextView>(R.id.tvAddMenteeDialogTitle).setOnClickListener {
+                mentorViewModel.addToMyMentee(id)
+                this.dismiss()
+            }
+            view.findViewById<TextView>(R.id.tvCancelDialog).setOnClickListener { this.dismiss() }
+            show()
+        }
     }
 
 }

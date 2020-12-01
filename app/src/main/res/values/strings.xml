@@ -33,7 +33,7 @@
     <string name="gallery">Choose from gallery</string>
     <string name="close">Close</string>
 
-    <string name="log_in_statement">Welcome</string>
+    <string name="log_in_statement">Welcome gumi_er</string>
     <string name="et_user_name_log_in">Your username</string>
     <string name="et_pwd_log_in">Password</string>
     <string name="et_search_task">Search your task</string>
@@ -88,6 +88,7 @@
     <string name="bad_task">Medium completed tasks</string>
     <string name="uncompleted_task">Uncompleted tasks</string>
     <string name="task_statistic_note">The task is considered well completed must be higher than 7 points</string>
+    <string name="add_mentee_statement">Take care of this mentee?</string>
 
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
