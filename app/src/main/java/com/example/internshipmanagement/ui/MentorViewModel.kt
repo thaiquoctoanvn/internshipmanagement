@@ -311,4 +311,14 @@ class MentorViewModel(
         }
         return -1
     }
+
+    fun setIsMyMenteeState(id: String): Int {
+        allMentees.value?.forEachIndexed { index, mentee ->
+            if(id == mentee.menteeId) {
+                mentee.isMyMentee = "true"
+                return index
+            }
+        }
+        return  -1
+    }
 }

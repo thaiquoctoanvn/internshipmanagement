@@ -47,7 +47,9 @@ class MenteesAdapter(
                 setOnClickListener { onItemClick(myMentee.menteeId) }
                 ibItemYourMenteeOption.setOnClickListener {
                     onItemOptionIconClick(myMentee.menteeId)
-                    itemView.ibItemYourMenteeOption.isEnabled = false
+                    itemView.ibItemYourMenteeOption.apply {
+                        isEnabled = false
+                    }
                 }
             }
         }

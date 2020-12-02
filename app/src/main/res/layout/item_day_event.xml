@@ -6,9 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/lv3"
     android:layout_marginEnd="@dimen/lv3"
-    android:layout_marginBottom="@dimen/lv2"
-    android:paddingTop="@dimen/lv2"
-    android:paddingBottom="@dimen/lv2">
+    android:layout_marginBottom="@dimen/lv3">
 
     <TextView
         android:id="@+id/tvItemEventIndex"

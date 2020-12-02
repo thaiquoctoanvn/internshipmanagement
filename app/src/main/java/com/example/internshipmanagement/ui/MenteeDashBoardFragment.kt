@@ -16,6 +16,7 @@ import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MenteesTask
 import com.example.internshipmanagement.ui.adapter.MenteesTaskAdapter
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.example.internshipmanagement.util.FCM_PUSH
 import com.example.internshipmanagement.util.FunctionHelper
 import com.example.internshipmanagement.util.SUBMISSION_PUSH
 import kotlinx.android.synthetic.main.fragment_mentee_dash_board.*
@@ -31,11 +32,12 @@ import kotlin.time.hours
 
 class MenteeDashBoardFragment : BaseFragment() {
 
-    private val userViewModel by viewModel<UserViewModel>()
-    private val menteeViewModel by viewModel<MenteeViewModel>()
-
     private lateinit var menteesTaskAdapter: MenteesTaskAdapter
     private lateinit var submissionPush: BroadcastReceiver
+    private lateinit var fcmPush: BroadcastReceiver
+
+    private val userViewModel by viewModel<UserViewModel>()
+    private val menteeViewModel by viewModel<MenteeViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_mentee_dash_board
@@ -52,6 +54,7 @@ class MenteeDashBoardFragment : BaseFragment() {
         }
         ibClearAllSearch.setOnClickListener { etSearchDashBoard.setText("") }
         ibNotificationMenteeDashBoard.setOnClickListener {
+            tvNotificationBadge.visibility = View.GONE
             startActivity(Intent(requireActivity(), NotificationActivity::class.java))
         }
         slMenteeDashBoard.setOnRefreshListener { refreshMenteeTaskData() }
@@ -76,7 +79,10 @@ class MenteeDashBoardFragment : BaseFragment() {
     }
 
     private fun registerBroadcast() {
-        activity?.registerReceiver(submissionPush, IntentFilter(SUBMISSION_PUSH))
+        requireActivity().apply {
+            registerReceiver(submissionPush, IntentFilter(SUBMISSION_PUSH))
+            registerReceiver(fcmPush, IntentFilter(FCM_PUSH))
+        }
     }
 
     private fun listenBroadcast() {
@@ -91,9 +97,15 @@ class MenteeDashBoardFragment : BaseFragment() {
                             notifyItemChanged(position)
                             notifyItemMoved(position, 0)
                             // Cập nhật giao diện task
-
                         }
                     }
+                }
+            }
+        }
+        fcmPush = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if(intent != null) {
+                    tvNotificationBadge.visibility = View.VISIBLE
                 }
             }
         }

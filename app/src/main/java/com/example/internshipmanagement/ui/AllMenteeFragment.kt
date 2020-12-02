@@ -34,6 +34,7 @@ class AllMenteeFragment : BaseFragment() {
         mentorViewModel.allMentees.observe(viewLifecycleOwner, Observer {
             updateAllMenteesUI(it)
         })
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +63,7 @@ class AllMenteeFragment : BaseFragment() {
             setContentView(view)
             view.findViewById<TextView>(R.id.tvAddMenteeDialogTitle).setOnClickListener {
                 mentorViewModel.addToMyMentee(id)
+                menteesAdapter.notifyItemChanged(mentorViewModel.setIsMyMenteeState(id))
                 this.dismiss()
             }
             view.findViewById<TextView>(R.id.tvCancelDialog).setOnClickListener { this.dismiss() }

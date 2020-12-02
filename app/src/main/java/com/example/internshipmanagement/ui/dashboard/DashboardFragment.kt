@@ -1,4 +1,4 @@
-package com.example.internshipmanagement.ui
+package com.example.internshipmanagement.ui.dashboard
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -13,6 +13,10 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MentorsTask
+import com.example.internshipmanagement.ui.AddNewTaskActivity
+import com.example.internshipmanagement.ui.MentorTaskDetailActivity
+import com.example.internshipmanagement.ui.MentorViewModel
+import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.adapter.MentorsTaskAdapter
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
@@ -28,10 +32,8 @@ import kotlinx.android.synthetic.main.fragment_dashboard.tvGreeting
 import kotlinx.android.synthetic.main.fragment_dashboard.tvNoTaskDashBoard
 import kotlinx.android.synthetic.main.fragment_dashboard.tvYourTaskTitle
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.time.hours
 
 
 /*

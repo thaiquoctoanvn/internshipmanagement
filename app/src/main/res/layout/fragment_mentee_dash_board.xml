@@ -55,6 +55,16 @@
             app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvGreeting" />
+
+        <TextView
+            android:id="@+id/tvNotificationBadge"
+            android:layout_width="@dimen/lv1"
+            android:layout_height="@dimen/lv1"
+            android:background="@drawable/item_circle_badge"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/ibNotificationMenteeDashBoard"
+            app:layout_constraintTop_toTopOf="@id/ibNotificationMenteeDashBoard" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
