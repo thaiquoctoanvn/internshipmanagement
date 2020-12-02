@@ -1,4 +1,4 @@
-package com.example.internshipmanagement.ui
+package com.example.internshipmanagement.ui.main
 
 import android.content.SharedPreferences
 import android.util.Log

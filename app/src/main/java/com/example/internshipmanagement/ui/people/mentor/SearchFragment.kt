@@ -1,4 +1,4 @@
-package com.example.internshipmanagement.ui.people
+package com.example.internshipmanagement.ui.people.mentor
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -21,7 +21,7 @@ class SearchFragment : BaseFragment() {
 
     private lateinit var tabPagerAdapter: TabPagerAdapter
 
-    private val peopleViewModel by viewModel<PeopleViewModel>()
+    private val mentorSearchViewModel by viewModel<MentorSearchViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_search

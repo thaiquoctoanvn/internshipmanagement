@@ -6,8 +6,6 @@ import android.util.Log
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.Criterion
 import com.example.internshipmanagement.data.entity.UserProfile
-import com.example.internshipmanagement.ui.MentorViewModel
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.FunctionHelper
 import kotlinx.android.synthetic.main.activity_evaluation_creating.*

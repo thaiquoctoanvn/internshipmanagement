@@ -9,7 +9,6 @@ import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.DayEvent
 import com.example.internshipmanagement.ui.taskdetail.mentee.MenteeTaskDetailActivity
 import com.example.internshipmanagement.ui.taskdetail.mentor.MentorTaskDetailActivity
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.haibin.calendarview.Calendar
 import com.haibin.calendarview.CalendarView
@@ -20,7 +19,6 @@ class CalendarFragment : BaseFragment() {
 
     private lateinit var dayEventAdapter: DayEventAdapter
 
-//    private val userViewModel by viewModel<UserViewModel>()
     private val calendarViewModel by viewModel<CalendarViewModel>()
 
     override fun getRootLayoutId(): Int {
@@ -38,7 +36,7 @@ class CalendarFragment : BaseFragment() {
             }
 
             override fun onCalendarSelect(calendar: Calendar?, isClick: Boolean) {
-                Log.d("###", "Select: ${calendar?.month}")
+                Log.d("###", "Select: ${calendar?.day}/${calendar?.month}")
                 calendar?.let {
                     val date = java.util.Calendar.getInstance().apply {
                         set(it.year, it.month - 1, it.day, 0, 0, 0)

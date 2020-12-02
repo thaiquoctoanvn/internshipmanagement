@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.DetailTaskReference
 import com.example.internshipmanagement.ui.fullimage.FullImageActivity
-import com.example.internshipmanagement.ui.MentorViewModel
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.FunctionHelper
 import com.example.internshipmanagement.util.SERVER_URL

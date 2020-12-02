@@ -13,10 +13,9 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MentorsTask
-import com.example.internshipmanagement.ui.MainViewModel
+import com.example.internshipmanagement.ui.main.MainViewModel
 import com.example.internshipmanagement.ui.addtask.AddNewTaskActivity
 import com.example.internshipmanagement.ui.taskdetail.mentor.MentorTaskDetailActivity
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
 import com.example.internshipmanagement.util.SERVER_URL

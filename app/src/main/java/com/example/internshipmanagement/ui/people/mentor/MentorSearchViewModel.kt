@@ -1,21 +1,18 @@
-package com.example.internshipmanagement.ui.people
+package com.example.internshipmanagement.ui.people.mentor
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.internshipmanagement.data.entity.MyMentee
-import com.example.internshipmanagement.data.entity.MyMentor
-import com.example.internshipmanagement.data.repository.MenteeRepository
 import com.example.internshipmanagement.data.repository.MentorRepository
 import com.example.internshipmanagement.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class PeopleViewModel(
+class MentorSearchViewModel (
     private val mentorRepository: MentorRepository,
-    private val menteeRepository: MenteeRepository,
     private val sharedPref: SharedPreferences
-) : BaseViewModel() {
+): BaseViewModel() {
 
     private val _myMentees = MutableLiveData<MutableList<MyMentee>>()
     val myMentees: LiveData<MutableList<MyMentee>>
@@ -28,11 +25,6 @@ class PeopleViewModel(
     private val _myNewMenteePosition = MutableLiveData<Int>()
     val myNewMenteePosition: LiveData<Int>
         get() = _myNewMenteePosition
-
-    private val _myMentor = MutableLiveData<MutableList<MyMentor>>()
-    val myMentor: LiveData<MutableList<MyMentor>>
-        get() = _myMentor
-
 
 
     fun getAllMentees() {
@@ -73,17 +65,5 @@ class PeopleViewModel(
             }
         }
         return  -1
-    }
-
-    fun getMyMentor() {
-        viewModelScope.launch {
-            val menteeId = sharedPref.getString("userId", "")
-            if(!menteeId.isNullOrEmpty()) {
-                val res = menteeRepository.getMyMentor(menteeId).body()
-                if(res != null) {
-                    _myMentor.value = res
-                }
-            }
-        }
     }
 }

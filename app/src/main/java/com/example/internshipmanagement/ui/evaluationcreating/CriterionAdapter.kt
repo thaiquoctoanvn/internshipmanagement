@@ -29,19 +29,29 @@ class CriterionAdapter(
     inner class CriterionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindData(criterion: Criterion) {
             itemView.tvItemCriterion.text = criterion.content
-            ArrayAdapter(itemView.context, android.R.layout.simple_spinner_item, FunctionHelper.provideMarkLevel()).also {
+            ArrayAdapter(
+                itemView.context,
+                android.R.layout.simple_spinner_item,
+                FunctionHelper.provideMarkLevel()
+            ).also {
                 it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 itemView.spItemCriterionMark.adapter = it
             }
-            itemView.spItemCriterionMark.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    criterion.mark = position.toString()
-                }
+            itemView.spItemCriterionMark.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        adapterView: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        criterion.mark = position.toString()
+                    }
 
-                override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                    override fun onNothingSelected(adapterView: AdapterView<*>?) {
 
+                    }
                 }
-            }
         }
     }
 }

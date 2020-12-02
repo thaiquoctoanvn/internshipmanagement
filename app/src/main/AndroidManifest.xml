@@ -19,7 +19,6 @@
         android:theme="@style/Theme.Internshipmanagement"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.notification.NotificationActivity"></activity>
-        <activity android:name=".ui.MySubmissionActivity" />
         <activity android:name=".ui.tasksubmission.SubmissionActivity" />
         <activity android:name=".ui.taskdetail.mentee.MenteeTaskDetailActivity" />
         <activity android:name=".ui.fullimage.FullImageActivity" />
@@ -43,7 +42,7 @@
         <activity android:name=".ui.addtask.AddNewTaskActivity" />
         <activity android:name=".ui.profileediting.ProfileEditingActivity" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity android:name=".ui.applaunching.LaunchActivity">
             <intent-filter>

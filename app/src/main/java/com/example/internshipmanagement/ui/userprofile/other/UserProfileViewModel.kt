@@ -1,9 +1,11 @@
-package com.example.internshipmanagement.ui.userprofile
+package com.example.internshipmanagement.ui.userprofile.other
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.internshipmanagement.data.entity.CriterionPoint
+import com.example.internshipmanagement.data.entity.TaskPoint
 import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.data.repository.UserRepository
 import com.example.internshipmanagement.ui.base.BaseViewModel
@@ -31,23 +33,6 @@ class UserProfileViewModel(
                 _userProfile.value = res
             }
             super.setIsLoadingValue(false)
-        }
-    }
-
-    fun logOut() {
-        viewModelScope.launch {
-            val res = userRepository.logOut(getMyAccountId().toString()).body()
-            if(res != null) {
-                sharedPref.edit().apply {
-                    remove("userId")
-                    remove("token")
-                    remove("type")
-                    remove("avatarUrl")
-                }.apply()
-                _isSuccessful.value = true
-            } else {
-                _isSuccessful.value = false
-            }
         }
     }
 

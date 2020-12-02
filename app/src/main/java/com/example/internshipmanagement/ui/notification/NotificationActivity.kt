@@ -5,7 +5,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.Notification
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_notification.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -8,7 +8,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.UserProfile
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.ui.userprofile.other.UserProfileActivity
 import kotlinx.android.synthetic.main.activity_search_result.*

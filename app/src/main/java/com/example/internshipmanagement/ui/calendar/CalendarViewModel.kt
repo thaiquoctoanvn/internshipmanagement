@@ -1,6 +1,7 @@
 package com.example.internshipmanagement.ui.calendar
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -32,6 +33,7 @@ class CalendarViewModel(
             } else {
                 menteeId = sharedPref.getString("userId", "").toString()
             }
+            Log.d("###", "Calendar millis: ${calendar.timeInMillis}")
             val res = userRepository.getDayEvents(requestedBy, calendar.timeInMillis.toString(), mentorId, menteeId).body()
             if(res != null) {
                 _dayEvents.value = res

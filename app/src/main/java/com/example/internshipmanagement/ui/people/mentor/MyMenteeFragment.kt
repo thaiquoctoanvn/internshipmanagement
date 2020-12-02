@@ -6,34 +6,31 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MyMentee
-import com.example.internshipmanagement.ui.MentorViewModel
 import com.example.internshipmanagement.ui.userprofile.other.UserProfileActivity
 import com.example.internshipmanagement.ui.base.BaseFragment
-import com.example.internshipmanagement.ui.people.PeopleViewModel
 import kotlinx.android.synthetic.main.fragment_my_mentee.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyMenteeFragment : BaseFragment() {
 
-//    private val mentorViewModel by viewModel<MentorViewModel>()
-    private val peopleViewModel by sharedViewModel<PeopleViewModel>()
-
     private lateinit var menteesAdapter: MenteesAdapter
+
+    private val mentorSearchViewModel by sharedViewModel<MentorSearchViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_my_mentee
     }
 
     override fun setViewOnEventListener() {
-        slMyMentee.setOnRefreshListener { peopleViewModel.getMyMentees() }
+        slMyMentee.setOnRefreshListener { mentorSearchViewModel.getMyMentees() }
     }
 
     override fun setObserverFragment() {
-        peopleViewModel.myMentees.observe(viewLifecycleOwner, Observer {
+        mentorSearchViewModel.myMentees.observe(viewLifecycleOwner, Observer {
             updateMyMenteesUI(it)
         })
-        peopleViewModel.myNewMenteePosition.observe(viewLifecycleOwner, Observer {
+        mentorSearchViewModel.myNewMenteePosition.observe(viewLifecycleOwner, Observer {
             menteesAdapter.apply {
                 notifyItemInserted(it)
                 notifyItemChanged(it)
@@ -43,7 +40,7 @@ class MyMenteeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        peopleViewModel.getMyMentees()
+        mentorSearchViewModel.getMyMentees()
     }
 
     private fun updateMyMenteesUI(myMentees: MutableList<MyMentee>) {

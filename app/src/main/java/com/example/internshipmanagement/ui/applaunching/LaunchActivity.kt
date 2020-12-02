@@ -4,8 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
-import com.example.internshipmanagement.ui.MainActivity
-import com.example.internshipmanagement.ui.UserViewModel
+import com.example.internshipmanagement.ui.main.MainActivity
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.ui.login.LogInActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.TaskPoint
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
 import com.github.mikephil.charting.animation.Easing
@@ -26,7 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TaskStatisticsFragment : BaseFragment(), OnChartValueSelectedListener {
 
-    private val userViewModel by sharedViewModel<UserViewModel>()
+    private val statisticViewModel by sharedViewModel<StatisticViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_task_statistics
@@ -37,14 +36,17 @@ class TaskStatisticsFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     override fun setObserverFragment() {
-        userViewModel.taskPoints.observe(viewLifecycleOwner, Observer {
+        statisticViewModel.userId.observe(requireActivity(), Observer {
+            statisticViewModel.getTaskPoints(it)
+        })
+        statisticViewModel.taskPoints.observe(viewLifecycleOwner, Observer {
             setChartData(it)
         })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userViewModel.getTaskPoints()
+//        userViewModel.getTaskPoints()
     }
 
     private fun setUpPieChart() {

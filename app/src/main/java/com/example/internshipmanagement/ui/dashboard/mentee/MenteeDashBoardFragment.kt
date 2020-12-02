@@ -13,7 +13,6 @@ import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MenteesTask
 import com.example.internshipmanagement.ui.taskdetail.mentee.MenteeTaskDetailActivity
 import com.example.internshipmanagement.ui.notification.NotificationActivity
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FCM_PUSH
 import com.example.internshipmanagement.util.FunctionHelper

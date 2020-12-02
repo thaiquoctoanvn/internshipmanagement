@@ -10,7 +10,7 @@ import com.example.internshipmanagement.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class TaskAddingViewModel(
+class AddTaskViewModel(
     private val mentorRepository: MentorRepository,
     private val sharedPref: SharedPreferences
 ) : BaseViewModel() {

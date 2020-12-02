@@ -9,7 +9,6 @@ import android.text.TextUtils
 import android.widget.DatePicker
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MyMentee
-import com.example.internshipmanagement.ui.MentorViewModel
 import com.example.internshipmanagement.ui.taskreference.TaskReferencesActivity
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.REFERENCES_PUSH
@@ -25,8 +24,7 @@ class AddNewTaskActivity : BaseActivity() {
 
     private var referencesList = mutableListOf<MyMentee>()
 
-//    private val mentorViewModel by viewModel<MentorViewModel>()
-    private val taskAddingViewModel by viewModel<TaskAddingViewModel>()
+    private val addTaskViewModel by viewModel<AddTaskViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_add_new_task
@@ -49,14 +47,14 @@ class AddNewTaskActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        taskAddingViewModel.isSuccessful.observe(this, androidx.lifecycle.Observer {
+        addTaskViewModel.isSuccessful.observe(this, androidx.lifecycle.Observer {
             completeTaskAdding(it)
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        super.setBaseObserver(taskAddingViewModel)
+        super.setBaseObserver(addTaskViewModel)
         listenBroadcast()
         registerBroadcast()
     }
@@ -123,7 +121,7 @@ class AddNewTaskActivity : BaseActivity() {
             return
         }
 
-        taskAddingViewModel.addNewTask(deadline.toString(), taskBody, referencesList)
+        addTaskViewModel.addNewTask(deadline.toString(), taskBody, referencesList)
     }
 
     private fun completeTaskAdding(isSucceed: Boolean) {

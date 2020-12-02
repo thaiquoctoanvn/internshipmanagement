@@ -1,10 +1,8 @@
-package com.example.internshipmanagement.ui.people
+package com.example.internshipmanagement.ui.people.mentor
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.internshipmanagement.ui.people.mentor.AllMenteeFragment
-import com.example.internshipmanagement.ui.people.mentor.MyMenteeFragment
 
 class TabPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {

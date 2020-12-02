@@ -15,10 +15,10 @@ import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.ui.evaluationprofile.EvaluationProfileActivity
 import com.example.internshipmanagement.ui.login.LogInActivity
 import com.example.internshipmanagement.ui.profileediting.ProfileEditingActivity
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.example.internshipmanagement.ui.userprofile.StatisticViewModel
 import com.example.internshipmanagement.ui.userprofile.TabStatisticAdapter
-import com.example.internshipmanagement.ui.userprofile.UserProfileViewModel
+import com.example.internshipmanagement.ui.userprofile.other.UserProfileViewModel
 import com.example.internshipmanagement.util.INFO_UPDATED
 import com.example.internshipmanagement.util.SERVER_URL
 import com.google.android.material.appbar.AppBarLayout
@@ -43,7 +43,9 @@ class PersonalFragment : BaseFragment() {
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
 //    private val userViewModel by viewModel<UserViewModel>()
-    private val userProfileViewModel by viewModel<UserProfileViewModel>()
+//    private val serProfileViewModel by viewModel<UserProfileViewModel>()
+    private val personalViewModel by viewModel<PersonalViewModel>()
+    private val statisticViewModel by viewModel<StatisticViewModel>()
 
 
     override fun getRootLayoutId(): Int {
@@ -77,10 +79,11 @@ class PersonalFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        userProfileViewModel.userProfile.observe(viewLifecycleOwner, Observer {
+        personalViewModel.personalProfile.observe(viewLifecycleOwner, Observer {
             updateUI(it)
+            sendDataToChildFragment(it)
         })
-        userProfileViewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
+        personalViewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
             finishSession(it)
         })
     }
@@ -90,13 +93,11 @@ class PersonalFragment : BaseFragment() {
         listenBroadcast()
         registerBroadcast()
         retrievePersonalInfo()
-        super.setBaseObserverFragment(userProfileViewModel)
+        super.setBaseObserverFragment(personalViewModel)
     }
 
-
-
     private fun retrievePersonalInfo() {
-        userProfileViewModel.let { it.getUserProfile(it.getMyAccountId().toString()) }
+        personalViewModel.getPersonalProfile()
     }
 
     private fun updateUI(userProfile: UserProfile) {
@@ -131,19 +132,19 @@ class PersonalFragment : BaseFragment() {
     }
 
     private fun logOut() {
-        userProfileViewModel.logOut()
+        personalViewModel.logOut()
     }
 
     private fun switchToEditProfileActivity() {
         val intent = Intent(activity, ProfileEditingActivity::class.java)
-        intent.putExtra("userId", userProfileViewModel.getMyAccountId())
+        intent.putExtra("userId", personalViewModel.getMyAccountId())
         startActivity(intent)
     }
 
     private fun switchToEvaluationProfile() {
         val intent = Intent(requireActivity(), EvaluationProfileActivity::class.java)
-        intent.putExtra("userId", userProfileViewModel.getMyAccountId())
-        intent.putExtra("myId", userProfileViewModel.getMyAccountId())
+        intent.putExtra("userId", personalViewModel.getMyAccountId())
+        intent.putExtra("myId", personalViewModel.getMyAccountId())
         startActivity(intent)
     }
 
@@ -151,7 +152,7 @@ class PersonalFragment : BaseFragment() {
         infoUpdatePush = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent != null) {
-                    userProfileViewModel.let { it.getUserProfile(it.getMyAccountId().toString()) }
+                    personalViewModel.getPersonalProfile()
                 }
             }
         }
@@ -191,5 +192,9 @@ class PersonalFragment : BaseFragment() {
                 else -> tab.text = "Task statistic"
             }
         }.attach()
+    }
+
+    private fun sendDataToChildFragment(userProfile: UserProfile) {
+        statisticViewModel.setUserIdValue(userProfile.userId)
     }
 }

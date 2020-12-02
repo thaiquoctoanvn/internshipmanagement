@@ -9,8 +9,6 @@ import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MenteesEvaluation
 import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.ui.evaluationcreating.EvaluationCreatingActivity
-import com.example.internshipmanagement.ui.MentorViewModel
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.SERVER_URL
 import kotlinx.android.synthetic.main.activity_evaluation_profile.*

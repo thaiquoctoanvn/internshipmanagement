@@ -9,8 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
-import com.example.internshipmanagement.ui.MainActivity
-import com.example.internshipmanagement.ui.UserViewModel
+import com.example.internshipmanagement.ui.main.MainActivity
 import com.example.internshipmanagement.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_log_in.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -9,7 +9,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.TaskReference
-import com.example.internshipmanagement.ui.MentorViewModel
 import com.example.internshipmanagement.ui.taskreviewing.TaskReferenceDetailActivity
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.FunctionHelper

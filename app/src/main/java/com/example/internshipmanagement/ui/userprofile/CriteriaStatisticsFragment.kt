@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.CriterionPoint
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
 import com.github.mikephil.charting.animation.Easing
@@ -26,7 +25,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener {
 
-    private val userViewModel by sharedViewModel<UserViewModel>()
+//    private val serViewModel by sharedViewModel<UserViewModel>()
+    private val statisticViewModel by sharedViewModel<StatisticViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_criteria_statistics
@@ -37,15 +37,19 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
     }
 
     override fun setObserverFragment() {
-        userViewModel.criteriaPoints.observe(viewLifecycleOwner, Observer {
+        statisticViewModel.userId.observe(viewLifecycleOwner, Observer {
+            Log.d("###", "Data from frg parent: $it")
+            statisticViewModel.getCriteriaPoints(it)
+        })
+        statisticViewModel.criteriaPoints.observe(viewLifecycleOwner, Observer {
             setChartData(it)
         })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userViewModel.getCriteriaPoints()
-        Log.d("###", "Chart tab has loaded")
+//        userViewModel.getCriteriaPoints()
+        Log.d("###", "Data from frg parent: ${statisticViewModel.userId.value}")
     }
 
     private fun setUpPieChart() {

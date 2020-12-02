@@ -9,10 +9,9 @@ import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.UserProfile
 import com.example.internshipmanagement.ui.evaluationprofile.EvaluationProfileActivity
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.userprofile.TabStatisticAdapter
 import com.example.internshipmanagement.ui.base.BaseActivity
-import com.example.internshipmanagement.ui.userprofile.UserProfileViewModel
+import com.example.internshipmanagement.ui.userprofile.StatisticViewModel
 import com.example.internshipmanagement.util.SERVER_URL
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -25,6 +24,7 @@ class UserProfileActivity : BaseActivity() {
 
 //    private val userViewModel by viewModel<UserViewModel>()
     private val userProfileViewModel by viewModel<UserProfileViewModel>()
+    private val statisticViewModel by viewModel<StatisticViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_user_profile
@@ -52,6 +52,7 @@ class UserProfileActivity : BaseActivity() {
     override fun setObserver() {
         userProfileViewModel.userProfile.observe(this, Observer {
             updateUserProfileUI(it)
+            sendDataToChildFragment(it)
         })
     }
 
@@ -115,5 +116,9 @@ class UserProfileActivity : BaseActivity() {
                 else -> tab.text = "Task statistic"
             }
         }.attach()
+    }
+
+    private fun sendDataToChildFragment(userProfile: UserProfile) {
+        statisticViewModel.setUserIdValue(userProfile.userId)
     }
 }

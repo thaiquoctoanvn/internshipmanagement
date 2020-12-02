@@ -8,7 +8,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MyMentee
-import com.example.internshipmanagement.ui.MentorViewModel
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.REFERENCES_PUSH
 import kotlinx.android.synthetic.main.activity_task_references.*
@@ -21,8 +20,7 @@ class TaskReferencesActivity : BaseActivity() {
     private lateinit var taskReferencesAdapter: TaskReferencesAdapter
     private lateinit var pickedMenteeAdapter: PickedMenteeAdapter
 
-//    private val mentorViewModel by viewModel<MentorViewModel>()
-    private val taskReferSelectionViewModel by viewModel<TaskReferSelectionViewModel>()
+    private val taskReferencesViewModel by viewModel<TaskReferencesViewModel>()
 
     // List chứa bản xem trước các mentee được chọn cho task
     private val pickedMentees = mutableListOf<MyMentee>()
@@ -43,24 +41,24 @@ class TaskReferencesActivity : BaseActivity() {
                 ibClearAllSearch.visibility = View.VISIBLE
                 isSearching = true
             }
-            taskReferSelectionViewModel.filterMentees(it.toString())
+            taskReferencesViewModel.filterMentees(it.toString())
         }
         ibClearAllSearch.setOnClickListener { etSearchReferences.setText("") }
     }
 
     override fun setObserver() {
-        taskReferSelectionViewModel.myMenteesForTaskRefer.observe(this, Observer {
+        taskReferencesViewModel.myMenteesForTaskRefer.observe(this, Observer {
             updateUI(it)
             myMentees.addAll(it)
         })
-        taskReferSelectionViewModel.filteredReferences.observe(this, Observer {
+        taskReferencesViewModel.filteredReferences.observe(this, Observer {
             updateUI(it)
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        super.setBaseObserver(taskReferSelectionViewModel)
+        super.setBaseObserver(taskReferencesViewModel)
 //        setObserver()
         getMyMentees()
     }
@@ -89,7 +87,7 @@ class TaskReferencesActivity : BaseActivity() {
         intent.getParcelableArrayListExtra<MyMentee>("referencesList")?.let {
             existingList.addAll(it)
         }
-        taskReferSelectionViewModel.getMyMenteesForTaskReference(existingList)
+        taskReferencesViewModel.getMyMenteesForTaskReference(existingList)
         updatePickedMenteesWindow(pickedMentees)
     }
 
@@ -115,7 +113,7 @@ class TaskReferencesActivity : BaseActivity() {
     }
 
     private val onItemClick: (id: String) -> Unit = {
-        val clickedItem = taskReferSelectionViewModel.myMenteesForTaskRefer.value!!.find { item ->
+        val clickedItem = taskReferencesViewModel.myMenteesForTaskRefer.value!!.find { item ->
             it == item.menteeId
         }
         if (clickedItem != null) {
@@ -128,9 +126,9 @@ class TaskReferencesActivity : BaseActivity() {
             }
         }
         if(isSearching) {
-            taskReferencesAdapter.notifyItemChanged(taskReferSelectionViewModel.filteredReferences.value!!.indexOf(clickedItem))
+            taskReferencesAdapter.notifyItemChanged(taskReferencesViewModel.filteredReferences.value!!.indexOf(clickedItem))
         } else {
-            taskReferencesAdapter.notifyItemChanged(taskReferSelectionViewModel.myMenteesForTaskRefer.value!!.indexOf(clickedItem))
+            taskReferencesAdapter.notifyItemChanged(taskReferencesViewModel.myMenteesForTaskRefer.value!!.indexOf(clickedItem))
         }
 
     }
@@ -138,13 +136,13 @@ class TaskReferencesActivity : BaseActivity() {
     // Sự kiện click nút remove trên bản xem trước mentee được chọn
     private val onItemRemove: (position: Int, id: String) -> Unit = {position: Int, id: String ->
         removePickedMentee(pickedMentees[position])
-        val target = taskReferSelectionViewModel.myMenteesForTaskRefer.value?.find { it.menteeId == id }.also {
+        val target = taskReferencesViewModel.myMenteesForTaskRefer.value?.find { it.menteeId == id }.also {
             it?.isReferred = "false"
         }
         if(isSearching) {
-            taskReferencesAdapter.notifyItemChanged(taskReferSelectionViewModel.filteredReferences.value!!.indexOf(target))
+            taskReferencesAdapter.notifyItemChanged(taskReferencesViewModel.filteredReferences.value!!.indexOf(target))
         } else {
-            taskReferencesAdapter.notifyItemChanged(taskReferSelectionViewModel.myMenteesForTaskRefer.value!!.indexOf(target))
+            taskReferencesAdapter.notifyItemChanged(taskReferencesViewModel.myMenteesForTaskRefer.value!!.indexOf(target))
         }
     }
 }

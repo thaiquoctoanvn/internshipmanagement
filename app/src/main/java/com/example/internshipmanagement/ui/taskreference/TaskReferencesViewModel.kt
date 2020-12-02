@@ -10,10 +10,10 @@ import com.example.internshipmanagement.data.repository.MentorRepository
 import com.example.internshipmanagement.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class TaskReferSelectionViewModel(
+class TaskReferencesViewModel(
     private val mentorRepository: MentorRepository,
     private val sharedPref: SharedPreferences
-) : BaseViewModel() {
+): BaseViewModel() {
 
     private val _myMenteesForTaskRefer = MutableLiveData<MutableList<MyMentee>>()
     val myMenteesForTaskRefer: LiveData<MutableList<MyMentee>>

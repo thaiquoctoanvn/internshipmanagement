@@ -20,7 +20,6 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.UserProfile
-import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -29,7 +28,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileEditingActivity : BaseActivity() {
 
-    private val serViewModel by viewModel<UserViewModel>()
     private val profileEditingViewModel by viewModel<ProfileEditingViewModel>()
 
     private val startForCameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {

@@ -1,4 +1,4 @@
-package com.example.internshipmanagement.ui
+package com.example.internshipmanagement.ui.main
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import com.example.internshipmanagement.ui.calendar.CalendarFragment
 import com.example.internshipmanagement.ui.dashboard.mentor.DashboardFragment
 import com.example.internshipmanagement.ui.dashboard.mentee.MenteeDashBoardFragment
 import com.example.internshipmanagement.ui.people.mentee.MenteeSearchFragment
-import com.example.internshipmanagement.ui.people.SearchFragment
+import com.example.internshipmanagement.ui.people.mentor.SearchFragment
 import com.example.internshipmanagement.ui.userprofile.personal.PersonalFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
