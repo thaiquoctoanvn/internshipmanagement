@@ -22,7 +22,8 @@ import java.util.ArrayList
 
 class TaskReferenceDetailActivity : BaseActivity() {
 
-    private val mentorViewModel by viewModel<MentorViewModel>()
+//    private val mentorViewModel by viewModel<MentorViewModel>()
+    private val taskReviewingViewModel by viewModel<TaskReviewingViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_task_reference_detail
@@ -34,11 +35,11 @@ class TaskReferenceDetailActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        mentorViewModel.detailReference.observe(this, Observer {
+        taskReviewingViewModel.detailReference.observe(this, Observer {
             loadMarkLevel()
             updateDetailReferenceUI(it)
         })
-        mentorViewModel.isSuccessful.observe(this, Observer {
+        taskReviewingViewModel.isSuccessful.observe(this, Observer {
             completeReviewing(it)
         })
     }
@@ -52,7 +53,7 @@ class TaskReferenceDetailActivity : BaseActivity() {
         val intentData = intent
         if(intentData != null) {
             val referenceId = intent.getStringExtra("referenceId").toString()
-            mentorViewModel.getDetailReference(referenceId)
+            taskReviewingViewModel.getDetailReference(referenceId)
         }
     }
 
@@ -82,8 +83,16 @@ class TaskReferenceDetailActivity : BaseActivity() {
             .circleCrop()
             .into(ivReferenceDetail)
 
+        // Nếu đã hết hạn deadline hoặc đã nộp bài enable nút save
+        if(System.currentTimeMillis() > data.deadline.toLong() || data.isSubmitted.toInt() == 1) {
+            tvTaskReferenceDetailSave.apply {
+                isEnabled = true
+                setTextColor(ContextCompat.getColor(this.context, R.color.mentee_strong_color))
+            }
+        }
+
         // Nếu đã review thì return sau khi tải các thông tin
-        if(data.isReviewed.toInt() == 1) {
+        if(data.isReviewed == "1") {
             // Ko cho sửa đổi comment sau khi đã review
             etTaskReferenceComment.apply {
                 isClickable = false
@@ -94,15 +103,10 @@ class TaskReferenceDetailActivity : BaseActivity() {
                 setSelection(data.mark.toInt(), true)
                 isEnabled = false
             }
-        }
-
-        // Nếu đã hết hạn deadline hoặc đã nộp bài enable nút save
-        if(System.currentTimeMillis() > data.deadline.toLong() || data.isSubmitted.toInt() == 1) {
             tvTaskReferenceDetailSave.apply {
-                isEnabled = true
-                setTextColor(ContextCompat.getColor(this.context, R.color.mentee_strong_color))
+                isEnabled = false
+                setTextColor(ContextCompat.getColor(this.context, R.color.icon_or_text_color))
             }
-
         }
 
         // Nếu đã nộp bài đặt lại trạng thái là submitted
@@ -131,14 +135,14 @@ class TaskReferenceDetailActivity : BaseActivity() {
     private fun reviewMenteeTask() {
         val mark = spTaskReferenceMark.selectedItem.toString()
         val comment = etTaskReferenceComment.text.toString().trim()
-        mentorViewModel.updateSpecificReferenceOfTask(mark, comment)
+        taskReviewingViewModel.updateSpecificReferenceOfTask(mark, comment)
     }
 
     private fun completeReviewing(isSucceed: Boolean) {
         if(isSucceed) {
             val intent = Intent(TASK_REVIEWING_PUSH).apply {
-                putExtra("taskId", mentorViewModel.detailReference.value?.taskId)
-                putExtra("referId", mentorViewModel.detailReference.value?.referenceId)
+                putExtra("taskId", taskReviewingViewModel.detailReference.value?.taskId)
+                putExtra("referId", taskReviewingViewModel.detailReference.value?.referenceId)
             }
             sendBroadcast(intent)
             this.finish()

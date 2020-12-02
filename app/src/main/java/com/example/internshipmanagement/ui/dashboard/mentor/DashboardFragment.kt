@@ -13,9 +13,9 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MentorsTask
+import com.example.internshipmanagement.ui.MainViewModel
 import com.example.internshipmanagement.ui.addtask.AddNewTaskActivity
-import com.example.internshipmanagement.ui.taskdetail.MentorTaskDetailActivity
-import com.example.internshipmanagement.ui.MentorViewModel
+import com.example.internshipmanagement.ui.taskdetail.mentor.MentorTaskDetailActivity
 import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.util.FunctionHelper
@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.tvDate
 import kotlinx.android.synthetic.main.fragment_dashboard.tvGreeting
 import kotlinx.android.synthetic.main.fragment_dashboard.tvNoTaskDashBoard
 import kotlinx.android.synthetic.main.fragment_dashboard.tvYourTaskTitle
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -43,8 +44,10 @@ class DashboardFragment : BaseFragment() {
     private lateinit var taskAddingPush: BroadcastReceiver
     private lateinit var taskReviewingPush: BroadcastReceiver
 
-    private val userViewModel by viewModel<UserViewModel>()
-    private val mentorViewModel by viewModel<MentorViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val mainViewModel by sharedViewModel<MainViewModel>()
+    private val mentorDashBoardViewModel by viewModel<MentorDashBoardViewModel>()
+//    private val mentorViewModel by viewModel<MentorViewModel>()
 
     private lateinit var mentorsTaskAdapter: MentorsTaskAdapter
 
@@ -60,17 +63,17 @@ class DashboardFragment : BaseFragment() {
             } else {
                 ibClearAllSearch.visibility = View.VISIBLE
             }
-            mentorViewModel.filterTasks(it.toString())
+            mentorDashBoardViewModel.filterTasks(it.toString())
         }
         ibClearAllSearch.setOnClickListener { etSearchDashBoard.setText("") }
         slDashBoard.setOnRefreshListener { refreshTaskData() }
     }
 
     override fun setObserverFragment() {
-        mentorViewModel.mentorsTasks.observe(viewLifecycleOwner, Observer {
+        mentorDashBoardViewModel.mentorsTasks.observe(viewLifecycleOwner, Observer {
             updateUI(it)
         })
-        mentorViewModel.filteredTasks.observe(viewLifecycleOwner, Observer {
+        mentorDashBoardViewModel.filteredTasks.observe(viewLifecycleOwner, Observer {
             updateUI(it)
         })
     }
@@ -80,8 +83,8 @@ class DashboardFragment : BaseFragment() {
         listenBroadcast()
         registerBroadcast()
         sayGreeting()
-        userViewModel.registerFCM()
-        mentorViewModel.getMentorsTasks()
+//        userViewModel.registerFCM()
+        mentorDashBoardViewModel.getMentorsTasks()
     }
 
     private fun sayGreeting() {
@@ -105,7 +108,7 @@ class DashboardFragment : BaseFragment() {
             }
         }
         Glide.with(this)
-            .load("$SERVER_URL${userViewModel.getUserAvatarUrl()}")
+            .load("$SERVER_URL${mainViewModel.getMyAvatarUrl()}")
             .placeholder(R.drawable.default_avatar)
             .circleCrop()
             .into(ivMiniMentorAvatar)
@@ -135,20 +138,20 @@ class DashboardFragment : BaseFragment() {
             R.color.knowledge_color,
             R.color.proactive_color
         )
-        mentorViewModel.getMentorsTasks()
+        mentorDashBoardViewModel.getMentorsTasks()
     }
 
     private fun listenBroadcast() {
         taskAddingPush = object : BroadcastReceiver() {
             override fun onReceive(contect: Context?, intent: Intent?) {
-                mentorViewModel.getMentorsTasks()
+                mentorDashBoardViewModel.getMentorsTasks()
             }
         }
         taskReviewingPush = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if(intent != null) {
                     val taskId = intent.getStringExtra("taskId")
-                    val position = mentorViewModel.updateCurrentInteractedItem(taskId.toString())
+                    val position = mentorDashBoardViewModel.updateCurrentInteractedItem(taskId.toString())
                     if(position > -1) {
                         mentorsTaskAdapter.notifyItemMoved(position, 0)
                     }

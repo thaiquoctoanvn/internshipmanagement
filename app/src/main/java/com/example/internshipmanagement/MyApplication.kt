@@ -15,7 +15,7 @@ class MyApplication : Application(), LifecycleObserver {
         super.onCreate()
         startKoin {
             androidContext(this@MyApplication)
-            modules(listOf(sharedPrefModule, userModule, apiModule, mentorModule, menteeModule))
+            modules(listOf(sharedPrefModule, userModule, apiModule, mentorModule, repositoryModule, viewModelModule))
         }
     }
 

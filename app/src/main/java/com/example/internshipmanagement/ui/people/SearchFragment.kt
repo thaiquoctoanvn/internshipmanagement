@@ -15,10 +15,13 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.item_search_user_tab.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : BaseFragment() {
 
     private lateinit var tabPagerAdapter: TabPagerAdapter
+
+    private val peopleViewModel by viewModel<PeopleViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_search

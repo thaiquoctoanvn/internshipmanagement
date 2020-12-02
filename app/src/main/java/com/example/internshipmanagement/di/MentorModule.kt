@@ -6,6 +6,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val mentorModule = module {
-    single { MentorRepository(get()) }
+//    single { MentorRepository(get()) }
     viewModel { MentorViewModel(get(), get()) }
 }

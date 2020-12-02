@@ -18,12 +18,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LogInActivity : BaseActivity() {
 
-    private val userViewModel by viewModel<UserViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val logInViewModel by viewModel<LogInViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Observer loading progress bar
-        super.setBaseObserver(userViewModel)
+        super.setBaseObserver(logInViewModel)
     }
 
     override fun getActivityRootLayout(): Int {
@@ -32,7 +33,7 @@ class LogInActivity : BaseActivity() {
 
     override fun setViewOnEventListener() {
         btnLogIn.setOnClickListener {
-            userViewModel.logIn(etUserName.text.toString().trim(), etPassword.text.toString().trim())
+            logInViewModel.logIn(etUserName.text.toString().trim(), etPassword.text.toString().trim())
         }
         etUserName.doAfterTextChanged {
             validateLogin(it.toString())
@@ -44,7 +45,6 @@ class LogInActivity : BaseActivity() {
         }
         etPassword.doAfterTextChanged {
             validateLogin(it.toString())
-            btnLogIn.isEnabled = !TextUtils.isEmpty(it.toString())
             if(TextUtils.isEmpty(it.toString())) {
                 ibClearAllPwd.visibility = View.GONE
             } else {
@@ -56,13 +56,13 @@ class LogInActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.isSuccessful.observe(this, Observer {
+        logInViewModel.isSuccessful.observe(this, Observer {
             logIn(it)
         })
     }
 
     private fun validateLogin(word: String) {
-        if(TextUtils.isEmpty(word)) {
+        if(word.isEmpty()) {
             btnLogIn.apply {
                 backgroundTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(btnLogIn.context, R.color.mentee_light_color)
@@ -76,7 +76,7 @@ class LogInActivity : BaseActivity() {
                     ContextCompat.getColor(btnLogIn.context, R.color.mentee_strong_color)
                 )
                 setTextColor(ContextCompat.getColor(btnLogIn.context, R.color.white))
-                isEnabled = false
+                isEnabled = true
             }
         }
     }

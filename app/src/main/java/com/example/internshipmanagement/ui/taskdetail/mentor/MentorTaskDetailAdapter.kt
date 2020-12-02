@@ -1,4 +1,4 @@
-package com.example.internshipmanagement.ui.taskdetail
+package com.example.internshipmanagement.ui.taskdetail.mentor
 
 import android.view.LayoutInflater
 import android.view.View
@@ -50,25 +50,6 @@ class MentorTaskDetailAdapter(
 
                 setOnClickListener { onItemClick(taskReference.id) }
             }
-//            val name = "${taskReference.name} (${taskReference.nickName})"
-//            itemView.tvItemMenteeName.text = name
-//            Glide.with(itemView)
-//                .load("$SERVER_URL${taskReference.avatarUrl}")
-//                .circleCrop()
-//                .placeholder(R.drawable.default_avatar)
-//                .into(itemView.ivItemMentee)
-//            if(taskReference.isSubmitted == "1") {
-//                itemView.tvStateReferTaskDetail.text = itemView.context.getString(R.string.submitted_state)
-//            } else {
-//                itemView.tvStateReferTaskDetail.text = itemView.context.getString(R.string.not_submitted_state)
-//            }
-//            if(taskReference.isReviewed == "1") {
-//                itemView.tvReviewedState.visibility = View.VISIBLE
-//            } else {
-//                itemView.tvReviewedState.visibility = View.GONE
-//            }
-//
-//            itemView.setOnClickListener { onItemClick(taskReference.id) }
         }
     }
 }

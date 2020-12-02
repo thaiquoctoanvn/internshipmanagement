@@ -26,27 +26,33 @@ class MenteeViewModel(
     private val sharedPref: SharedPreferences
 ): BaseViewModel() {
 
+    // refracted
     private val _menteesTasks = MutableLiveData<MutableList<MenteesTask>>()
     val menteesTasks: LiveData<MutableList<MenteesTask>>
         get() = _menteesTasks
 
+    // refracted
     private val _filteredTasks = MutableLiveData<MutableList<MenteesTask>>()
     val filteredTasks: LiveData<MutableList<MenteesTask>>
         get() = _filteredTasks
 
+    // refracted
     private val _isSuccessful = MutableLiveData<Boolean>()
     val isSuccessful: LiveData<Boolean>
         get() = _isSuccessful
 
+    // refracted
     private val _menteeTaskDetail = MutableLiveData<MenteeTaskDetail>()
     val menteeTaskDetail: LiveData<MenteeTaskDetail>
         get() = _menteeTaskDetail
 
+    // refracted
     private val _myMentor = MutableLiveData<MutableList<MyMentor>>()
     val myMentor: LiveData<MutableList<MyMentor>>
         get() = _myMentor
 
 
+    // refracted
     fun getMenteesTask() {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
@@ -64,6 +70,7 @@ class MenteeViewModel(
         }
     }
 
+    // refracted
     fun filterTasks(keyWords: String) {
         viewModelScope.launch {
             if(TextUtils.isEmpty(keyWords)) {
@@ -77,6 +84,7 @@ class MenteeViewModel(
         }
     }
 
+    // refracted
     fun getMenteeTaskDetail(taskId: String) {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
@@ -89,6 +97,7 @@ class MenteeViewModel(
         }
     }
 
+    // refracted
     fun uploadMaterialSFromUri(
         context: Context,
         referId: String,
@@ -114,6 +123,7 @@ class MenteeViewModel(
         }
     }
 
+    // refracted
     fun uploadMaterialsFromBitmap(
         context: Context,
         bitmap: Bitmap,
@@ -138,6 +148,7 @@ class MenteeViewModel(
         }
     }
 
+    // refracted
     fun getMyMentor() {
         viewModelScope.launch {
             val menteeId = sharedPref.getString("userId", "")
@@ -150,6 +161,7 @@ class MenteeViewModel(
         }
     }
 
+    // refracted
     fun updateCurrentInteractedItem(id: String): Int {
         var position = -1
         menteesTasks.value?.let { tasks ->

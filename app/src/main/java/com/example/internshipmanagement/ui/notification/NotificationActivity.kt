@@ -14,7 +14,8 @@ class NotificationActivity : BaseActivity() {
 
     private lateinit var notificationAdapter: NotificationAdapter
 
-    private val userViewModel by viewModel<UserViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val notificationViewModel by viewModel<NotificationViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_notification
@@ -26,14 +27,14 @@ class NotificationActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.notifications.observe(this, Observer {
+        notificationViewModel.menteeNotifications.observe(this, Observer {
             updateNotificationContainer(it)
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userViewModel.getUsersNotifications()
+        notificationViewModel.getMenteesNotifications()
     }
 
     private fun updateNotificationContainer(notifications: MutableList<Notification>) {
@@ -60,6 +61,6 @@ class NotificationActivity : BaseActivity() {
             R.color.knowledge_color,
             R.color.proactive_color
         )
-        userViewModel.getUsersNotifications()
+        notificationViewModel.getMenteesNotifications()
     }
 }

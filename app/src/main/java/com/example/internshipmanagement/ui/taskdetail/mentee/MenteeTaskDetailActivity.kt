@@ -1,4 +1,4 @@
-package com.example.internshipmanagement.ui.taskdetail
+package com.example.internshipmanagement.ui.taskdetail.mentee
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MenteeTaskDetail
-import com.example.internshipmanagement.ui.MenteeViewModel
 import com.example.internshipmanagement.ui.tasksubmission.SubmissionActivity
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.FunctionHelper
@@ -23,7 +22,8 @@ class MenteeTaskDetailActivity : BaseActivity() {
 
     private lateinit var submissionPush: BroadcastReceiver
 
-    private val menteeViewModel by viewModel<MenteeViewModel>()
+//    private val menteeViewModel by viewModel<MenteeViewModel>()
+    private val menteeTaskDetailViewModel by viewModel<MenteeTaskDetailViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_mentee_task_detail
@@ -36,7 +36,7 @@ class MenteeTaskDetailActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        menteeViewModel.menteeTaskDetail.observe(this, Observer {
+        menteeTaskDetailViewModel.menteeTaskDetail.observe(this, Observer {
             updateTaskDetailUI(it)
         })
     }
@@ -73,7 +73,7 @@ class MenteeTaskDetailActivity : BaseActivity() {
         if(intenData != null) {
             val taskId = intenData.getStringExtra("taskId")
             if(!taskId.isNullOrEmpty()) {
-                menteeViewModel.getMenteeTaskDetail(taskId)
+                menteeTaskDetailViewModel.getMenteeTaskDetail(taskId)
             }
         }
     }
@@ -105,7 +105,7 @@ class MenteeTaskDetailActivity : BaseActivity() {
 
     private fun switchToSubmissionScreen() {
         val intent = Intent(this, SubmissionActivity::class.java)
-        intent.putExtra("referId", menteeViewModel.menteeTaskDetail.value?.id)
+        intent.putExtra("referId", menteeTaskDetailViewModel.menteeTaskDetail.value?.id)
         startActivity(intent)
     }
 }

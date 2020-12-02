@@ -1,4 +1,4 @@
-package com.example.internshipmanagement.ui.taskdetail
+package com.example.internshipmanagement.ui.taskdetail.mentor
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -22,7 +22,8 @@ class MentorTaskDetailActivity : BaseActivity() {
     private lateinit var mentorTaskDetailAdapter: MentorTaskDetailAdapter
     private lateinit var reviewingPush: BroadcastReceiver
 
-    private val mentorViewModel by viewModel<MentorViewModel>()
+//    private val mentorViewModel by viewModel<MentorViewModel>()
+    private val mentorTaskDetailViewModel by viewModel<MentorTaskDetailViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,7 @@ class MentorTaskDetailActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        mentorViewModel.taskReferences.observe(this, Observer {
+        mentorTaskDetailViewModel.taskReferences.observe(this, Observer {
             updateReferencesUI(it)
         })
     }
@@ -61,7 +62,7 @@ class MentorTaskDetailActivity : BaseActivity() {
                 tvMentorTaskDetailDeadline.text = "Deadline: ${FunctionHelper.getDateFromTimeMilliSecond(deadline)} $expired"
                 tvMentorTaskDetailName.text = taskContent
 
-                mentorViewModel.getTaskReferences(taskId)
+                mentorTaskDetailViewModel.getTaskReferences(taskId)
             }
 
         }
@@ -79,7 +80,7 @@ class MentorTaskDetailActivity : BaseActivity() {
         reviewingPush = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 intent?.getStringExtra("referId")?.let {
-                    val position = mentorViewModel.setReviewedStateReference(it)
+                    val position = mentorTaskDetailViewModel.setReviewedStateReference(it)
                     if(position > -1) {
                         mentorTaskDetailAdapter.notifyItemChanged(position)
                     }

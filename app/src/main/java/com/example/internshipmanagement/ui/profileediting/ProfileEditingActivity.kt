@@ -29,7 +29,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileEditingActivity : BaseActivity() {
 
-    private val userViewModel by viewModel<UserViewModel>()
+    private val serViewModel by viewModel<UserViewModel>()
+    private val profileEditingViewModel by viewModel<ProfileEditingViewModel>()
 
     private val startForCameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if(it.resultCode == Activity.RESULT_OK && it != null) {
@@ -86,17 +87,17 @@ class ProfileEditingActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.userProfile.observe(this, Observer {
+        profileEditingViewModel.profileInfo.observe(this, Observer {
             updateUI(it)
         })
-        userViewModel.isSuccessful.observe(this, Observer {
+        profileEditingViewModel.isSuccessful.observe(this, Observer {
             completeProfileEdition(it)
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        super.setBaseObserver(userViewModel)
+        super.setBaseObserver(profileEditingViewModel)
         loadCurrentProfileInfo()
     }
 
@@ -133,8 +134,7 @@ class ProfileEditingActivity : BaseActivity() {
     }
 
     private fun loadCurrentProfileInfo() {
-        val userId = intent.getStringExtra("userId")
-        userViewModel.getUserProfile(userId!!)
+        profileEditingViewModel.getProfileInfo()
     }
 
     private fun updateUI(userProfile: UserProfile) {
@@ -168,13 +168,13 @@ class ProfileEditingActivity : BaseActivity() {
     }
 
     private fun updateAvatarFromUri(uri: Uri) {
-        val sharedUserInfo = userViewModel.userProfile.value
+        val sharedUserInfo = profileEditingViewModel.profileInfo.value
         Glide.with(this)
             .load(uri)
             .circleCrop()
             .into(ivAvatarEditProfile)
         if(sharedUserInfo != null) {
-            userViewModel.updateAvatar(
+            profileEditingViewModel.updateAvatar(
                 this,
                 uri,
                 sharedUserInfo.nickName,
@@ -185,13 +185,13 @@ class ProfileEditingActivity : BaseActivity() {
     }
 
     private fun updateAvatarFromBitmap(bitmap: Bitmap) {
-        val sharedUserInfo = userViewModel.userProfile.value
+        val sharedUserInfo = profileEditingViewModel.profileInfo.value
         Glide.with(this)
             .load(bitmap)
             .circleCrop()
             .into(ivAvatarEditProfile)
         if(sharedUserInfo != null) {
-            userViewModel.updateAvatar(
+            profileEditingViewModel.updateAvatar(
                 this,
                 bitmap,
                 sharedUserInfo.nickName,
@@ -213,7 +213,7 @@ class ProfileEditingActivity : BaseActivity() {
         val name = etNameEditProfile.text.toString().trim()
         val position = etPositionEditProfile.text.toString().trim()
         val email = etEmailEditProfile.text.toString().trim()
-        userViewModel.updateUserInfo(name, position, email)
+        profileEditingViewModel.updateProfileInfo(name, position, email)
     }
 
     private fun completeProfileEdition(isSucceed: Boolean) {

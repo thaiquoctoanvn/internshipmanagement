@@ -25,7 +25,8 @@ class AddNewTaskActivity : BaseActivity() {
 
     private var referencesList = mutableListOf<MyMentee>()
 
-    private val mentorViewModel by viewModel<MentorViewModel>()
+//    private val mentorViewModel by viewModel<MentorViewModel>()
+    private val taskAddingViewModel by viewModel<TaskAddingViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_add_new_task
@@ -48,14 +49,14 @@ class AddNewTaskActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        mentorViewModel.isSuccessful.observe(this, androidx.lifecycle.Observer {
+        taskAddingViewModel.isSuccessful.observe(this, androidx.lifecycle.Observer {
             completeTaskAdding(it)
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        super.setBaseObserver(mentorViewModel)
+        super.setBaseObserver(taskAddingViewModel)
         listenBroadcast()
         registerBroadcast()
     }
@@ -122,7 +123,7 @@ class AddNewTaskActivity : BaseActivity() {
             return
         }
 
-        mentorViewModel.addNewTask(deadline.toString(), taskBody, referencesList)
+        taskAddingViewModel.addNewTask(deadline.toString(), taskBody, referencesList)
     }
 
     private fun completeTaskAdding(isSucceed: Boolean) {

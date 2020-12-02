@@ -20,9 +20,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchResultActivity : BaseActivity() {
 
-    private val userViewModel by viewModel<UserViewModel>()
-
     private lateinit var userSearchResultAdapter: UserSearchResultAdapter
+
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val searchResultViewModel by viewModel<SearchResultViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_search_result
@@ -38,7 +39,7 @@ class SearchResultActivity : BaseActivity() {
                 pbSearchLoading.visibility = View.VISIBLE
                 CoroutineScope(Dispatchers.IO).launch {
                     delay(300)
-                    userViewModel.searchAllUsers(it.toString())
+                    searchResultViewModel.searchAllUsers(it.toString())
                 }
             }
         }
@@ -47,14 +48,13 @@ class SearchResultActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.searchResult.observe(this, Observer {
+        searchResultViewModel.searchResult.observe(this, Observer {
             updateSearchResultUI(it)
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        super.setBaseObserver(userViewModel)
     }
 
     private fun updateSearchResultUI(results: MutableList<UserProfile>) {

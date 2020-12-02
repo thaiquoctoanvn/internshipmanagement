@@ -11,8 +11,7 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MenteesTask
-import com.example.internshipmanagement.ui.taskdetail.MenteeTaskDetailActivity
-import com.example.internshipmanagement.ui.MenteeViewModel
+import com.example.internshipmanagement.ui.taskdetail.mentee.MenteeTaskDetailActivity
 import com.example.internshipmanagement.ui.notification.NotificationActivity
 import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
@@ -34,8 +33,9 @@ class MenteeDashBoardFragment : BaseFragment() {
     private lateinit var submissionPush: BroadcastReceiver
     private lateinit var fcmPush: BroadcastReceiver
 
-    private val userViewModel by viewModel<UserViewModel>()
-    private val menteeViewModel by viewModel<MenteeViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+//    private val menteeViewModel by viewModel<MenteeViewModel>()
+    private val menteeDashBoardViewModel by viewModel<MenteeDashBoardViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_mentee_dash_board
@@ -48,7 +48,7 @@ class MenteeDashBoardFragment : BaseFragment() {
             } else {
                 ibClearAllSearch.visibility = View.VISIBLE
             }
-            menteeViewModel.filterTasks(it.toString())
+            menteeDashBoardViewModel.filterTasks(it.toString())
         }
         ibClearAllSearch.setOnClickListener { etSearchDashBoard.setText("") }
         ibNotificationMenteeDashBoard.setOnClickListener {
@@ -59,10 +59,10 @@ class MenteeDashBoardFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        menteeViewModel.menteesTasks.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        menteeDashBoardViewModel.menteesTasks.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             updateTaskContainerUI(it)
         })
-        menteeViewModel.filteredTasks.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        menteeDashBoardViewModel.filteredTasks.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             updateTaskContainerUI(it)
         })
     }
@@ -72,8 +72,8 @@ class MenteeDashBoardFragment : BaseFragment() {
         sayGreeting()
         listenBroadcast()
         registerBroadcast()
-        userViewModel.registerFCM()
-        menteeViewModel.getMenteesTask()
+//        userViewModel.registerFCM()
+        menteeDashBoardViewModel.getMenteesTask()
     }
 
     private fun registerBroadcast() {
@@ -88,7 +88,7 @@ class MenteeDashBoardFragment : BaseFragment() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if(intent != null) {
                     val referId = intent.getStringExtra("referId")
-                    val position = menteeViewModel.updateCurrentInteractedItem(referId.toString())
+                    val position = menteeDashBoardViewModel.updateCurrentInteractedItem(referId.toString())
                     if(position > -1) {
                         menteesTaskAdapter.apply {
                             // Di chuyển task vừa tương tác lên đầu
@@ -149,7 +149,7 @@ class MenteeDashBoardFragment : BaseFragment() {
             R.color.knowledge_color,
             R.color.proactive_color
         )
-        menteeViewModel.getMenteesTask()
+        menteeDashBoardViewModel.getMenteesTask()
     }
 
     private val onItemClick: (taskId: String) -> Unit = {

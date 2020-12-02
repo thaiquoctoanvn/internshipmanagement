@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
-import com.example.internshipmanagement.ui.MenteeViewModel
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.util.CAMERA_PERMISSION
 import com.example.internshipmanagement.util.READ_STORAGE_PERMISSION
@@ -34,7 +33,8 @@ class SubmissionActivity : BaseActivity() {
 
     private lateinit var attachedImageAdapter: AttachedImageAdapter
 
-    private val menteeViewModel by viewModel<MenteeViewModel>()
+//    private val menteeViewModel by viewModel<MenteeViewModel>()
+    private val taskSubmissionViewModel by viewModel<TaskSubmissionViewModel>()
 
     private val uriList = mutableListOf<String>()
     private var cameraBitmap: Bitmap? = null
@@ -132,14 +132,14 @@ class SubmissionActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        menteeViewModel.isSuccessful.observe(this, Observer {
+        taskSubmissionViewModel.isSuccessful.observe(this, Observer {
             completeSubmitWork(it)
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        super.setBaseObserver(menteeViewModel)
+        super.setBaseObserver(taskSubmissionViewModel)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -221,13 +221,15 @@ class SubmissionActivity : BaseActivity() {
             if(fromCamera) {
                 if(cameraBitmap == null) {
                     super.showSnackBar("You must submit your work with at least one image")
+                    return
                 }
-                menteeViewModel.uploadMaterialsFromBitmap(this, cameraBitmap!!, taskNote)
+                taskSubmissionViewModel.uploadMaterialsFromBitmap(this, referId, cameraBitmap!!, taskNote)
             } else {
                 if(uriList.size == 0) {
                     super.showSnackBar("You must submit your work with at least one image")
+                    return
                 }
-                menteeViewModel.uploadMaterialSFromUri(this, referId, uriList, taskNote)
+                taskSubmissionViewModel.uploadMaterialSFromUri(this, referId, uriList, taskNote)
             }
         } else {
             super.showSnackBar("Oops! Error, retry")

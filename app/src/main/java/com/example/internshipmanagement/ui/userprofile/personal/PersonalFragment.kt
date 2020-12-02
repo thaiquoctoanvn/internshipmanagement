@@ -18,6 +18,7 @@ import com.example.internshipmanagement.ui.profileediting.ProfileEditingActivity
 import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.example.internshipmanagement.ui.userprofile.TabStatisticAdapter
+import com.example.internshipmanagement.ui.userprofile.UserProfileViewModel
 import com.example.internshipmanagement.util.INFO_UPDATED
 import com.example.internshipmanagement.util.SERVER_URL
 import com.google.android.material.appbar.AppBarLayout
@@ -41,7 +42,8 @@ class PersonalFragment : BaseFragment() {
     private lateinit var personalOptionsView: View
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
-    private val userViewModel by viewModel<UserViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val userProfileViewModel by viewModel<UserProfileViewModel>()
 
 
     override fun getRootLayoutId(): Int {
@@ -75,10 +77,10 @@ class PersonalFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        userViewModel.userProfile.observe(viewLifecycleOwner, Observer {
+        userProfileViewModel.userProfile.observe(viewLifecycleOwner, Observer {
             updateUI(it)
         })
-        userViewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
+        userProfileViewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
             finishSession(it)
         })
     }
@@ -88,16 +90,13 @@ class PersonalFragment : BaseFragment() {
         listenBroadcast()
         registerBroadcast()
         retrievePersonalInfo()
-        super.setBaseObserverFragment(userViewModel)
+        super.setBaseObserverFragment(userProfileViewModel)
     }
 
 
 
     private fun retrievePersonalInfo() {
-        val id = userViewModel.getMyAccountId()
-        if (id != null) {
-            userViewModel.getUserProfile(id)
-        }
+        userProfileViewModel.let { it.getUserProfile(it.getMyAccountId().toString()) }
     }
 
     private fun updateUI(userProfile: UserProfile) {
@@ -132,28 +131,27 @@ class PersonalFragment : BaseFragment() {
     }
 
     private fun logOut() {
-        userViewModel.logOut()
+        userProfileViewModel.logOut()
     }
 
     private fun switchToEditProfileActivity() {
         val intent = Intent(activity, ProfileEditingActivity::class.java)
-        intent.putExtra("userId", userViewModel.getSharedPref().getString("userId", ""))
+        intent.putExtra("userId", userProfileViewModel.getMyAccountId())
         startActivity(intent)
     }
 
     private fun switchToEvaluationProfile() {
         val intent = Intent(requireActivity(), EvaluationProfileActivity::class.java)
-        intent.putExtra("userId", userViewModel.getSharedPref().getString("userId", ""))
-        intent.putExtra("myId", userViewModel.getSharedPref().getString("userId", ""))
+        intent.putExtra("userId", userProfileViewModel.getMyAccountId())
+        intent.putExtra("myId", userProfileViewModel.getMyAccountId())
         startActivity(intent)
     }
 
     private fun listenBroadcast() {
         infoUpdatePush = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                val id = userViewModel.getSharedPref().getString("userId", "")
-                if (id != null) {
-                    userViewModel.getUserProfile(id)
+                if (intent != null) {
+                    userProfileViewModel.let { it.getUserProfile(it.getMyAccountId().toString()) }
                 }
             }
         }

@@ -12,7 +12,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LaunchActivity : BaseActivity() {
 
-    private val userViewModel by viewModel<UserViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val launchingViewModel by viewModel<LaunchingViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_launch
@@ -22,19 +23,18 @@ class LaunchActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.isSuccessful.observe(this, Observer {
+        launchingViewModel.isSuccessful.observe(this, Observer {
             startApp(it)
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setBaseObserver(userViewModel)
         checkToken()
     }
 
     private fun checkToken() {
-        userViewModel.checkToken()
+        launchingViewModel.authenticateToken()
     }
 
     private fun startApp(isTokenExist: Boolean) {

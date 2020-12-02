@@ -11,13 +11,16 @@ import com.example.internshipmanagement.data.entity.MyMentee
 import com.example.internshipmanagement.ui.MentorViewModel
 import com.example.internshipmanagement.ui.userprofile.other.UserProfileActivity
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.example.internshipmanagement.ui.people.PeopleViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_all_mentee.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllMenteeFragment : BaseFragment() {
 
-    private val mentorViewModel by viewModel<MentorViewModel>()
+//    private val mentorViewModel by viewModel<MentorViewModel>()
+    private val peopleViewModel by sharedViewModel<PeopleViewModel>()
 
     private lateinit var menteesAdapter: MenteesAdapter
 
@@ -26,11 +29,11 @@ class AllMenteeFragment : BaseFragment() {
     }
 
     override fun setViewOnEventListener() {
-        slAllMentee.setOnRefreshListener { mentorViewModel.getAllMentees() }
+        slAllMentee.setOnRefreshListener { peopleViewModel.getAllMentees() }
     }
 
     override fun setObserverFragment() {
-        mentorViewModel.allMentees.observe(viewLifecycleOwner, Observer {
+        peopleViewModel.allMentees.observe(viewLifecycleOwner, Observer {
             updateAllMenteesUI(it)
         })
 
@@ -38,7 +41,7 @@ class AllMenteeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mentorViewModel.getAllMentees()
+        peopleViewModel.getAllMentees()
     }
 
     private fun updateAllMenteesUI(allMentees: MutableList<MyMentee>) {
@@ -61,8 +64,8 @@ class AllMenteeFragment : BaseFragment() {
         BottomSheetDialog(requireActivity()).apply {
             setContentView(view)
             view.findViewById<TextView>(R.id.tvAddMenteeDialogTitle).setOnClickListener {
-                mentorViewModel.addToMyMentee(id)
-                menteesAdapter.notifyItemChanged(mentorViewModel.setIsMyMenteeState(id))
+                peopleViewModel.addToMyMentee(id)
+                menteesAdapter.notifyItemChanged(peopleViewModel.setIsMyMenteeState(id))
                 this.dismiss()
             }
             view.findViewById<TextView>(R.id.tvCancelDialog).setOnClickListener { this.dismiss() }

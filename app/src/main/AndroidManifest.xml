@@ -21,7 +21,7 @@
         <activity android:name=".ui.notification.NotificationActivity"></activity>
         <activity android:name=".ui.MySubmissionActivity" />
         <activity android:name=".ui.tasksubmission.SubmissionActivity" />
-        <activity android:name=".ui.taskdetail.MenteeTaskDetailActivity" />
+        <activity android:name=".ui.taskdetail.mentee.MenteeTaskDetailActivity" />
         <activity android:name=".ui.fullimage.FullImageActivity" />
         <activity
             android:name=".ui.taskreviewing.TaskReferenceDetailActivity"
@@ -30,7 +30,7 @@
         <activity android:name=".ui.evaluationprofile.EvaluationProfileActivity" />
         <activity android:name=".ui.searchusers.SearchResultActivity" />
         <activity android:name=".ui.userprofile.other.UserProfileActivity" />
-        <activity android:name=".ui.taskdetail.MentorTaskDetailActivity" />
+        <activity android:name=".ui.taskdetail.mentor.MentorTaskDetailActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"

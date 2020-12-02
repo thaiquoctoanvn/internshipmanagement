@@ -7,8 +7,8 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.DayEvent
-import com.example.internshipmanagement.ui.taskdetail.MenteeTaskDetailActivity
-import com.example.internshipmanagement.ui.taskdetail.MentorTaskDetailActivity
+import com.example.internshipmanagement.ui.taskdetail.mentee.MenteeTaskDetailActivity
+import com.example.internshipmanagement.ui.taskdetail.mentor.MentorTaskDetailActivity
 import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.base.BaseFragment
 import com.haibin.calendarview.Calendar
@@ -20,7 +20,8 @@ class CalendarFragment : BaseFragment() {
 
     private lateinit var dayEventAdapter: DayEventAdapter
 
-    private val userViewModel by viewModel<UserViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val calendarViewModel by viewModel<CalendarViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_calendar
@@ -45,14 +46,14 @@ class CalendarFragment : BaseFragment() {
                     pbEventLoading.visibility = View.VISIBLE
                     tvNoEvent.visibility = View.GONE
                     rvCalendarEvent.visibility = View.GONE
-                    userViewModel.getDayEvents(date)
+                    calendarViewModel.getDayEvents(date)
                 }
             }
         })
     }
 
     override fun setObserverFragment() {
-        userViewModel.dayEvents.observe(viewLifecycleOwner, Observer {
+        calendarViewModel.dayEvents.observe(viewLifecycleOwner, Observer {
             updateEventContainer(it)
         })
     }
@@ -69,7 +70,7 @@ class CalendarFragment : BaseFragment() {
         val calendar = java.util.Calendar.getInstance().apply {
             set(calendarView.curYear, calendarView.curMonth, calendarView.curDay, 0, 0, 0)
         }
-        userViewModel.getDayEvents(calendar)
+        calendarViewModel.getDayEvents(calendar)
     }
 
     private fun updateEventContainer(dayEvents: MutableList<DayEvent>) {
@@ -92,7 +93,7 @@ class CalendarFragment : BaseFragment() {
 
     private val onItemEventClick: (event: DayEvent) -> Unit = {
         // Is mentor
-        if(userViewModel.getMyAccountType() == "1") {
+        if(calendarViewModel.getMyAccountType() == "1") {
             val mentorTaskIntent = Intent(requireActivity(), MentorTaskDetailActivity::class.java).apply {
                 putExtra("taskDeadline", it.deadline)
                 putExtra("taskContent", it.taskContent)

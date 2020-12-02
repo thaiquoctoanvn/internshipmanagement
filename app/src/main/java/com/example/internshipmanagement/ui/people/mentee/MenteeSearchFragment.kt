@@ -6,16 +6,19 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MyMentor
-import com.example.internshipmanagement.ui.MenteeViewModel
 import com.example.internshipmanagement.ui.searchusers.SearchResultActivity
 import com.example.internshipmanagement.ui.userprofile.other.UserProfileActivity
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.example.internshipmanagement.ui.people.PeopleViewModel
 import kotlinx.android.synthetic.main.fragment_mentee_search.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MenteeSearchFragment : BaseFragment() {
 
-    private val menteeViewModel by viewModel<MenteeViewModel>()
+//    private val menteeViewModel by viewModel<MenteeViewModel>()
+//    private val menteeSearchViewModel by viewModel<MenteeSearcViewModel>()
+    private val peopleViewModel by sharedViewModel<PeopleViewModel>()
 
     override fun getRootLayoutId(): Int {
         return R.layout.fragment_mentee_search
@@ -26,14 +29,14 @@ class MenteeSearchFragment : BaseFragment() {
     }
 
     override fun setObserverFragment() {
-        menteeViewModel.myMentor.observe(requireActivity(), Observer {
+        peopleViewModel.myMentor.observe(requireActivity(), Observer {
             updateMyMentorContainer(it)
         })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        menteeViewModel.getMyMentor()
+        peopleViewModel.getMyMentor()
     }
 
     private fun updateMyMentorContainer(myMentors: MutableList<MyMentor>) {

@@ -20,8 +20,9 @@ class EvaluationProfileActivity : BaseActivity() {
 
     private lateinit var evaluationProfileAdapter: EvaluationProfileAdapter
 
-    private val userViewModel by viewModel<UserViewModel>()
-    private val mentorViewModel by viewModel<MentorViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+//    private val mentorViewModel by viewModel<MentorViewModel>()
+    private val evaluationProfileViewModel by viewModel<EvaluationProfileViewModel>()
 
     private var userId = ""
     private var myId = ""
@@ -36,13 +37,13 @@ class EvaluationProfileActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.userProfile.observe(this, Observer {
+        evaluationProfileViewModel.menteeProfile.observe(this, Observer {
             updateMenteeInfoUI(it)
         })
-        mentorViewModel.menteesEvaluations.observe(this, Observer {
+        evaluationProfileViewModel.menteesEvaluations.observe(this, Observer {
             updateEvaluationsUI(it)
         })
-        mentorViewModel.isMyMentee.observe(this, Observer {
+        evaluationProfileViewModel.isMyMentee.observe(this, Observer {
             updateManagementStatus(it)
         })
     }
@@ -54,7 +55,7 @@ class EvaluationProfileActivity : BaseActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        mentorViewModel.getMenteesEvaluations(userId)
+        evaluationProfileViewModel.getMenteesEvaluations(userId)
     }
 
     private fun loadEvaluationProfile() {
@@ -62,12 +63,12 @@ class EvaluationProfileActivity : BaseActivity() {
         if(intentData != null) {
             userId = intentData.getStringExtra("userId").toString()
             myId = intentData.getStringExtra("myId").toString()
-            if(!userId.isNullOrEmpty() && !myId.isNullOrEmpty()) {
+            if(userId.isNotEmpty() && myId.isNotEmpty()) {
                 if(userId != myId ) {
-                    mentorViewModel.isMyMentee(userId, myId)
+                    evaluationProfileViewModel.isMyMentee(userId, myId)
                 }
-                mentorViewModel.getMenteesEvaluations(userId)
-                userViewModel.getUserProfile(userId)
+                evaluationProfileViewModel.getMenteesEvaluations(userId)
+                evaluationProfileViewModel.getMenteeProfile(userId)
             }
         }
     }

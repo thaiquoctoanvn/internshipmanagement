@@ -18,8 +18,9 @@ class EvaluationCreatingActivity : BaseActivity() {
 
     private lateinit var criterionAdapter: CriterionAdapter
 
-    private val mentorViewModel by viewModel<MentorViewModel>()
-    private val userViewModel by viewModel<UserViewModel>()
+//    private val mentorViewModel by viewModel<MentorViewModel>()
+    private val evaluationCreatingViewModel by viewModel<EvaluationCreatingViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
 
     private var mentorId = ""
     private var menteeId = ""
@@ -36,21 +37,21 @@ class EvaluationCreatingActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        mentorViewModel.criteria.observe(this, androidx.lifecycle.Observer {
+        evaluationCreatingViewModel.criteria.observe(this, androidx.lifecycle.Observer {
             loadCriteria(it)
         })
-        mentorViewModel.isSuccessful.observe(this, androidx.lifecycle.Observer {
+        evaluationCreatingViewModel.isSuccessful.observe(this, androidx.lifecycle.Observer {
             completeEvaluationAdding(it)
         })
-        userViewModel.userProfile.observe(this, androidx.lifecycle.Observer {
+        evaluationCreatingViewModel.mentorProfile.observe(this, androidx.lifecycle.Observer {
             updateMentorInfoUI(it)
-            mentorViewModel.generateCriteria()
+            evaluationCreatingViewModel.generateCriteria()
         })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        super.setBaseObserver(mentorViewModel)
+        super.setBaseObserver(evaluationCreatingViewModel)
         loadMentorInfo()
     }
 
@@ -73,7 +74,7 @@ class EvaluationCreatingActivity : BaseActivity() {
             mentorId = intentData.getStringExtra("mentorId").toString()
             menteeId = intentData.getStringExtra("menteeId").toString()
             if(mentorId.isNotEmpty() && menteeId.isNotEmpty()) {
-                userViewModel.getUserProfile(mentorId)
+                evaluationCreatingViewModel.getMentorProfile(mentorId)
             }
         }
     }
@@ -105,7 +106,6 @@ class EvaluationCreatingActivity : BaseActivity() {
         val fromDate = FunctionHelper.getMilliSecondFromDate(tvPickedFromDate.text.toString().trim())
         val toDate = FunctionHelper.getMilliSecondFromDate(tvPickedToDate.text.toString().trim())
         if(fromDate != null && toDate != null) {
-            val criteriaMark = mentorViewModel.calculateCriteriaMark()
             if(fromDate >= currentTime) {
                 super.showSnackBar("From date must be lower now")
                 return
@@ -118,7 +118,7 @@ class EvaluationCreatingActivity : BaseActivity() {
                 super.showSnackBar("From date and To date must be 20 days apart")
                 return
             }
-            if(!mentorViewModel.hasMarked()) {
+            if(!evaluationCreatingViewModel.hasMarked()) {
                 super.showSnackBar("Mark for a criterion is at least 1")
                 return
             }
@@ -126,7 +126,7 @@ class EvaluationCreatingActivity : BaseActivity() {
                 super.showSnackBar("Cannot create evaluation")
                 return
             }
-            mentorViewModel.addEvaluation(
+            evaluationCreatingViewModel.addEvaluation(
                 mentorId,
                 menteeId,
                 fromDate.toString(),

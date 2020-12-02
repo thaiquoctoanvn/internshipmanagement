@@ -32,7 +32,8 @@ class MainActivity : BaseActivity() {
     private lateinit var calendarFragment: CalendarFragment
     private lateinit var personalFragment: PersonalFragment
 
-    private val userViewModel by viewModel<UserViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +77,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun launchFragment() {
-        if(super.isMentorAccount(userViewModel.getSharedPref().getString("type", "")!!)) {
+        if(super.isMentorAccount(mainViewModel.getMyAccountType().toString())) {
             dashboardFragment = DashboardFragment()
             searchFragment = SearchFragment()
             calendarFragment = CalendarFragment()
@@ -105,6 +106,8 @@ class MainActivity : BaseActivity() {
             add(R.id.frameLayout, baseScreen3, "baseScreen3").hide(baseScreen3)
             add(R.id.frameLayout, baseScreen4, "baseScreen4").hide(baseScreen4)
         }.commit()
+
+        mainViewModel.registerFCM()
     }
 
     private fun switchFragment(current: Fragment, preparing: Fragment) {

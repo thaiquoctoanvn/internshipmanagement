@@ -12,6 +12,7 @@ import com.example.internshipmanagement.ui.evaluationprofile.EvaluationProfileAc
 import com.example.internshipmanagement.ui.UserViewModel
 import com.example.internshipmanagement.ui.userprofile.TabStatisticAdapter
 import com.example.internshipmanagement.ui.base.BaseActivity
+import com.example.internshipmanagement.ui.userprofile.UserProfileViewModel
 import com.example.internshipmanagement.util.SERVER_URL
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -22,7 +23,8 @@ class UserProfileActivity : BaseActivity() {
 
     private lateinit var tabStatisticAdapter: TabStatisticAdapter
 
-    private val userViewModel by viewModel<UserViewModel>()
+//    private val userViewModel by viewModel<UserViewModel>()
+    private val userProfileViewModel by viewModel<UserProfileViewModel>()
 
     override fun getActivityRootLayout(): Int {
         return R.layout.activity_user_profile
@@ -48,7 +50,7 @@ class UserProfileActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        userViewModel.userProfile.observe(this, Observer {
+        userProfileViewModel.userProfile.observe(this, Observer {
             updateUserProfileUI(it)
         })
     }
@@ -57,12 +59,12 @@ class UserProfileActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val data = intent
         if(data != null) {
-            data.getStringExtra("userId")?.let { userViewModel.getUserProfile(it) }
+            data.getStringExtra("userId")?.let { userProfileViewModel.getUserProfile(it) }
         }
     }
 
     private fun updateUserProfileUI(userProfile: UserProfile) {
-        val amIMentor = userViewModel.getMyAccountType() == "1"
+        val amIMentor = userProfileViewModel.getMyAccountType() == "1"
         val isItMentor = isMentorAccount(userProfile.type)
         when {
             isItMentor || !amIMentor -> {
@@ -92,8 +94,8 @@ class UserProfileActivity : BaseActivity() {
     }
 
     private fun switchToEvaluationScreen() {
-        val userId = userViewModel.userProfile.value?.userId
-        val myId = userViewModel.getSharedPref().getString("userId", "")
+        val userId = userProfileViewModel.userProfile.value?.userId
+        val myId = userProfileViewModel.getMyAccountId()
         val intent = Intent(this, EvaluationProfileActivity::class.java)
         intent.apply {
             putExtra("userId", userId)

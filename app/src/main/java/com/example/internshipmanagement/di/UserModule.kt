@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val userModule = module {
     single { FCMHelper() }
-    single { UserRepository(get()) }
+//    single { UserRepository(get()) }
     viewModel { UserViewModel(get(), get()) }
 }

@@ -22,14 +22,17 @@ class UserViewModel(
     private val sharedPref: SharedPreferences
 ) : BaseViewModel() {
 
+    // refactor
     private val _isSuccessful = MutableLiveData<Boolean>()
     val isSuccessful: LiveData<Boolean>
         get() = _isSuccessful
 
+    // refactor
     private val _userProfile = MutableLiveData<UserProfile>()
     val userProfile: LiveData<UserProfile>
         get() = _userProfile
 
+    // refactor
     private val _searchResult = MutableLiveData<MutableList<UserProfile>>()
     val searchResult: LiveData<MutableList<UserProfile>>
         get() = _searchResult
@@ -42,10 +45,12 @@ class UserViewModel(
     val taskPoints: LiveData<MutableList<TaskPoint>>
         get() = _taskPoints
 
+    // refactor
     private val _notifications = MutableLiveData<MutableList<Notification>>()
     val notifications: LiveData<MutableList<Notification>>
         get() = _notifications
 
+    // refactor
     private val _dayEvents = MutableLiveData<MutableList<DayEvent>>()
     val dayEvents: LiveData<MutableList<DayEvent>>
         get() = _dayEvents
@@ -53,6 +58,7 @@ class UserViewModel(
 
     fun getSharedPref() = sharedPref
 
+    // refactor
     // Xác thực đăng nhập với server
     fun logIn(userName: String, pwd: String) {
         viewModelScope.launch {
@@ -76,6 +82,7 @@ class UserViewModel(
     }
 
 
+    // refactor
     // Xác thực token với server nếu đã đăng nhập trước đó
     fun checkToken() {
         viewModelScope.launch {
@@ -111,6 +118,7 @@ class UserViewModel(
         }
     }
 
+    // refactor
     // Lấy thông tin người dùng theo id
     fun getUserProfile(userId: String) {
         viewModelScope.launch {
@@ -123,6 +131,7 @@ class UserViewModel(
         }
     }
 
+    // refactor
     fun updateAvatar(
         context: Context,
         any: Any,
@@ -142,6 +151,7 @@ class UserViewModel(
         }
     }
 
+    // refactor
     fun updateUserInfo(name: String, position: String, email: String) {
         viewModelScope.launch {
             super.setIsLoadingValue(true)
@@ -160,6 +170,7 @@ class UserViewModel(
         }
     }
 
+    // refactor
     fun registerFCM() {
         viewModelScope.launch {
             FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener {
@@ -174,6 +185,7 @@ class UserViewModel(
         }
     }
 
+    // refactor
     suspend fun searchAllUsers(key: String) {
         viewModelScope.launch {
             val res = userRepository.searchAllUsers(key).body()
@@ -213,6 +225,7 @@ class UserViewModel(
         }
     }
 
+    // refactor
     fun getUsersNotifications() {
         viewModelScope.launch {
             val toId = sharedPref.getString("userId", "")
@@ -224,6 +237,7 @@ class UserViewModel(
         }
     }
 
+    // refactor
     fun getDayEvents(calendar: java.util.Calendar) {
         viewModelScope.launch {
             delay(2000)
@@ -243,12 +257,16 @@ class UserViewModel(
         }
     }
 
+    // refactor
     fun getMyAccountType() = sharedPref.getString("type", "")
 
+    // refactor
     fun getMyAccountId() = sharedPref.getString("userId", "")
 
+    // refactor
     fun getUserAvatarUrl() = sharedPref.getString("avatarUrl", "")
 
+    // refactor
     private fun updateFCMId(fcmId: String) {
         viewModelScope.launch {
             val userId = sharedPref.getString("userId", "")
@@ -261,6 +279,7 @@ class UserViewModel(
         }
     }
 
+    // refactor
     private fun setUserInfoToPref(
         userId: String,
         token: String,
