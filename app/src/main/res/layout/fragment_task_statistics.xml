@@ -8,7 +8,7 @@
     android:paddingStart="@dimen/lv1"
     android:paddingTop="@dimen/lv2"
     android:paddingEnd="@dimen/lv1"
-    tools:context=".ui.TaskStatisticsFragment">
+    tools:context=".ui.userprofile.TaskStatisticsFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

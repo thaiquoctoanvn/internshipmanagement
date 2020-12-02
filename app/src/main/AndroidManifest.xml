@@ -18,34 +18,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Internshipmanagement"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.NotificationActivity"></activity>
+        <activity android:name=".ui.notification.NotificationActivity"></activity>
         <activity android:name=".ui.MySubmissionActivity" />
-        <activity android:name=".ui.SubmissionActivity" />
-        <activity android:name=".ui.MenteeTaskDetailActivity" />
-        <activity android:name=".ui.FullImageActivity" />
+        <activity android:name=".ui.tasksubmission.SubmissionActivity" />
+        <activity android:name=".ui.taskdetail.MenteeTaskDetailActivity" />
+        <activity android:name=".ui.fullimage.FullImageActivity" />
         <activity
-            android:name=".ui.TaskReferenceDetailActivity"
+            android:name=".ui.taskreviewing.TaskReferenceDetailActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".ui.EvaluationCreatingActivity" />
-        <activity android:name=".ui.EvaluationProfileActivity" />
-        <activity android:name=".ui.SearchResultActivity" />
-        <activity android:name=".ui.UserProfileActivity" />
-        <activity android:name=".ui.MentorTaskDetailActivity" />
+        <activity android:name=".ui.evaluationcreating.EvaluationCreatingActivity" />
+        <activity android:name=".ui.evaluationprofile.EvaluationProfileActivity" />
+        <activity android:name=".ui.searchusers.SearchResultActivity" />
+        <activity android:name=".ui.userprofile.other.UserProfileActivity" />
+        <activity android:name=".ui.taskdetail.MentorTaskDetailActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
         <activity
-            android:name=".ui.LogInActivity"
+            android:name=".ui.login.LogInActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".ui.TaskReferencesActivity" />
-        <activity android:name=".ui.AddNewTaskActivity" />
-        <activity android:name=".ui.ProfileEditingActivity" />
+        <activity android:name=".ui.taskreference.TaskReferencesActivity" />
+        <activity android:name=".ui.addtask.AddNewTaskActivity" />
+        <activity android:name=".ui.profileediting.ProfileEditingActivity" />
         <activity
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".ui.LaunchActivity">
+        <activity android:name=".ui.applaunching.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

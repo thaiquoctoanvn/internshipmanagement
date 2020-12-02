@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:paddingBottom="@dimen/lv8"
-        tools:context=".ui.PersonalFragment">
+        tools:context=".ui.userprofile.personal.PersonalFragment">
 
         <ImageView
             android:id="@+id/ivCover"

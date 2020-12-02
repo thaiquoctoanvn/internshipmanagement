@@ -8,7 +8,7 @@
     android:paddingStart="@dimen/lv1"
     android:paddingTop="@dimen/lv2"
     android:paddingEnd="@dimen/lv1"
-    tools:context=".ui.CriteriaStatisticsFragment">
+    tools:context=".ui.userprofile.CriteriaStatisticsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutCriteriaStatisticLegend"

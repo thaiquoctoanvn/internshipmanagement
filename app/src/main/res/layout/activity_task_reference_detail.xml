@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/lv2"
     android:background="@color/white"
-    tools:context=".ui.TaskReferenceDetailActivity">
+    tools:context=".ui.taskreviewing.TaskReferenceDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/referenceDetailHeader"
