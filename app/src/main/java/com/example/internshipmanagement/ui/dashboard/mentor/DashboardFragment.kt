@@ -97,13 +97,13 @@ class DashboardFragment : BaseFragment() {
         Log.d("###", "Time: ${TimeUnit.MILLISECONDS.toHours(time).toInt()}")
         when(calendar[Calendar.HOUR_OF_DAY]) {
             in 4..10 -> {
-                tvGreeting.text = getString(R.string.good_morning)
+                tvGreeting.text = getString(R.string.good_morning_mentor)
             }
             in 11..17 -> {
-                tvGreeting.text = getString(R.string.good_afternoon)
+                tvGreeting.text = getString(R.string.good_afternoon_mentor)
             }
             else -> {
-                tvGreeting.text = getString(R.string.good_evening)
+                tvGreeting.text = getString(R.string.good_evening_mentor)
             }
         }
         Glide.with(this)

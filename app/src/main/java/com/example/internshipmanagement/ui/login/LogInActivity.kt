@@ -35,7 +35,7 @@ class LogInActivity : BaseActivity() {
             logInViewModel.logIn(etUserName.text.toString().trim(), etPassword.text.toString().trim())
         }
         etUserName.doAfterTextChanged {
-            validateLogin(it.toString())
+            handleLogInButtonState(it.toString())
             if(TextUtils.isEmpty(it.toString())) {
                 ibClearAllUserName.visibility = View.GONE
             } else {
@@ -43,7 +43,7 @@ class LogInActivity : BaseActivity() {
             }
         }
         etPassword.doAfterTextChanged {
-            validateLogin(it.toString())
+            handleLogInButtonState(it.toString())
             if(TextUtils.isEmpty(it.toString())) {
                 ibClearAllPwd.visibility = View.GONE
             } else {
@@ -56,11 +56,14 @@ class LogInActivity : BaseActivity() {
 
     override fun setObserver() {
         logInViewModel.isSuccessful.observe(this, Observer {
-            logIn(it)
+            handleLogInState(it)
+        })
+        logInViewModel.isInfoValid.observe(this, Observer {
+            handleInfoState(it)
         })
     }
 
-    private fun validateLogin(word: String) {
+    private fun handleLogInButtonState(word: String) {
         if(word.isEmpty()) {
             btnLogIn.apply {
                 backgroundTintList = ColorStateList.valueOf(
@@ -80,12 +83,19 @@ class LogInActivity : BaseActivity() {
         }
     }
 
-    private fun logIn(state: Boolean) {
+
+    private fun handleInfoState(isValid: Boolean) {
+        if(!isValid) {
+            super.showSnackBar(getString(R.string.log_in_alert))
+        }
+    }
+
+    private fun handleLogInState(state: Boolean) {
         if(state) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {
-            super.showSnackBar("Fail")
+            super.showSnackBar("Log in failed")
         }
     }
 }

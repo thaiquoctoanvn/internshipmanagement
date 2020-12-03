@@ -102,7 +102,11 @@ class MenteeDashBoardFragment : BaseFragment() {
         fcmPush = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if(intent != null) {
-                    tvNotificationBadge.visibility = View.VISIBLE
+                    try {
+                        tvNotificationBadge.visibility = View.VISIBLE
+                    } catch (e: Exception) {
+                        Log.d("###", "Set badge exception: ${e.message}")
+                    }
                 }
             }
         }

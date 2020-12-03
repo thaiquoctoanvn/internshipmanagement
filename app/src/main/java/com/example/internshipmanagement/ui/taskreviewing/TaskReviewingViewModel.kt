@@ -20,6 +20,9 @@ class TaskReviewingViewModel(private val mentorRepository: MentorRepository) : B
     val detailReference: LiveData<DetailTaskReference>
         get() = _detailReference
 
+    private val _isValidReview = MutableLiveData<Boolean>()
+    val isValidReview: LiveData<Boolean>
+        get() = _isValidReview
 
     fun getDetailReference(referenceId: String) {
         viewModelScope.launch {
@@ -44,5 +47,13 @@ class TaskReviewingViewModel(private val mentorRepository: MentorRepository) : B
                 _isSuccessful.value = true
             }
         }
+    }
+
+    fun reviewSubmission(mark: String, comment: String) {
+        if(comment.isEmpty()) {
+            _isValidReview.value = false
+            return
+        }
+        updateSpecificReferenceOfTask(mark, comment)
     }
 }

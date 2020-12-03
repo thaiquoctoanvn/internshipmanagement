@@ -41,6 +41,9 @@ class TaskReferenceDetailActivity : BaseActivity() {
         taskReviewingViewModel.isSuccessful.observe(this, Observer {
             completeReviewing(it)
         })
+        taskReviewingViewModel.isValidReview.observe(this, Observer {
+            super.showSnackBar(getString(R.string.reviewing_alert))
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,7 +137,8 @@ class TaskReferenceDetailActivity : BaseActivity() {
     private fun reviewMenteeTask() {
         val mark = spTaskReferenceMark.selectedItem.toString()
         val comment = etTaskReferenceComment.text.toString().trim()
-        taskReviewingViewModel.updateSpecificReferenceOfTask(mark, comment)
+
+        taskReviewingViewModel.reviewSubmission(mark, comment)
     }
 
     private fun completeReviewing(isSucceed: Boolean) {

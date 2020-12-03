@@ -45,7 +45,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showSnackBar(message: String) {
-        Snackbar.make(this.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(this.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show()
     }
 
     fun isMentorAccount(type: String): Boolean {

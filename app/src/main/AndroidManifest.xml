@@ -18,18 +18,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Internshipmanagement"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.notification.NotificationActivity"></activity>
-        <activity android:name=".ui.tasksubmission.SubmissionActivity" />
-        <activity android:name=".ui.taskdetail.mentee.MenteeTaskDetailActivity" />
-        <activity android:name=".ui.fullimage.FullImageActivity" />
+        <activity
+            android:name=".ui.notification.NotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.tasksubmission.SubmissionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.taskdetail.mentee.MenteeTaskDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.fullimage.FullImageActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.taskreviewing.TaskReferenceDetailActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".ui.evaluationcreating.EvaluationCreatingActivity" />
-        <activity android:name=".ui.evaluationprofile.EvaluationProfileActivity" />
-        <activity android:name=".ui.searchusers.SearchResultActivity" />
-        <activity android:name=".ui.userprofile.other.UserProfileActivity" />
-        <activity android:name=".ui.taskdetail.mentor.MentorTaskDetailActivity" />
+        <activity
+            android:name=".ui.evaluationcreating.EvaluationCreatingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.evaluationprofile.EvaluationProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.searchusers.SearchResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.userprofile.other.UserProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.taskdetail.mentor.MentorTaskDetailActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"

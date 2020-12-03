@@ -63,9 +63,12 @@
     <string name="over_view">| Overview</string>
     <string name="your_mentors">Your mentors</string>
     <string name="have_not_mentor_yet">You have no mentor yet</string>
-    <string name="good_morning">Good morning</string>
-    <string name="good_afternoon">Good afternoon</string>
-    <string name="good_evening">Good evening</string>
+    <string name="good_morning_mentor">Good morning mentor</string>
+    <string name="good_afternoon_mentor">Good afternoon mentor</string>
+    <string name="good_evening_mentor">Good evening mentor</string>
+    <string name="good_morning">Good morning mentee</string>
+    <string name="good_afternoon">Good afternoon mentee</string>
+    <string name="good_evening">Good evening mentee</string>
     <string name="no_data">Data not available</string>
     <string name="no_data_yet">Have no data yet</string>
     <string name="no_event_yet">No event yet</string>
@@ -90,6 +93,9 @@
     <string name="task_statistic_note">The task is considered well completed must be higher than 7 points</string>
     <string name="add_mentee_statement">Take care of this mentee?</string>
     <string name="no_statistic_yet">No statistic yet</string>
+    <string name="log_in_alert">Username or password is empty</string>
+    <string name="reviewing_alert">The review must have a comment</string>
+    <string name="search_your_mentees">Search your mentees</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <!-- TODO: Remove or change this placeholder text -->

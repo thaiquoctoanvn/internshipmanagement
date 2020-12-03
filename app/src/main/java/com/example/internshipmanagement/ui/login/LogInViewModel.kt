@@ -14,32 +14,41 @@ class LogInViewModel(
     private val sharedPref: SharedPreferences
 ) : BaseViewModel() {
 
+    private val _isInfoValid = MutableLiveData<Boolean>()
+    val isInfoValid: LiveData<Boolean>
+        get() = _isInfoValid
+
     private val _isSuccessful = MutableLiveData<Boolean>()
     val isSuccessful: LiveData<Boolean>
         get() = _isSuccessful
 
+
     // Xác thực đăng nhập với server
     fun logIn(userName: String, pwd: String) {
-        viewModelScope.launch {
-            try {
-                super.setIsLoadingValue(true)
-                val res = userRepository.logIn(userName, pwd)
-                val personalInfo = res.body()
-                // Lưu thông tin người dùng vào Pref
-                if(personalInfo != null) {
-                    setUserInfoToPref(
-                        personalInfo.userId,
-                        personalInfo.token,
-                        personalInfo.type,
-                        personalInfo.avatarUrl
-                    )
-                    _isSuccessful.value = true
-                } else {
-                    _isSuccessful.value = false
+        if(userName.isEmpty() || pwd.isEmpty()) {
+            _isInfoValid.value = false
+        } else {
+            viewModelScope.launch {
+                try {
+                    super.setIsLoadingValue(true)
+                    val res = userRepository.logIn(userName, pwd)
+                    val personalInfo = res.body()
+                    // Lưu thông tin người dùng vào Pref
+                    if(personalInfo != null) {
+                        setUserInfoToPref(
+                            personalInfo.userId,
+                            personalInfo.token,
+                            personalInfo.type,
+                            personalInfo.avatarUrl
+                        )
+                        _isSuccessful.value = true
+                    } else {
+                        _isSuccessful.value = false
+                    }
+                    super.setIsLoadingValue(false)
+                } catch (e: Exception) {
+                    Log.d("###", "Error: ${e.message}")
                 }
-                super.setIsLoadingValue(false)
-            } catch (e: Exception) {
-                Log.d("###", "Error: ${e.message}")
             }
         }
     }

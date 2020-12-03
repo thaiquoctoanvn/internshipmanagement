@@ -55,7 +55,7 @@
         android:backgroundTint="@color/separate_line_or_et_background_color"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/lv1"
-        android:hint="@string/et_search_task"
+        android:hint="@string/search_your_mentees"
         android:inputType="text"
         android:maxLines="1"
         android:paddingStart="@dimen/lv1"
