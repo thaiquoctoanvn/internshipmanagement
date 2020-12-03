@@ -1,6 +1,7 @@
 package com.example.internshipmanagement.ui.applaunching
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,14 +22,19 @@ class LaunchingViewModel(
     // Xác thực token với server nếu đã đăng nhập trước đó
     fun authenticateToken() {
         viewModelScope.launch {
-            val userId = sharedPref.getString("userId", "")
-            val token = sharedPref.getString("token", "")
-            if (!userId.isNullOrEmpty() && !token.isNullOrEmpty()) {
-                val res = userRepository.checkToken(userId, token).body()
-                _isSuccessful.value = res != null
-            } else {
-                _isSuccessful.value = false
+            try {
+                val userId = sharedPref.getString("userId", "")
+                val token = sharedPref.getString("token", "")
+                if (!userId.isNullOrEmpty() && !token.isNullOrEmpty()) {
+                    val res = userRepository.checkToken(userId, token).body()
+                    _isSuccessful.value = res != null
+                } else {
+                    _isSuccessful.value = false
+                }
+            } catch (e: Exception) {
+                Log.d("###", "Error: ${e.message}")
             }
+
         }
     }
 }

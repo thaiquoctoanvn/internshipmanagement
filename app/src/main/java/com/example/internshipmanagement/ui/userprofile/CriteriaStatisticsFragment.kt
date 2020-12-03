@@ -49,7 +49,6 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        userViewModel.getCriteriaPoints()
-        Log.d("###", "Data from frg parent: ${statisticViewModel.userId.value}")
     }
 
     private fun setUpPieChart() {

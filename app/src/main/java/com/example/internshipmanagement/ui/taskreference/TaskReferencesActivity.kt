@@ -3,6 +3,7 @@ package com.example.internshipmanagement.ui.taskreference
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
@@ -32,7 +33,7 @@ class TaskReferencesActivity : BaseActivity() {
     }
 
     override fun setViewOnEventListener() {
-        ibYourMentessBack.setOnClickListener { returnValueToAddNewTaskAct(pickedMentees) }
+        ibYourMentessBack.setOnClickListener { returnValueToAddNewTaskAct() }
         etSearchReferences.doAfterTextChanged {
             if(TextUtils.isEmpty(it)) {
                 ibClearAllSearch.visibility = View.GONE
@@ -47,13 +48,18 @@ class TaskReferencesActivity : BaseActivity() {
     }
 
     override fun setObserver() {
-        taskReferencesViewModel.myMenteesForTaskRefer.observe(this, Observer {
-            updateUI(it)
-            myMentees.addAll(it)
-        })
-        taskReferencesViewModel.filteredReferences.observe(this, Observer {
-            updateUI(it)
-        })
+        taskReferencesViewModel.apply {
+            pickedReferences.observe(this@TaskReferencesActivity, Observer {
+                updatePickedMenteesWindow(it)
+            })
+            myMenteesForTaskRefer.observe(this@TaskReferencesActivity, Observer {
+                updateUI(it)
+//                myMentees.addAll(it)
+            })
+            filteredReferences.observe(this@TaskReferencesActivity, Observer {
+                updateUI(it)
+            })
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,11 +89,15 @@ class TaskReferencesActivity : BaseActivity() {
 
     // Request danh sách mentee
     private fun getMyMentees() {
-        val existingList = mutableListOf<MyMentee>()
+//        val existingList = mutableListOf<MyMentee>()
         intent.getParcelableArrayListExtra<MyMentee>("referencesList")?.let {
-            existingList.addAll(it)
+            pickedMentees.addAll(it)
         }
-        taskReferencesViewModel.getMyMenteesForTaskReference(existingList)
+        taskReferencesViewModel.let {
+            it.getMyMenteesForTaskReference(pickedMentees)
+//            it.setPickedReferencesValue(existingList.toMutableList())
+        }
+//        taskReferencesViewModel.getMyMenteesForTaskReference(existingList)
         updatePickedMenteesWindow(pickedMentees)
     }
 
@@ -105,9 +115,10 @@ class TaskReferencesActivity : BaseActivity() {
         pickedMenteeAdapter.notifyItemRemoved(targetPos)
     }
 
-    private fun returnValueToAddNewTaskAct(references: MutableList<MyMentee>) {
+    private fun returnValueToAddNewTaskAct() {
         val referencesPush = Intent(REFERENCES_PUSH)
-        referencesPush.putParcelableArrayListExtra("references", references as ArrayList<MyMentee>)
+//        val pickedItems = taskReferencesViewModel.pickedReferences.value
+        referencesPush.putParcelableArrayListExtra("references", pickedMentees as ArrayList<MyMentee>)
         sendBroadcast(referencesPush)
         this.finish()
     }

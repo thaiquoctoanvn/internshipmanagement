@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -33,6 +34,7 @@ import kotlinx.android.synthetic.main.fragment_personal.tvProfileEmail
 import kotlinx.android.synthetic.main.fragment_personal.tvProfileName
 import kotlinx.android.synthetic.main.fragment_personal.tvProfilePosition
 import kotlinx.android.synthetic.main.fragment_personal.vpPieChart
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PersonalFragment : BaseFragment() {
@@ -45,7 +47,7 @@ class PersonalFragment : BaseFragment() {
 //    private val userViewModel by viewModel<UserViewModel>()
 //    private val serProfileViewModel by viewModel<UserProfileViewModel>()
     private val personalViewModel by viewModel<PersonalViewModel>()
-    private val statisticViewModel by viewModel<StatisticViewModel>()
+    private val statisticViewModel by sharedViewModel<StatisticViewModel>()
 
 
     override fun getRootLayoutId(): Int {
@@ -81,7 +83,7 @@ class PersonalFragment : BaseFragment() {
     override fun setObserverFragment() {
         personalViewModel.personalProfile.observe(viewLifecycleOwner, Observer {
             updateUI(it)
-            sendDataToChildFragment(it)
+            sendDataToChildFragment()
         })
         personalViewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
             finishSession(it)
@@ -194,7 +196,8 @@ class PersonalFragment : BaseFragment() {
         }.attach()
     }
 
-    private fun sendDataToChildFragment(userProfile: UserProfile) {
-        statisticViewModel.setUserIdValue(userProfile.userId)
+    private fun sendDataToChildFragment() {
+        statisticViewModel.setUserIdValue(personalViewModel.getMyAccountId().toString())
+        Log.d("###", "Send data to child: ${statisticViewModel.userId.value}")
     }
 }

@@ -1,6 +1,7 @@
 package com.example.internshipmanagement.ui.login
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -20,22 +21,26 @@ class LogInViewModel(
     // Xác thực đăng nhập với server
     fun logIn(userName: String, pwd: String) {
         viewModelScope.launch {
-            super.setIsLoadingValue(true)
-            val res = userRepository.logIn(userName, pwd)
-            val personalInfo = res.body()
-            // Lưu thông tin người dùng vào Pref
-            if(personalInfo != null) {
-                setUserInfoToPref(
-                    personalInfo.userId,
-                    personalInfo.token,
-                    personalInfo.type,
-                    personalInfo.avatarUrl
-                )
-                _isSuccessful.value = true
-            } else {
-                _isSuccessful.value = false
+            try {
+                super.setIsLoadingValue(true)
+                val res = userRepository.logIn(userName, pwd)
+                val personalInfo = res.body()
+                // Lưu thông tin người dùng vào Pref
+                if(personalInfo != null) {
+                    setUserInfoToPref(
+                        personalInfo.userId,
+                        personalInfo.token,
+                        personalInfo.type,
+                        personalInfo.avatarUrl
+                    )
+                    _isSuccessful.value = true
+                } else {
+                    _isSuccessful.value = false
+                }
+                super.setIsLoadingValue(false)
+            } catch (e: Exception) {
+                Log.d("###", "Error: ${e.message}")
             }
-            super.setIsLoadingValue(false)
         }
     }
 

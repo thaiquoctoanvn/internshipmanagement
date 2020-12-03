@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.internshipmanagement.data.repository.MenteeRepository
 import com.example.internshipmanagement.ui.base.BaseViewModel
+import com.example.internshipmanagement.util.DURATION
 import com.example.internshipmanagement.util.SUCCEED_MESSAGE
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -61,7 +62,7 @@ class TaskSubmissionViewModel(
                 if(res != null) {
                     super.setIsLoadingValue(false)
                     super.setMessageResponseValue("Submit work successfully")
-                    delay(2000)
+                    delay(500)
                     _isSuccessful.value = res == SUCCEED_MESSAGE
                 }
             } else {

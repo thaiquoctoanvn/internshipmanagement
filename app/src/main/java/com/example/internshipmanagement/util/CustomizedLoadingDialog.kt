@@ -20,9 +20,6 @@ class CustomizedLoadingDialog(private val context: Context) {
                 setContentView(R.layout.item_dialog_loading)
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             }
-            Glide.with(dialog.context)
-                .load(R.drawable.gif_loading)
-                .into(dialog.ivCustomLoading)
         }
         dialog.show()
     }

@@ -51,7 +51,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:gravity="center"
-        android:text="@string/no_event_yet"
+        android:text="@string/no_statistic_yet"
         android:textColor="@color/icon_or_text_color"
         android:textSize="@dimen/textBody"
         android:visibility="gone" />

@@ -89,7 +89,7 @@
     <string name="uncompleted_task">Uncompleted tasks</string>
     <string name="task_statistic_note">The task is considered well completed must be higher than 7 points</string>
     <string name="add_mentee_statement">Take care of this mentee?</string>
-
+    <string name="no_statistic_yet">No statistic yet</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <!-- TODO: Remove or change this placeholder text -->

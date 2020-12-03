@@ -38,3 +38,6 @@ const val TASK_REVIEWING_PUSH = "reviewed"
 // Transformer Effect
 const val MIN_SCALE = 0.75f
 const val MIN_ALPHA = 0.5f
+
+// Time delay
+const val DURATION: Long = 500

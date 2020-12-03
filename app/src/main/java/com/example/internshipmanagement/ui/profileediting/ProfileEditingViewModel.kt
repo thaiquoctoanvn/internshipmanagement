@@ -71,11 +71,11 @@ class ProfileEditingViewModel(
             super.setIsLoadingValue(false)
             if(res != null) {
                 super.setMessageResponseValue(INFO_UPDATE_SUCCEED)
-                delay(2000)
+                delay(500)
                 _isSuccessful.value = true
             } else {
                 super.setMessageResponseValue(INFO_UPDATE_FAILED)
-                delay(2000)
+                delay(500)
                 _isSuccessful.value = false
             }
         }

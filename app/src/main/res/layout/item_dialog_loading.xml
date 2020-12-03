@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-        android:id="@+id/ivCustomLoading"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/gif_loading"
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="@dimen/lv3"
+        android:layout_height="@dimen/lv3"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/status_bar_color"
+        android:indeterminateTintMode="src_atop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"/>
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

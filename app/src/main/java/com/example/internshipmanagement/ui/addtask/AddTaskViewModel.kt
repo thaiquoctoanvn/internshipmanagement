@@ -33,7 +33,7 @@ class AddTaskViewModel(
                 super.setIsLoadingValue(true)
                 val res = mentorRepository.addNewTask(ownerId, deadline, taskBody, menteeIds, gcmIds).body()
                 super.setIsLoadingValue(false)
-                delay(1000)
+                delay(500)
                 _isSuccessful.value = res != null
             }
 
