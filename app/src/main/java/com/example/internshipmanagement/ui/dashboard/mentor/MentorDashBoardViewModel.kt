@@ -44,7 +44,7 @@ class MentorDashBoardViewModel(
             if(!mentorId.isNullOrEmpty()) {
                 val res = mentorRepository.getMentorsTasks(mentorId).body()
                 if(res != null) {
-                    res.sortByDescending { it.deadline.toLong() }
+                    res.sortBy { it.deadline.toLong() >= System.currentTimeMillis() + 86400000 }
                     _mentorsTasks.value = res
                 }
             }
