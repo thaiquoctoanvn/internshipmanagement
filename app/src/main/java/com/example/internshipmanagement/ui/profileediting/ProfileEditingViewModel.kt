@@ -46,19 +46,24 @@ class ProfileEditingViewModel(
 
     fun updateAvatar(
         context: Context,
-        any: Any,
-        userName: String,
-        oldAvatar: String,
-        userId: String
+        any: Any
     ) {
         viewModelScope.launch {
-            super.setIsLoadingValue(true)
-            val res = userRepository.uploadImage(context, any, userName, oldAvatar, userId).body()
-            super.setIsLoadingValue(false)
-            if(res != null) {
-                super.setMessageResponseValue(AVATAR_UPDATE_SUCCEED)
-            } else {
-                super.setMessageResponseValue(AVATAR_UPDATE_FAILED)
+
+            profileInfo.value?.let {
+                super.setIsLoadingValue(true)
+
+                val userName = it.nickName
+                val oldAvatar = it.avatarUrl
+                val userId = it.userId
+
+                val res = userRepository.uploadImage(context, any, userName, oldAvatar, userId).body()
+                super.setIsLoadingValue(false)
+                if(res != null) {
+                    super.setMessageResponseValue(AVATAR_UPDATE_SUCCEED)
+                } else {
+                    super.setMessageResponseValue(AVATAR_UPDATE_FAILED)
+                }
             }
         }
     }

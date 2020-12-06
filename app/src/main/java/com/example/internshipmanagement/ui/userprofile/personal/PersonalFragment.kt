@@ -44,8 +44,6 @@ class PersonalFragment : BaseFragment() {
     private lateinit var personalOptionsView: View
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
-//    private val userViewModel by viewModel<UserViewModel>()
-//    private val serProfileViewModel by viewModel<UserProfileViewModel>()
     private val personalViewModel by viewModel<PersonalViewModel>()
     private val statisticViewModel by sharedViewModel<StatisticViewModel>()
 
