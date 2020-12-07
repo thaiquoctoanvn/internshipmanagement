@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
@@ -126,6 +127,7 @@ class ProfileEditingActivity : BaseActivity() {
                     "OK",
                     DialogInterface.OnClickListener() { dialogInterface: DialogInterface, which: Int ->
                     dismiss()
+                    openMyAppPermissionSettings()
                 })
             }.show()
         }
@@ -133,6 +135,16 @@ class ProfileEditingActivity : BaseActivity() {
 
     private fun loadCurrentProfileInfo() {
         profileEditingViewModel.getProfileInfo()
+    }
+
+    // Mở setting nếu user nhấn ok
+    private fun openMyAppPermissionSettings() {
+        val uri = Uri.fromParts("package", packageName, null)
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = uri
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        startActivity(intent)
     }
 
     private fun updateUI(userProfile: UserProfile) {
@@ -171,15 +183,7 @@ class ProfileEditingActivity : BaseActivity() {
             .load(uri)
             .circleCrop()
             .into(ivAvatarEditProfile)
-        if(sharedUserInfo != null) {
-            profileEditingViewModel.updateAvatar(
-                this,
-                uri,
-                sharedUserInfo.nickName,
-                sharedUserInfo.avatarUrl,
-                sharedUserInfo.userId
-            )
-        }
+        profileEditingViewModel.updateAvatar(this, uri)
     }
 
     private fun updateAvatarFromBitmap(bitmap: Bitmap) {
@@ -188,15 +192,7 @@ class ProfileEditingActivity : BaseActivity() {
             .load(bitmap)
             .circleCrop()
             .into(ivAvatarEditProfile)
-        if(sharedUserInfo != null) {
-            profileEditingViewModel.updateAvatar(
-                this,
-                bitmap,
-                sharedUserInfo.nickName,
-                sharedUserInfo.avatarUrl,
-                sharedUserInfo.userId
-            )
-        }
+        profileEditingViewModel.updateAvatar(this, bitmap)
     }
 
     private fun startCamera() {

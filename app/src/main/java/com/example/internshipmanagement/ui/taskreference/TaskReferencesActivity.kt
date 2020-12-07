@@ -23,9 +23,6 @@ class TaskReferencesActivity : BaseActivity() {
 
     private val taskReferencesViewModel by viewModel<TaskReferencesViewModel>()
 
-    // List chứa bản xem trước các mentee được chọn cho task
-    private val pickedMentees = mutableListOf<MyMentee>()
-    private val myMentees = mutableListOf<MyMentee>()
     private var isSearching = false
 
     override fun getActivityRootLayout(): Int {
@@ -37,7 +34,6 @@ class TaskReferencesActivity : BaseActivity() {
         etSearchReferences.doAfterTextChanged {
             if(TextUtils.isEmpty(it)) {
                 ibClearAllSearch.visibility = View.GONE
-                isSearching = false
             } else {
                 ibClearAllSearch.visibility = View.VISIBLE
                 isSearching = true
@@ -49,15 +45,46 @@ class TaskReferencesActivity : BaseActivity() {
 
     override fun setObserver() {
         taskReferencesViewModel.apply {
+            // Khi list item được chọn thay đổi
             pickedReferences.observe(this@TaskReferencesActivity, Observer {
+                Log.d("###", "Picked list has been changed")
                 updatePickedMenteesWindow(it)
             })
+
+            // Khi list chính thay đổi
             myMenteesForTaskRefer.observe(this@TaskReferencesActivity, Observer {
+                Log.d("###", "Main list has been changed")
                 updateUI(it)
-//                myMentees.addAll(it)
             })
+
+            // Khi list kết quả tìm kiếm thay đổi
             filteredReferences.observe(this@TaskReferencesActivity, Observer {
+                Log.d("###", "Filtered list has been changed")
                 updateUI(it)
+            })
+
+            // Khi item trong list chính thay đổi thuộc tính
+            modifiedFilteredItemPosition.observe(this@TaskReferencesActivity, Observer {
+                Log.d("###", "Filtered item has been changed")
+                taskReferencesAdapter.notifyItemChanged(it)
+            })
+
+            // Khi item trong list kết quả tìm kiếm thay đổi thuộc tính
+            modifiedItemPosition.observe(this@TaskReferencesActivity, Observer {
+                Log.d("###", "Item has been changed")
+                taskReferencesAdapter.notifyItemChanged(it)
+            })
+
+            // Khi thêm 1 item vào list chọn
+            currentPickedItemPosition.observe(this@TaskReferencesActivity, Observer {
+                Log.d("###", "Current added item at: $it")
+                pickedMenteeAdapter.notifyItemInserted(it)
+            })
+
+            // Khi xóa 1 item khỏi list chọn
+            currentRemovedItemPosition.observe(this@TaskReferencesActivity, Observer {
+                Log.d("###", "Current removed item at: $it")
+                pickedMenteeAdapter.notifyItemRemoved(it)
             })
         }
     }
@@ -65,7 +92,6 @@ class TaskReferencesActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         super.setBaseObserver(taskReferencesViewModel)
-//        setObserver()
         getMyMentees()
     }
 
@@ -89,71 +115,33 @@ class TaskReferencesActivity : BaseActivity() {
 
     // Request danh sách mentee
     private fun getMyMentees() {
-//        val existingList = mutableListOf<MyMentee>()
-        intent.getParcelableArrayListExtra<MyMentee>("referencesList")?.let {
-            pickedMentees.addAll(it)
+        val lastPickedList = mutableListOf<MyMentee>()
+        intent.getParcelableArrayListExtra<MyMentee>("referencesList")?.let { availableItems ->
+            lastPickedList.addAll(availableItems)
         }
         taskReferencesViewModel.let {
-            it.getMyMenteesForTaskReference(pickedMentees)
-//            it.setPickedReferencesValue(existingList.toMutableList())
+            // Nếu list đã chọn trước đó, thì đồng bộ vào list request về từ server
+            it.getMyMenteesForTaskReference(lastPickedList)
+            it.setPickedReferencesValue(lastPickedList)
         }
-//        taskReferencesViewModel.getMyMenteesForTaskReference(existingList)
-        updatePickedMenteesWindow(pickedMentees)
-    }
-
-    // Thêm mentee vào list chọn cho task và cập nhật ui
-    private fun addPickedMentee(pickedItem: MyMentee) {
-        pickedMentees.add(pickedItem)
-        pickedMenteeAdapter.notifyItemInserted(pickedMentees.size - 1)
-    }
-
-    // Xóa mentee ra khỏi list được chọn và cập nhật ui
-    private fun removePickedMentee(pickedItem: MyMentee) {
-        val target = pickedMentees.find { it.menteeId == pickedItem.menteeId }
-        val targetPos = pickedMentees.indexOf(target)
-        pickedMentees.remove(target)
-        pickedMenteeAdapter.notifyItemRemoved(targetPos)
     }
 
     private fun returnValueToAddNewTaskAct() {
         val referencesPush = Intent(REFERENCES_PUSH)
-//        val pickedItems = taskReferencesViewModel.pickedReferences.value
-        referencesPush.putParcelableArrayListExtra("references", pickedMentees as ArrayList<MyMentee>)
+        referencesPush.putParcelableArrayListExtra(
+            "references",
+            taskReferencesViewModel.pickedReferences.value as ArrayList<MyMentee>
+        )
         sendBroadcast(referencesPush)
         this.finish()
     }
 
     private val onItemClick: (id: String) -> Unit = {
-        val clickedItem = taskReferencesViewModel.myMenteesForTaskRefer.value!!.find { item ->
-            it == item.menteeId
-        }
-        if (clickedItem != null) {
-            if(clickedItem.isReferred == "false") {
-                clickedItem.isReferred = "true"
-                addPickedMentee(clickedItem)
-            } else {
-                clickedItem.isReferred = "false"
-                removePickedMentee(clickedItem)
-            }
-        }
-        if(isSearching) {
-            taskReferencesAdapter.notifyItemChanged(taskReferencesViewModel.filteredReferences.value!!.indexOf(clickedItem))
-        } else {
-            taskReferencesAdapter.notifyItemChanged(taskReferencesViewModel.myMenteesForTaskRefer.value!!.indexOf(clickedItem))
-        }
-
+        taskReferencesViewModel.setReferState(it, isSearching)
     }
 
     // Sự kiện click nút remove trên bản xem trước mentee được chọn
     private val onItemRemove: (position: Int, id: String) -> Unit = {position: Int, id: String ->
-        removePickedMentee(pickedMentees[position])
-        val target = taskReferencesViewModel.myMenteesForTaskRefer.value?.find { it.menteeId == id }.also {
-            it?.isReferred = "false"
-        }
-        if(isSearching) {
-            taskReferencesAdapter.notifyItemChanged(taskReferencesViewModel.filteredReferences.value!!.indexOf(target))
-        } else {
-            taskReferencesAdapter.notifyItemChanged(taskReferencesViewModel.myMenteesForTaskRefer.value!!.indexOf(target))
-        }
+        taskReferencesViewModel.setReferState(id, isSearching)
     }
 }
