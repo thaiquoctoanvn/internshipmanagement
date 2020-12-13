@@ -1,9 +1,12 @@
 package com.example.internshipmanagement.ui.userprofile.other
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.internshipmanagement.R
@@ -13,6 +16,7 @@ import com.example.internshipmanagement.ui.userprofile.TabStatisticAdapter
 import com.example.internshipmanagement.ui.base.BaseActivity
 import com.example.internshipmanagement.ui.userprofile.StatisticViewModel
 import com.example.internshipmanagement.util.SERVER_URL
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_user_profile.*
@@ -77,6 +81,13 @@ class UserProfileActivity : BaseActivity() {
                 ibProfileEvaluation.visibility = View.GONE
                 tabLayoutPieChart.visibility = View.GONE
                 vpPieChart.visibility = View.GONE
+
+                // Ngăn user scroll appbar khi bên dưới ko chứa gì
+                val param = ablUserProfile.layoutParams as CoordinatorLayout.LayoutParams
+                val behavior = param.behavior as AppBarLayout.Behavior
+                behavior.setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+                    override fun canDrag(appBarLayout: AppBarLayout): Boolean { return false }
+                })
             }
             else -> {
                 tvUserProfileStatus.text = getString(R.string.mentee)

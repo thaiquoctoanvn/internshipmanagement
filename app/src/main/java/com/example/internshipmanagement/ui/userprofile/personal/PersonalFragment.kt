@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.fragment_personal.tvProfilePosition
 import kotlinx.android.synthetic.main.fragment_personal.vpPieChart
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.abs
 
 class PersonalFragment : BaseFragment() {
 
@@ -46,6 +47,8 @@ class PersonalFragment : BaseFragment() {
 
     private val personalViewModel by viewModel<PersonalViewModel>()
     private val statisticViewModel by sharedViewModel<StatisticViewModel>()
+
+    private var collapsedContainerMinHeight = -1f
 
 
     override fun getRootLayoutId(): Int {
@@ -75,6 +78,14 @@ class PersonalFragment : BaseFragment() {
             // Chỉ enable swipe layout khi trở lên đầu màn hình
             val rect = android.graphics.Rect()
             slPersonalFragment.isEnabled = ivCover.getGlobalVisibleRect(rect) && ivCover.height == rect.height()
+            /*
+            if(abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
+                collapseContainer.layoutParams.height = collapsedContainerMinHeight.toInt()
+                collapseContainer.requestLayout()
+            } else if(appBarLayout.totalScrollRange > collapsedContainerMinHeight) {
+
+            }
+            */
         })
     }
 
@@ -90,6 +101,7 @@ class PersonalFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        collapsedContainerMinHeight = collapseContainer.layoutParams.height * 0.3f
         listenBroadcast()
         registerBroadcast()
         retrievePersonalInfo()
@@ -106,7 +118,7 @@ class PersonalFragment : BaseFragment() {
             ivIconEvaluation.visibility = View.GONE
             tvProfileEvaluation.visibility = View.GONE
             tabLayoutPieChart.visibility = View.GONE
-            nsvPersonalFragment.visibility = View.GONE
+            //nsvPersonalFragment.visibility = View.GONE
         } else {
             launchTab()
         }

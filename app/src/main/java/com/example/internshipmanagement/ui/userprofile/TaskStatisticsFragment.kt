@@ -56,7 +56,7 @@ class TaskStatisticsFragment : BaseFragment(), OnChartValueSelectedListener {
             holeRadius = 58f
             transparentCircleRadius = 100f
             rotationAngle = 0f
-            isRotationEnabled = true
+            isRotationEnabled = false
             isHighlightPerTapEnabled = true
 
             // Tắt chart decryption
