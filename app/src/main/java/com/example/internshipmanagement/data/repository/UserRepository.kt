@@ -134,4 +134,15 @@ class UserRepository(private val apiService: APIService) {
         }
     }
 
+    suspend fun getMonthEvents(
+        requestedBy: String,
+        monthYear: String,
+        mentorId: String,
+        menteeId: String
+    ): Response<MutableList<String>> {
+        return withContext(Dispatchers.IO) {
+            apiService.getMonthEvents(requestedBy, monthYear, mentorId, menteeId)
+        }
+    }
+
 }

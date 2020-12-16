@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.TaskPoint
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.example.internshipmanagement.util.DURATION
 import com.example.internshipmanagement.util.FunctionHelper
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Legend
@@ -84,7 +85,7 @@ class TaskStatisticsFragment : BaseFragment(), OnChartValueSelectedListener {
             setTransparentCircleAlpha(102)
 
             // Set tốc độ load chart và style load
-            animateY(5000, Easing.EaseInOutQuad)
+            animateY(DURATION, Easing.EaseInOutQuad)
 
             setOnChartValueSelectedListener(this@TaskStatisticsFragment)
         }

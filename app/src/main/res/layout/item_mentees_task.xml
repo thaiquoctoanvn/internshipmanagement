@@ -9,6 +9,7 @@
     android:layout_marginBottom="@dimen/lv3"
     android:background="@drawable/item_rv_background"
     android:elevation="@dimen/lv1"
+    android:foreground="?attr/selectableItemBackground"
     android:padding="@dimen/lv2">
 
     <TextView

@@ -1,9 +1,11 @@
 package com.example.internshipmanagement.ui.calendar
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.DayEvent
@@ -13,7 +15,10 @@ import com.example.internshipmanagement.ui.base.BaseFragment
 import com.haibin.calendarview.Calendar
 import com.haibin.calendarview.CalendarView
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class CalendarFragment : BaseFragment() {
 
@@ -29,6 +34,7 @@ class CalendarFragment : BaseFragment() {
         calendarView.setOnMonthChangeListener { year, month ->
             val time = "$month | $year"
             tvGreeting.text = time
+            calendarViewModel.getMonthEvents(month, year)
         }
         calendarView.setOnCalendarSelectListener(object : CalendarView.OnCalendarSelectListener {
             override fun onCalendarOutOfRange(calendar: Calendar?) {
@@ -36,7 +42,6 @@ class CalendarFragment : BaseFragment() {
             }
 
             override fun onCalendarSelect(calendar: Calendar?, isClick: Boolean) {
-                Log.d("###", "Select: ${calendar?.day}/${calendar?.month}")
                 calendar?.let {
                     val date = java.util.Calendar.getInstance().apply {
                         set(it.year, it.month - 1, it.day, 0, 0, 0)
@@ -54,6 +59,9 @@ class CalendarFragment : BaseFragment() {
         calendarViewModel.dayEvents.observe(viewLifecycleOwner, Observer {
             updateEventContainer(it)
         })
+        calendarViewModel.monthEvents.observe(viewLifecycleOwner, Observer {
+            highlightCalendar(it)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,9 +74,10 @@ class CalendarFragment : BaseFragment() {
         val current = "${calendarView.curMonth} | ${calendarView.curYear}"
         tvGreeting.text = current
         val calendar = java.util.Calendar.getInstance().apply {
-            set(calendarView.curYear, calendarView.curMonth, calendarView.curDay, 0, 0, 0)
+            set(calendarView.curYear, calendarView.curMonth, calendarView.curDay + 2, 0, 0, 0)
         }
         calendarViewModel.getDayEvents(calendar)
+        calendarViewModel.getMonthEvents(calendarView.curMonth, calendarView.curYear)
     }
 
     private fun updateEventContainer(dayEvents: MutableList<DayEvent>) {
@@ -107,4 +116,8 @@ class CalendarFragment : BaseFragment() {
         }
     }
 
+    // Đánh dấu những ngày nào có sự kiện
+    private fun highlightCalendar(monthEvents: MutableMap<String, Calendar>) {
+        calendarView.setSchemeDate(monthEvents)
+    }
 }

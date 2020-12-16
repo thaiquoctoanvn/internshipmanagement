@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/lv3"
     android:layout_marginEnd="@dimen/lv3"
-    android:layout_marginBottom="@dimen/lv3">
+    android:layout_marginBottom="@dimen/lv3"
+    android:foreground="?attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/tvItemEventIndex"

@@ -5,6 +5,7 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.internshipmanagement.data.entity.MenteesTask
 import com.example.internshipmanagement.data.entity.MentorsTask
 import com.example.internshipmanagement.data.repository.MentorRepository
 import com.example.internshipmanagement.ui.base.BaseViewModel
@@ -44,8 +45,7 @@ class MentorDashBoardViewModel(
             if(!mentorId.isNullOrEmpty()) {
                 val res = mentorRepository.getMentorsTasks(mentorId).body()
                 if(res != null) {
-                    res.sortBy { it.deadline.toLong() >= System.currentTimeMillis() + 86400000 }
-                    _mentorsTasks.value = res
+                    _mentorsTasks.value = sortTaskByDeadline(res)
                 }
             }
             super.setIsLoadingValue(false)
@@ -62,5 +62,21 @@ class MentorDashBoardViewModel(
             }
         }
         return position
+    }
+
+    private fun sortTaskByDeadline(srcTasks: MutableList<MentorsTask>): MutableList<MentorsTask> {
+        val outOfDateTasks = mutableListOf<MentorsTask>()
+        val now = System.currentTimeMillis()
+        srcTasks.sortBy { it.deadline.toLong() }
+        srcTasks.forEach {
+            if(it.deadline.toLong() < now) {
+                outOfDateTasks.add(it)
+            }
+        }
+        if(outOfDateTasks.isNotEmpty()) {
+            srcTasks.removeAll(outOfDateTasks)
+            srcTasks.addAll(outOfDateTasks)
+        }
+        return srcTasks
     }
 }

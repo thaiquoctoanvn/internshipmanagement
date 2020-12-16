@@ -27,18 +27,21 @@
         android:id="@+id/tvLogOutDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lv2"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
+        android:padding="@dimen/lv2"
         android:text="@string/tv_log_out"
         android:textColor="@color/color_strong_alert"
         android:textSize="@dimen/textLargeBody"
         app:layout_constraintTop_toBottomOf="@id/separateLineLogOutAlert" />
+
     <TextView
         android:id="@+id/tvCancelDialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/lv2"
+        android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
+        android:padding="@dimen/lv2"
         android:text="@string/cancel"
         android:textColor="@color/mentee_strong_color"
         android:textSize="@dimen/textLargeBody"

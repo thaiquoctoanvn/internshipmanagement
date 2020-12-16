@@ -150,6 +150,14 @@ interface APIService {
         @Query("mentee_id") menteeId: String
     ): Response<MutableList<DayEvent>>
 
+    @GET("getMonthEvents.php")
+    suspend fun getMonthEvents(
+        @Query("requested_by") requestedBy: String,
+        @Query("month_year") time: String,
+        @Query("mentor_id") mentorId: String,
+        @Query("mentee_id") menteeId: String
+    ): Response<MutableList<String>>
+
     @FormUrlEncoded
     @POST("addToMyMentee.php")
     suspend fun addToMyMentee(

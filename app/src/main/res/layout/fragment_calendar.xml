@@ -53,17 +53,18 @@
         app:calendar_padding_right="@dimen/lv2"
         app:current_day_text_color="@color/mentee_strong_color"
         app:current_month_text_color="@color/day_calendar_color"
-        app:day_text_size="@dimen/textBody"
+        app:day_text_size="@dimen/textLargeBody"
         app:layout_constraintTop_toBottomOf="@id/calendarHeader"
         app:lunar_text_size="0dp"
         app:month_view_scrollable="true"
         app:month_view_show_mode="mode_only_current"
-        app:selected_text_color="@color/white"
-        app:selected_theme_color="@color/mentee_strong_color"
+        app:scheme_text_color="@color/day_calendar_color"
+        app:selected_text_color="@color/black"
         app:week_background="@color/white"
         app:week_line_background="@color/separate_line_or_et_background_color"
         app:week_start_with="mon"
-        app:week_text_color="@color/day_calendar_color" />
+        app:week_text_color="@color/day_calendar_color"
+        app:week_text_size="@dimen/textCaption" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCalendarEvent"

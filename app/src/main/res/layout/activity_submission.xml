@@ -48,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/submit_button"
+            android:foreground="?attr/selectableItemBackground"
             android:textColor="@color/mentee_strong_color"
             android:textSize="@dimen/textBody"
             android:textStyle="bold"

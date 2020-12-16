@@ -31,8 +31,7 @@ class MenteeDashBoardViewModel(
             if(!menteeId.isNullOrEmpty()) {
                 val res = menteeRepository.getMenteesTasks(menteeId).body()
                 if(res != null) {
-                    res.sortBy { it.deadline.toLong() >= System.currentTimeMillis() + 86400000 }
-                    _menteesTasks.value = res
+                    _menteesTasks.value = sortTaskByDeadline(res)
                 }
             }
             super.setIsLoadingValue(false)
@@ -63,5 +62,21 @@ class MenteeDashBoardViewModel(
             }
         }
         return position
+    }
+
+    private fun sortTaskByDeadline(srcTasks: MutableList<MenteesTask>): MutableList<MenteesTask> {
+        val outOfDateTasks = mutableListOf<MenteesTask>()
+        val now = System.currentTimeMillis()
+        srcTasks.sortBy { it.deadline.toLong() }
+        srcTasks.forEach {
+            if(it.deadline.toLong() < now) {
+                outOfDateTasks.add(it)
+            }
+        }
+        if(outOfDateTasks.isNotEmpty()) {
+            srcTasks.removeAll(outOfDateTasks)
+            srcTasks.addAll(outOfDateTasks)
+        }
+        return srcTasks
     }
 }
