@@ -44,7 +44,6 @@ class MenteesTaskAdapter(
             } else {
                 itemView.tvMenteesTaskSubmittedState.visibility = View.VISIBLE
             }
-
             itemView.setOnClickListener { onItemClick(menteesTask.taskId) }
         }
     }

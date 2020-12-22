@@ -94,6 +94,10 @@ class FunctionHelper {
             return mutableListOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         }
 
+        fun getWidthScreen(context: Context): Int {
+            return context.resources.displayMetrics.widthPixels
+        }
+
         fun generateImageMaterials(
             context: Context,
             materials: MutableList<String>,

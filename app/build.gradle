@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -64,8 +65,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     // Send messages
-    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
     // Rest API

@@ -60,22 +60,6 @@ class MainActivity : BaseActivity() {
 
     override fun setObserver() {}
 
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if(
-                supportFragmentManager.findFragmentByTag("dashBoardFragment")!!.isVisible or
-                supportFragmentManager.findFragmentByTag("calendarFragment")!!.isVisible or
-                supportFragmentManager.findFragmentByTag("profileFragment")!!.isVisible
-//            supportFragmentManager.findFragmentByTag("addNewTaskFragment")!!.isVisible
-        ) {
-            bottomNavigationView.visibility = View.VISIBLE
-            Log.d("###", "add new task frag is visible")
-        } else {
-            bottomNavigationView.visibility = View.GONE
-        }
-    }
-
     private fun launchFragment() {
         if(super.isMentorAccount(mainViewModel.getMyAccountType().toString())) {
             dashboardFragment = DashboardFragment()

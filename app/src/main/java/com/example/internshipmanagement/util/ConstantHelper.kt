@@ -1,9 +1,9 @@
 package com.example.internshipmanagement.util
 
 // Cần dùng địa chỉ IP, ko dùng localhost 10.0.1.244, 172.16.10.68
-// Local host: http://172.16.10.68:83/miniproject/
+// Local host: http://10.0.1.244:83/miniproject/
 // Online host: https://bracteolate-honks.000webhostapp.com/miniproject/
-const val SERVER_URL = "http://10.0.1.244:83/miniproject/"
+const val SERVER_URL = "https://bracteolate-honks.000webhostapp.com/miniproject/"
 
 // File name
 const val SHARED_PREF_NAME = "InternManagement"
@@ -42,4 +42,4 @@ const val MIN_SCALE = 0.75f
 const val MIN_ALPHA = 0.5f
 
 // Time delay chart
-const val DURATION = 500
+const val DURATION = 2000

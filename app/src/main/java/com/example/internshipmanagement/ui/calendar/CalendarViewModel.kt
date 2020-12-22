@@ -22,6 +22,8 @@ class CalendarViewModel(
     private val sharedPref: SharedPreferences
 ) : BaseViewModel() {
 
+    val lastRequestedMonth = mutableMapOf<Int, Int>()
+
     private val _dayEvents = MutableLiveData<MutableList<DayEvent>>()
     val dayEvents: LiveData<MutableList<DayEvent>>
         get() = _dayEvents
@@ -69,6 +71,7 @@ class CalendarViewModel(
             if(res != null) {
                 _monthEvents.value = parseToHaibinCalendar(res)
             }
+            lastRequestedMonth[year] = month
         }
     }
 
@@ -84,7 +87,7 @@ class CalendarViewModel(
                     year = calendar[java.util.Calendar.YEAR]
                     month = calendar[java.util.Calendar.MONTH] + 1
                     day = calendar[java.util.Calendar.DAY_OF_MONTH]
-                    scheme = "E"
+                    scheme = "!"
                     schemeColor = schemeTheme
                     addScheme(Calendar.Scheme())
                 }

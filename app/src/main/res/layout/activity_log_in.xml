@@ -23,7 +23,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="@dimen/lv6"
-                android:src="@mipmap/ic_app_logo"
+                android:src="@drawable/app_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +57,8 @@
                 android:paddingTop="@dimen/lv2"
                 android:paddingEnd="@dimen/lv6"
                 android:paddingBottom="@dimen/lv2"
-                android:textColor="@color/icon_or_text_color"
+                android:textColor="@color/black"
+                android:textColorHint="@color/icon_or_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLogInStatement" />
@@ -91,7 +92,8 @@
                 android:paddingTop="@dimen/lv2"
                 android:paddingEnd="@dimen/lv6"
                 android:paddingBottom="@dimen/lv2"
-                android:textColor="@color/icon_or_text_color"
+                android:textColor="@color/black"
+                android:textColorHint="@color/icon_or_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/etUserName" />

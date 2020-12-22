@@ -23,7 +23,7 @@
     <color name="grey80">#CCA0A0A0</color>
     <color name="black_opacity">#4D000000</color>
     <color name="status_bar_color">#66007AFF</color>
-    <color name="colorTransparent">#00000000</color>
+    <color name="colorTransparent">#00ffffff</color>
     <color name="color_strong_alert">#ec0101</color>
 
     <color name="item_rv_color">#F7F8FA</color>
@@ -36,6 +36,7 @@
     <color name="medium_task_color">#8094b3</color>
     <color name="good_task_color">#4f6d9c</color>
 
+    <color name="shadow_color">#abb2b8</color>
 
     <color name="day_calendar_color">#505155</color>
 </resources>

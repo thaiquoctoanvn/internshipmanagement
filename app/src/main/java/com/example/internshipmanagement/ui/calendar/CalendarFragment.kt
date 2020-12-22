@@ -34,7 +34,7 @@ class CalendarFragment : BaseFragment() {
         calendarView.setOnMonthChangeListener { year, month ->
             val time = "$month | $year"
             tvGreeting.text = time
-            calendarViewModel.getMonthEvents(month, year)
+            requestMonthEvents(month, year)
         }
         calendarView.setOnCalendarSelectListener(object : CalendarView.OnCalendarSelectListener {
             override fun onCalendarOutOfRange(calendar: Calendar?) {
@@ -119,5 +119,14 @@ class CalendarFragment : BaseFragment() {
     // Đánh dấu những ngày nào có sự kiện
     private fun highlightCalendar(monthEvents: MutableMap<String, Calendar>) {
         calendarView.setSchemeDate(monthEvents)
+    }
+
+    private fun requestMonthEvents(month: Int, year: Int) {
+        val requestedMonthEvent = calendarViewModel.lastRequestedMonth.filter {
+            it.key == year && it.value == month
+        }
+        if(requestedMonthEvent != null) {
+            calendarViewModel.getMonthEvents(month, year)
+        }
     }
 }

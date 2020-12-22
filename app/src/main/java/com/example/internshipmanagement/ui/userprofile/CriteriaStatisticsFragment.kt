@@ -4,6 +4,8 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.internshipmanagement.R
@@ -53,7 +55,12 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
     }
 
     private fun setUpPieChart() {
+
         pcCriteria.apply {
+
+            val widthScreen = FunctionHelper.getWidthScreen(this.context)
+
+            layoutParams = ConstraintLayout.LayoutParams((widthScreen * 0.8).toInt(), (widthScreen * 0.6).toInt())
 
             isDrawHoleEnabled = true
             holeRadius = 58f
