@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.core.widget.NestedScrollView
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -17,6 +18,7 @@ import com.example.internshipmanagement.ui.main.MainViewModel
 import com.example.internshipmanagement.ui.addtask.AddNewTaskActivity
 import com.example.internshipmanagement.ui.taskdetail.mentor.MentorTaskDetailActivity
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.example.internshipmanagement.ui.main.MainActivity
 import com.example.internshipmanagement.util.FunctionHelper
 import com.example.internshipmanagement.util.SERVER_URL
 import com.example.internshipmanagement.util.TASK_ADDING_PUSH
@@ -66,6 +68,20 @@ class DashboardFragment : BaseFragment() {
         }
         ibClearAllSearch.setOnClickListener { etSearchDashBoard.setText("") }
         slDashBoard.setOnRefreshListener { refreshTaskData() }
+        /*
+        nsvDashBoard.setOnScrollChangeListener {
+                v: NestedScrollView?,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int ->
+            if(scrollY > oldScrollY) {
+                (requireActivity() as MainActivity).hideBottomNav()
+            } else {
+                (requireActivity() as MainActivity).showBottomNav()
+            }
+        }
+        */
     }
 
     override fun setObserverFragment() {

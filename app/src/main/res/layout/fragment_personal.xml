@@ -18,7 +18,6 @@
             android:background="@color/white"
             app:elevation="0dp">
 
-
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapseContainer"
                 android:layout_width="match_parent"
@@ -207,28 +206,14 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsvPersonalFragment"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpPieChart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:elevation="0dp"
-            android:fillViewport="true"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="0dp">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vpPieChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+            android:fitsSystemWindows="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_constraintTop_toBottomOf="@id/tabLayoutPieChart" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

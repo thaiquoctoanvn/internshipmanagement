@@ -57,9 +57,11 @@ class CriteriaStatisticsFragment : BaseFragment(), OnChartValueSelectedListener 
     private fun setUpPieChart() {
 
         pcCriteria.apply {
+            visibility = View.VISIBLE
 
             val widthScreen = FunctionHelper.getWidthScreen(this.context)
 
+            fitsSystemWindows = true
             layoutParams = ConstraintLayout.LayoutParams((widthScreen * 0.8).toInt(), (widthScreen * 0.6).toInt())
 
             isDrawHoleEnabled = true

@@ -3,6 +3,7 @@ package com.example.internshipmanagement.ui.main
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.ui.base.BaseActivity
@@ -12,6 +13,7 @@ import com.example.internshipmanagement.ui.dashboard.mentee.MenteeDashBoardFragm
 import com.example.internshipmanagement.ui.people.mentee.MenteeSearchFragment
 import com.example.internshipmanagement.ui.people.mentor.SearchFragment
 import com.example.internshipmanagement.ui.userprofile.personal.PersonalFragment
+import com.example.internshipmanagement.util.KeyBoardDetector
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -56,9 +58,27 @@ class MainActivity : BaseActivity() {
             }
             return@setOnNavigationItemSelectedListener true
         }
+        KeyBoardDetector.detectKeyBoard(layoutMainAct, object : KeyBoardDetector.OnKeyBoardStateChange {
+            override fun onKeyBoardVisibilityChange(isShowing: Boolean) {
+                if(isShowing) {
+                    hideBottomNav()
+                } else {
+                    showBottomNav()
+                }
+            }
+        })
     }
 
     override fun setObserver() {}
+
+    fun hideBottomNav() {
+        bottomNavigationView.isVisible = false
+    }
+
+    fun showBottomNav() {
+
+        bottomNavigationView.isVisible = true
+    }
 
     private fun launchFragment() {
         if(super.isMentorAccount(mainViewModel.getMyAccountType().toString())) {

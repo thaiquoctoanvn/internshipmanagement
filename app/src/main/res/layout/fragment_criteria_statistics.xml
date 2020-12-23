@@ -27,9 +27,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="200dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutCriteriaStatisticLegend" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorTransparent"
+        app:layout_constraintBottom_toBottomOf="@id/pcCriteria"
+        app:layout_constraintEnd_toEndOf="@id/pcCriteria"
+        app:layout_constraintStart_toStartOf="@id/pcCriteria"
+        app:layout_constraintTop_toTopOf="@id/pcCriteria" />
 
     <TextView
         android:id="@+id/tvNoCriteriaStatistic"

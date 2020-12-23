@@ -8,15 +8,21 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.core.widget.doAfterTextChanged
+import androidx.recyclerview.widget.RecyclerView
 import com.example.internshipmanagement.R
 import com.example.internshipmanagement.data.entity.MenteesTask
 import com.example.internshipmanagement.ui.taskdetail.mentee.MenteeTaskDetailActivity
 import com.example.internshipmanagement.ui.notification.NotificationActivity
 import com.example.internshipmanagement.ui.base.BaseFragment
+import com.example.internshipmanagement.ui.main.MainActivity
 import com.example.internshipmanagement.util.FCM_PUSH
 import com.example.internshipmanagement.util.FunctionHelper
 import com.example.internshipmanagement.util.SUBMISSION_PUSH
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_mentee_dash_board.*
 import kotlinx.android.synthetic.main.fragment_mentee_dash_board.ibClearAllSearch
 import kotlinx.android.synthetic.main.fragment_mentee_dash_board.rvYourTask
@@ -55,6 +61,22 @@ class MenteeDashBoardFragment : BaseFragment() {
             startActivity(Intent(requireActivity(), NotificationActivity::class.java))
         }
         slMenteeDashBoard.setOnRefreshListener { refreshMenteeTaskData() }
+
+        /*
+        nsvMenteeDashBoard.setOnScrollChangeListener {
+                v: NestedScrollView?,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int ->
+            Log.d("###", "ScrollY: $scrollY & OldScrollY: $oldScrollY")
+            if(scrollY > oldScrollY) {
+                (requireActivity() as MainActivity).hideBottomNav()
+            } else {
+                (requireActivity() as MainActivity).showBottomNav()
+            }
+        }
+         */
     }
 
     override fun setObserverFragment() {
@@ -73,6 +95,7 @@ class MenteeDashBoardFragment : BaseFragment() {
         registerBroadcast()
 //        userViewModel.registerFCM()
         menteeDashBoardViewModel.getMenteesTask()
+
     }
 
     private fun registerBroadcast() {

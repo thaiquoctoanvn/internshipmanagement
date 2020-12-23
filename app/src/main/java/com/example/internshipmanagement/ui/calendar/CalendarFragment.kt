@@ -125,7 +125,7 @@ class CalendarFragment : BaseFragment() {
         val requestedMonthEvent = calendarViewModel.lastRequestedMonth.filter {
             it.key == year && it.value == month
         }
-        if(requestedMonthEvent != null) {
+        if(requestedMonthEvent == null) {
             calendarViewModel.getMonthEvents(month, year)
         }
     }

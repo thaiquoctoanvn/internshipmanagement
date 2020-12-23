@@ -101,7 +101,7 @@ class PersonalFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        collapsedContainerMinHeight = collapseContainer.layoutParams.height * 0.3f
+//        collapsedContainerMinHeight = collapseContainer.layoutParams.height * 0.3f
         listenBroadcast()
         registerBroadcast()
         retrievePersonalInfo()

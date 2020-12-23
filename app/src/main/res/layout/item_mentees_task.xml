@@ -7,10 +7,11 @@
     android:layout_marginStart="@dimen/lv3"
     android:layout_marginEnd="@dimen/lv3"
     android:layout_marginBottom="@dimen/lv3"
-    android:outlineSpotShadowColor="@color/shadow_color"
     android:background="@drawable/item_rv_background"
+    android:backgroundTint="@color/white"
     android:elevation="@dimen/lv1"
     android:foreground="?attr/selectableItemBackground"
+    android:outlineSpotShadowColor="@color/shadow_color"
     android:padding="@dimen/lv2">
 
     <TextView
