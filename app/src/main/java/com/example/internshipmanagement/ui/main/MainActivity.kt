@@ -14,6 +14,7 @@ import com.example.internshipmanagement.ui.people.mentee.MenteeSearchFragment
 import com.example.internshipmanagement.ui.people.mentor.SearchFragment
 import com.example.internshipmanagement.ui.userprofile.personal.PersonalFragment
 import com.example.internshipmanagement.util.KeyBoardDetector
+import com.facebook.FacebookSdk
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

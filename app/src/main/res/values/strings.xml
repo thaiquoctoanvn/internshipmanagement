@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="facebook_app_id">432487184789836</string>
+    <string name="fb_login_protocol_scheme">fb432487184789836</string>
+
     <string name="app_name">Intern management</string>
     <string name="dash_board">Dash board</string>
     <string name="chat">Chat</string>
